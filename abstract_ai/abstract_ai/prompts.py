@@ -27,7 +27,7 @@ def get_key_desc(st,text):
 def get_notation():
   return  get_key_desc("notation","place here any notes for you to maintain context of this prompt going into the next")
 def get_title():
-  return  get_key_desc("title","place here any notes for you to maintain context of this prompt going into the next")
+  return  get_key_desc("title","you must determine a title if one is not porvided explicitly by the user, should be a very breif description of the task that was given.")
 def get_instruction():
   return get_key_desc("instruction","should containing a textual description")
 def get_inputs():
