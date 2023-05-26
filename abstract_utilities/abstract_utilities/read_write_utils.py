@@ -103,6 +103,19 @@ def create_and_read_json(filepath: str, contents: dict = {}) -> dict:
     if not os.path.isfile(filepath):
         dump_to_file(filepath, contents)
     return load_from_file(filepath)
+def write_to_abs_fold(filepath, contents):
+    """
+    Write contents to a file. Saves to the absolute path directory. 
+    
+    Args:
+        filepath: The path of the file to write to.
+        contents: The content to write to the file.
+        
+    Returns:
+        The contents that were written to the file.
+    """
+    with open(path_to_local_folder(filepath), 'w') as f:
+        f.write(contents)
 # Function: write_to_file
 # Function: read_from_file
 # Function: is_file_extension
