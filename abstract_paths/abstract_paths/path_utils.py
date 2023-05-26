@@ -148,6 +148,23 @@ def mkGbTrunFroPathTot(k) -> float:
     """
     return trunc(mkGb(s.path.getsize(k)), 5)
 
+def get_dir_name():
+    """
+    Returns the absolute path of the requested direcrory.
+
+    Returns:
+        Path: The absolute path of the current direcrory.
+    """
+    return os.path.dirname(os.path.abspath(__file__))
+
+def path_to_local_folder(filename):
+    """
+    Returns the absolute path of the requested file.
+
+    Returns:
+        Path: The absolute path of the current file.
+    """
+    return os.path.join(get_dir_name(), filename)
 def lsDir(x) -> list:
     """
     Lists the contents of a directory or the file name if it's a file.
