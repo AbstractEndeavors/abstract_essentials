@@ -1,0 +1,16 @@
+README.md
+pyproject.toml
+setup.cfg
+setup.py
+src/abstract_gui/__init__.py
+src/abstract_gui/main.py
+src/abstract_gui.egg-info/PKG-INFO
+src/abstract_gui.egg-info/SOURCES.txt
+src/abstract_gui.egg-info/dependency_links.txt
+src/abstract_gui.egg-info/requires.txt
+src/abstract_gui.egg-info/top_level.txt
+src/abstract_gui/PyQt5/PyQt5_browser_window.py
+src/abstract_gui/PyQt5/__init__.py
+src/abstract_gui/simple_gui/__init__.py
+src/abstract_gui/simple_gui/gui_presets.py
+src/abstract_gui/simple_gui/gui_template.py

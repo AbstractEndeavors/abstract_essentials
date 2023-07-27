@@ -1,0 +1,119 @@
+Metadata-Version: 2.1
+Name: abstract-gui
+Version: 0.0.50.1
+Summary: abstract_gui is a python module for creating abstract GUI windows and interacting with them. It uses the PySimpleGUI library and provides additional utilities for simplifying the creation and handling of PySimpleGUI windows.
+Home-page: https://github.com/AbstractEndeavors/abstract_essentials/abstract_gui
+Author: putkoff
+Author-email: partners@abstractendeavors.com
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
+# abstract_gui
+
+This is a Python module for creating abstract GUI windows and interacting with them. It uses the PySimpleGUI library and provides additional utilities for simplifying the creation and handling of PySimpleGUI windows.
+
+This module can be found in the `abstract_essentials` project at `github.io/abstract_endeavors/abstract_essentials/abstract_gui/`.
+
+## Installation
+
+You can install the `abstract_gui` module via pip:
+
+```sh
+pip install abstract_gui
+```
+
+You can also install it directly from the source:
+
+```sh
+git clone https://github.io/abstract_endeavors/abstract_essentials/abstract_gui/
+cd abstract_gui
+python setup.py install
+```
+
+## Usage
+
+Here's an example of how to use the `abstract_gui` module:
+
+```python
+from abstract_gui import get_window, while_basic
+
+window = get_window(title="Hello World!", layout=[[sg.Text("Hello, world!")]])
+while_basic(window)
+```
+
+This will create a simple window with a single "Hello, world!" text element, and handle its events until it's closed.
+
+## Documentation
+
+The `abstract_gui` module provides the following classes and functions:
+
+### `expandable(size: tuple = (None, None))`
+
+Returns a dictionary with window parameters for creating an expandable PySimpleGUI window.
+
+### `get_glob(obj: str = '', glob=globals())`
+
+Retrieves a global object by name from the global namespace.
+
+### `get_window(title: str = 'basic window', layout: list = [[]])`
+
+Returns a callable object for creating a PySimpleGUI window with the specified title and layout.
+
+### `verify_window(win: any = None) -> bool`
+
+Verifies if the given object is a valid PySimpleGUI window.
+
+### `close_window(win: any = None)`
+
+Closes the given PySimpleGUI window.
+
+### `get_gui_fun(name: str = '', args: dict = {})`
+
+Returns a callable object for a specific PySimpleGUI function with the provided arguments.
+
+### `win_closed(event: str = '')`
+
+Checks if the event corresponds to a closed window.
+
+### `T_or_F_obj_eq(event: any = '', obj: any = '')`
+
+Compares two objects and returns True if they are equal, False otherwise.
+
+### `det_bool_T(obj: (tuple or list or bool) = False)`
+
+Determines if the given object is a boolean True value.
+
+### `det_bool_F(obj: (tuple or list or bool) = False)`
+
+Determines if the given object is a boolean False value.
+
+### `out_of_bounds(upper: (int or float) = 100, lower: (int or float) = 0, obj: (int or float) = -1)`
+
+Checks if the given object is out of the specified upper and lower bounds.
+
+... and many more!
+
+Please refer to the source code for the complete list of classes and functions provided by the module, as well as their detailed documentation.
+
+## Contributing
+
+Contributions are welcome! Please fork this repository and open a pull request to add snippets, make grammar tweaks, etc.
+
+## Contact
+
+If you have any questions, feel free to reach out to us at partners@abstractendeavors.com.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Authors
+
+* putkoff - main developer
+
+This README file was last updated on May 29, 2023.
