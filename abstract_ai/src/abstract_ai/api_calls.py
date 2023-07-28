@@ -39,8 +39,8 @@ def post_request(endpoint:str=default_endpoint(), prompt:(str or dict)=create_pr
         else:
             raise Exception(f'Request failed with status code {response.status_code}')
 
-def hard_request(prompt:str=default_prompt(),model:str=default_model(),max_tokens:int=default_tokens(),temperature:float=0.5,top_p:int=1,frequency_penalty:int=0,presence_penalty:int=0):
-    input([prompt,max_tokens,model])
+def hard_request(prompt: str = default_prompt(), model: str = default_model(), max_tokens: int = default_tokens(),
+                 temperature: float = 0.5, top_p: int = 1, frequency_penalty: int = 0, presence_penalty: int = 0):
     """
     Sends a hard request to the OpenAI API using the provided parameters.
 
@@ -52,9 +52,14 @@ def hard_request(prompt:str=default_prompt(),model:str=default_model(),max_token
         dict: The response received from the OpenAI API.
     """
     load_openai_key()
+    message = {
+        "role": "user",
+        "content": prompt
+    }
     response = openai.ChatCompletion.create(
-      model=model,
-      messages=prompt)
+        model=model,
+        messages=[message]
+    )
     return response
 def quick_request(prompt:str=default_prompt(),max_tokens:int=default_tokens(),model=default_model()):
     """
@@ -67,7 +72,7 @@ def quick_request(prompt:str=default_prompt(),max_tokens:int=default_tokens(),mo
     Returns:
         None
     """
-    print(hard_request(max_tokens=max_tokens, prompt=prompt,model=model))
+    return hard_request(max_tokens=max_tokens, prompt=prompt,model=model)
 def raw_data(prompt:str=default_prompt(),model=default_model(),js:dict={}, endpoint:str=default_endpoint()):
     """
     Sends a raw data request to the specified endpoint with the provided parameters.
@@ -95,10 +100,8 @@ def raw_data(prompt:str=default_prompt(),model=default_model(),js:dict={}, endpo
         formatted_prompt_length = count_tokens(formatted_prompt)
         js['prompt'] = formatted_prompt
         js['max_tokens'] = int(float(token_dist["completion"]["available"] - (formatted_prompt_length - bef))*.90)
-        #js['max_tokens'] = int(js['max_tokens']) -((int(count_tokens(js['prompt']))-int(pre_max)))
         response = requests.post(endpoint, json=create_prompt(js), headers=headers())
         resp = save_response(js, response)
-        print(resp)
-        responses.append(resp)
+        responses.append(response.json()['choices'][0]['message']['content'])
     return responses
         
