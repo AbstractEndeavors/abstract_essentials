@@ -1,0 +1,5 @@
+abstract_gui>=0.0.5
+abstract_security>=0.0.1
+abstract_utilities>=0.0.151
+nltk>=3.6.3
+openai>=0.27.0
