@@ -107,6 +107,8 @@ print(elements)  # Output: List of HTML elements that match the provided filters
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+```
+
 This project is licensed under the MIT License
 
 MIT License
