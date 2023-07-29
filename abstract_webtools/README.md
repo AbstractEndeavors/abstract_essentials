@@ -10,7 +10,7 @@ Abstract Web Tools is a Python package that provides various utility functions f
 You can install the package via pip:
 
 ```bash
-pip install web-scraping-toolkit
+pip install abstract_webtools
 ```
 
 ## Usage
