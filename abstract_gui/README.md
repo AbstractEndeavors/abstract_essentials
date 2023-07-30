@@ -33,6 +33,94 @@ while_basic(window)
 
 This will create a simple window with a single "Hello, world!" text element, and handle its events until it's closed.
 
+# abstract_gui - `WindowManager` Utility
+
+## Overview
+
+The `WindowManager` utility is part of the `abstract_gui` module, specifically in the `simple_gui` package. It provides a class to manage PySimpleGUI windows and their events in a convenient manner. The utility is designed to work in combination with the `WindowGlobalBridge` class, which manages global variables shared between different scripts.
+
+## Installation
+
+Ensure that you have the `abstract_gui` module installed. You can install it using pip:
+
+```bash
+pip install abstract_gui
+```
+
+## Usage
+
+To use the `WindowManager` utility, follow these steps:
+
+1. Import the necessary classes:
+
+```python
+from abstract_gui.simple_gui import window_manager, global_bridge
+```
+
+2. Initialize the global bridge and create an instance of the `WindowManager` class:
+
+```python
+# Initialize the global bridge
+bridge = global_bridge.WindowGlobalBridge()
+
+# Store the global variables in the bridge (Replace globals() with your actual global variables)
+script_name = "main_script"
+bridge.retrieve_global_variables(script_name, globals())
+
+# Create an instance of the WindowManager class
+window_manager = window_manager.WindowManager(script_name, bridge)
+```
+
+3. Define your GUI layout and event functions:
+
+```python
+def main_window_layout():
+    return [
+        [sg.Text("Enter the amount of CBD (mg):"), sg.Input(key="-CBD-", enable_events=True)],
+        [sg.Text("Enter the amount of THC (mg):"), sg.Input(key="-THC-", enable_events=True)],
+        [sg.Button("Calculate"), sg.Button("Exit")]
+    ]
+
+def percent_functions(event):
+    if event == "Calculate":
+        try:
+            cbd_mg = float(window_manager.get_values()["-CBD-"])
+            thc_mg = float(window_manager.get_values()["-THC-"])
+            calculate_and_show_result(cbd_mg, thc_mg)
+        except ValueError:
+            sg.popup_error("Please enter valid numbers for CBD and THC.")
+```
+
+4. Define your windows and event loops:
+
+```python
+def main_window():
+    return window_manager.get_new_window(
+        title="CBD and THC Percentage Calculator",
+        layout=main_window_layout(),
+        event_function="percent_functions"
+    )
+
+def calculate_and_show_result(cbd_mg, thc_mg):
+    tincture_volume_ml = 30  # Assuming the volume is 30 ml for the tincture
+    cbd_weight_percentage, thc_weight_percentage = calculate_cbd_thc_weight_percentage(cbd_mg, thc_mg, tincture_volume_ml)
+    result_window = show_result_window(cbd_weight_percentage, thc_weight_percentage)
+    window_manager.while_basic(result_window)
+```
+
+5. Run the main event loop:
+
+```python
+if __name__ == "__main__":
+    main_win = main_window()
+    window_manager.while_basic(window=main_win)
+```
+
+## Conclusion
+
+The `WindowManager` utility in the `abstract_gui` module provides a user-friendly approach to manage PySimpleGUI windows and events. By using the `WindowGlobalBridge` class, it facilitates the sharing of global variables between different scripts. Feel free to customize and extend the provided code to suit your specific GUI application requirements. Happy coding!
+
+
 ## Documentation
 
 The `abstract_gui` module provides the following classes and functions:
