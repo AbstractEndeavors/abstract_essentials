@@ -252,17 +252,23 @@ import abstract_gui
 # Create a global bridge instance
 global_bridge = abstract_gui.WindowGlobalBridge()
 
-# Create a window manager instance for a script named "example_script"
+# Create a window manager instance for a script named "example_script"; interacts with the global bridge for modular event handling for script specific functions
 window_manager = abstract_gui.WindowManager("example_script", global_bridge)
 
-# Create a new PySimpleGUI window using the window manager
-window = window_manager.get_new_window(title="Example Window", layout=[[abstract_gui.get_gui_fun('Text', {"text": "Hello, PySimpleGUI!"})]])
+#Create components for a layout
+#input args, a dictionary with window parameters for any and all parameter inputs. an incompatible parameter will not be applied, error free component utilization
+layout = abstract_gui.get_gui_fun('Text', args={"text": "Hello, PySimpleGUI!"})
+
+#make component expandable (it will not error out if arguments are incompatible); with customizable legacy inputs
+#Returns a dictionary with window parameters for creating an expandable PySimpleGUI window.
+expand = abstract_gui.expandable()
+
+# Create a new PySimpleGUI window using the window manager, add the stringified function name as event_function for binded event handling
+#get_new_window(self, title=None, layout=None, args=None, event_function=None, exit_events:list=["exit", "Exit", "EXIT"])
+window = window_manager.get_new_window(title="Example Window", args={"layout":[[layout]],**expand})
 
 # Run the event loop for the window
 window_manager.while_basic(window)
-
-# Close the window
-window_manager.close_window(window)
 
 # Retrieve all registered windows and their details
 all_windows = window_manager.get_all_windows()
