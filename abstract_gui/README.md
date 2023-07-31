@@ -255,6 +255,9 @@ global_bridge = abstract_gui.WindowGlobalBridge()
 # Create a window manager instance for a script named "example_script"; interacts with the global bridge for modular event handling for script specific functions
 window_manager = abstract_gui.WindowManager("example_script", global_bridge)
 
+#or use the window_manager initialization function
+window_mgr,bridge,script_name = abstract_gui.create_window_manager(script_name="example_script",global_var=globals())
+
 #Create components for a layout
 #input args, a dictionary with window parameters for any and all parameter inputs. an incompatible parameter will not be applied, error free component utilization
 layout = abstract_gui.get_gui_fun('Text', args={"text": "Hello, PySimpleGUI!"})
