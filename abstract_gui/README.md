@@ -1,87 +1,272 @@
-# abstract_gui
+# Abstract GUI Module
 
-This is a Python module for creating abstract GUI windows and interacting with them. It uses the PySimpleGUI library and provides additional utilities for simplifying the creation and handling of PySimpleGUI windows.
-
-This module can be found in the `abstract_essentials` project at `github.io/abstract_endeavors/abstract_essentials/abstract_gui/`.
+The `abstract_gui` module provides classes and functions to manage PySimpleGUI windows and events in a more abstract manner. It includes a class called `WindowGlobalBridge` to manage global variables shared between different scripts and a class called `WindowManager` to manage PySimpleGUI windows and their events.
 
 ## Installation
 
-You can install the `abstract_gui` module via pip:
+You can install the `abstract_gui` module using `pip`:
 
-```sh
+```
 pip install abstract_gui
 ```
 
-You can also install it directly from the source:
+## `WindowGlobalBridge` Class
 
-```sh
-git clone https://github.io/abstract_endeavors/abstract_essentials/abstract_gui/
-cd abstract_gui
-python setup.py install
-```
+A class to manage the global variables shared between different scripts.
 
-## Usage
+### Attributes:
 
-Here's an example of how to use the `abstract_gui` module:
+- `global_vars` (dict): A dictionary to store global variables for each script.
 
-```python
-from abstract_gui import get_window, while_basic
+### Methods:
 
-window = get_window(title="Hello World!", layout=[[sg.Text("Hello, world!")]])
-while_basic(window)
-```
+#### `__init__(self)`
 
-This will create a simple window with a single "Hello, world!" text element, and handle its events until it's closed.
+Initializes the `WindowGlobalBridge` with an empty dictionary for `global_vars`.
 
-## Documentation
+#### `retrieve_global_variables(self, script_name, global_variables)`
 
-The `abstract_gui` module provides the following classes and functions:
+Stores the global variables of a script in the `global_vars` dictionary.
 
-### `expandable(size: tuple = (None, None))`
+- Args:
+  - `script_name` (str): The name of the script.
+  - `global_variables` (dict): The global variables to store for the script.
 
-Returns a dictionary with window parameters for creating an expandable PySimpleGUI window.
+#### `return_global_variables(self, script_name)`
 
-### `get_glob(obj: str = '', glob=globals())`
+Returns the global variables of a script.
 
-Retrieves a global object by name from the global namespace.
+- Args:
+  - `script_name` (str): The name of the script.
 
-### `get_window(title: str = 'basic window', layout: list = [[]])`
+- Returns:
+  - `dict`: The global variables of the script. If no global variables are found, it returns an empty dictionary.
 
-Returns a callable object for creating a PySimpleGUI window with the specified title and layout.
+## `WindowManager` Class
 
-### `verify_window(win: any = None) -> bool`
+A class to manage PySimpleGUI windows and their events.
+
+### Attributes:
+
+- `all_windows` (dict): A dictionary to store registered windows along with their details.
+- `last_window` (str): The name of the last accessed window.
+- `script_name` (str): The name of the script that is using the `WindowManager`.
+- `global_bridge`: The global bridge to access shared variables between different scripts.
+- `global_vars` (dict): A dictionary to store global variables for this script.
+
+### Methods:
+
+#### `__init__(self, script_name, global_bridge)`
+
+Initialize a `WindowManager` instance.
+
+- Args:
+  - `script_name` (str): The name of the script that is using the `WindowManager`.
+  - `global_bridge` (`WindowGlobalBridge`): An instance of `WindowGlobalBridge` to access shared variables between different scripts.
+
+#### `get_all_windows(self)`
+
+Get all registered windows.
+
+- Returns:
+  - `dict`: A dictionary containing all registered windows and their details.
+
+#### `get_window_names(self)`
+
+Get the names of all registered windows.
+
+- Returns:
+  - `list`: A list of names of all registered windows.
+
+#### `register_window(self, window=None)`
+
+Register a window.
+
+- Args:
+  - `window` (any, optional): The window to register. If not provided, a new window is created.
+
+- Returns:
+  - `str`: The name of the registered window.
+
+#### `get_new_window(self, title=None, layout=None, args=None, event_function=None)`
+
+Create a new window.
+
+- Args:
+  - `title` (str, optional): The title of the window. If not provided, 'window' is used.
+  - `layout` (list, optional): The layout of the window. If not provided, an empty layout is used.
+  - `args` (dict, optional): Additional arguments for the window.
+  - `event_function` (str, optional): The event function for the window.
+
+- Returns:
+  - `any`: A new PySimpleGUI window.
+
+#### `search_global_windows(self, window)`
+
+Search for a window in the global variables.
+
+- Args:
+  - `window` (any): The window to search for.
+
+- Returns:
+  - `any`: The name of the window if found, False otherwise.
+
+#### `verify_window(self, window=None)`
 
 Verifies if the given object is a valid PySimpleGUI window.
 
-### `close_window(win: any = None)`
+- Args:
+  - `window` (any): The object to verify.
+
+- Returns:
+  - `bool`: True if the object is a valid window, False otherwise.
+
+#### `update_last_window(self, window)`
+
+Update the last accessed window.
+
+- Args:
+  - `window` (any): The window to set as the last accessed window.
+
+#### `send_to_bridge(self)`
+
+Update the global bridge with the current `all_windows` dictionary.
+
+#### `close_window(self, window=None)`
 
 Closes the given PySimpleGUI window.
 
-### `get_gui_fun(name: str = '', args: dict = {})`
+- Args:
+  - `window` (any): The window to close.
 
-Returns a callable object for a specific PySimpleGUI function with the provided arguments.
+#### `read_window(self, window)`
 
-### `win_closed(event: str = '')`
+Read the event and values from a window and update the `WindowManager`'s state.
 
-Checks if the event corresponds to a closed window.
+- Args:
+  - `window` (any): The window to read from.
 
-### `T_or_F_obj_eq(event: any = '', obj: any = '')`
+#### `get_event(self, window=None)`
 
-Compares two objects and returns True if they are equal, False otherwise.
+Get the last event from a window.
 
-### `det_bool_T(obj: (tuple or list or bool) = False)`
+- Args:
+  - `window` (any, optional): The window to get the event from. If not provided, the last accessed window is used.
 
-Determines if the given object is a boolean True value.
+- Returns:
+  - `any`: The last event from the window.
 
-### `det_bool_F(obj: (tuple or list or bool) = False)`
+#### `get_values(self, window=None)`
 
-Determines if the given object is a boolean False value.
+Get the values from a window.
 
-### `out_of_bounds(upper: (int or float) = 100, lower: (int or float) = 0, obj: (int or float) = -1)`
+- Args:
+  - `window` (any, optional): The window to get the values from. If not provided, the last accessed window is used.
 
-Checks if the given object is out of the specified upper and lower bounds.
+- Returns:
+  - `dict`: The values from the window.
 
-... and many more!
+#### `while_basic(self, window=None)`
+
+Run an event loop for a window.
+
+- Args:
+  - `window` (any, optional): The window to run the event loop for. If not provided, the last accessed window is used.
+
+- Returns:
+  - `dict`: The stored data instead of `all_windows`.
+
+#### `get_window_name(self, obj=None)`
+
+Get the names of all registered windows.
+
+- Returns:
+  - `list`: A list of names of all registered windows.
+
+#### `win_closed(self, event='')`
+
+Check if a window event calls to close the window.
+
+- Args:
+  - `event` (str): The event to check.
+
+- Returns:
+  - `bool`: True if the window is closed, False otherwise.
+
+#### `delete_from_list(self, _list, var)`
+
+Remove occurrences of a variable from a list and returns the new list.
+
+- Args:
+  - `_list` (list): The list to remove occurrences from.
+  - `var`: The variable to remove from the list.
+
+- Returns:
+  - `list`: The new list without the occurrences of `var`.
+
+#### `is_window_object(self, obj)`
+
+Check if an object is a PySimpleGUI window object.
+
+- Args:
+  - `obj` (any): The object to check.
+
+- Returns:
+  - `bool`: True if the object is a window object, False otherwise.
+
+#### `create_window_name(self)`
+
+Create a unique name for a window.
+
+- Returns:
+  - `str`: A unique name for a window.
+
+#### `unregister_window(self, window)`
+
+Unregister a window.
+
+- Args:
+  - `window` (any): The window to unregister.
+
+## Helper Functions
+
+The module also includes several helper functions:
+
+- `get_window(title=None, layout=None, args=None)`: Get a PySimpleGUI window.
+- `out_of_bounds(upper: (int or float) = 100, lower: (int or float) = 0, obj: (int or float) = -
+
+1)`: Checks if the given object is out of the specified upper and lower bounds.
+- `det_bool_F(obj: (tuple or list or bool) = False)`: Determines if the given object is a boolean False value.
+- `det_bool_T(obj: (tuple or list or bool) = False)`: Determines if the given object is a boolean True value.
+- `T_or_F_obj_eq(event: any = '', obj: any = '')`: Compares two objects and returns True if they are equal, False otherwise.
+- `get_gui_fun(name: str = '', args: dict = {})`: Returns a callable object for a specific PySimpleGUI function with the provided arguments.
+- `expandable(size: tuple = (None, None))`: Returns a dictionary with window parameters for creating an expandable PySimpleGUI window.
+- `get_browser(title:str=None,type:str='Folder',args:dict={},initial_folder:str=get_current_path())`: Function to get a browser GUI based on the type specified.
+
+## Example Usage
+
+```python
+# Import the module
+import abstract_gui
+
+# Create a global bridge instance
+global_bridge = abstract_gui.WindowGlobalBridge()
+
+# Create a window manager instance for a script named "example_script"
+window_manager = abstract_gui.WindowManager("example_script", global_bridge)
+
+# Create a new PySimpleGUI window using the window manager
+window = window_manager.get_new_window(title="Example Window", layout=[[abstract_gui.get_gui_fun('Text', {"text": "Hello, PySimpleGUI!"})]])
+
+# Run the event loop for the window
+window_manager.while_basic(window)
+
+# Close the window
+window_manager.close_window(window)
+
+# Retrieve all registered windows and their details
+all_windows = window_manager.get_all_windows()
+```
 
 Please refer to the source code for the complete list of classes and functions provided by the module, as well as their detailed documentation.
 
