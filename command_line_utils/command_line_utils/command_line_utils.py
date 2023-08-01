@@ -1,1 +1,5 @@
-/home/hmmm/Documents/python_scripts/modules/abstract_essentials/abstract_audio/abstract_audio/cmd_utils.py
+def get_output(result):
+    stdout, _ = result.communicate()
+    return stdout
+def cmd_it(st):
+    return subprocess.Popen(st, stdout=subprocess.PIPE, shell=True, text=True)
