@@ -74,7 +74,7 @@ class WindowGlobalBridge:
         """
         if script_name is not None:
             self.global_vars[script_name][variable] = value
-
+            return value
     def search_globals_values(self, value:any, script_name:str=None):
         """
         Searches for a specific value in the global variables of a script.
@@ -105,6 +105,7 @@ class WindowGlobalBridge:
         """
         if script_name is not None and variable in self.global_vars[script_name]:
             return self.global_vars[script_name][variable]
+
 
 class WindowManager:
     """
