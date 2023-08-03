@@ -459,7 +459,7 @@ def create_check_marks():
         check_mark_layout.append([get_gui_fun('Checkbox',args={"text":each,"default":True,"key":each,"enable_events":True})])
 def create_inputs(string):
     if string == "long_description":
-        return [get_gui_fun('Input',args={"default_text":os.getcwd(),"key":string}), get_gui_fun('FileBrowse', {"initial_folder": os.getcwd()})]#[[get_gui_fun('T',{"text":string+':'})],[get_gui_fun('Input',args={"default":os.getcwd(),"key":string})],[get_gui_fun('FileBrowse', {"initial_folder":os.getcwd()})]]
+        return [get_gui_fun('T',{"text":string+':'}),get_gui_fun('Input',args={"default_text":os.getcwd(),"key":string}), get_gui_fun('FileBrowse', {"initial_folder": os.getcwd()})]#[[get_gui_fun('T',{"text":string+':'})],[get_gui_fun('Input',args={"default":os.getcwd(),"key":string})],[get_gui_fun('FileBrowse', {"initial_folder":os.getcwd()})]]
     elif string == "version":
         return [get_gui_fun('T',{"text":string+':'}),get_gui_fun('Input',args={"default_text":"0","key":string+'_0',"size":(2,1),"enable_events":True}),get_gui_fun('T',{"text":'.'}),get_gui_fun('Input',args={"default_text":"0","key":string+'_1',"size":(2,1),"enable_events":True}),get_gui_fun('T',{"text":'.'}),get_gui_fun('Input',args={"default_text":"0","key":string+'_2',"size":(2,1),"enable_events":True}),get_gui_fun('T',{"text":'.'}),get_gui_fun('Input',args={"default_text":"0","key":string+'_3',"size":(2,1),"enable_events":True})]
     elif string == "description":
@@ -467,22 +467,23 @@ def create_inputs(string):
     return [get_gui_fun('T',{"text":string+':'}),get_gui_fun('Input',args={"key":string,"size":(20,1),"enable_events":True})]
 def create_dropdown(string,ls):
     return [get_gui_fun('T',{"text":string+':'}),get_gui_fun('Combo',args={"values":ls,"key":string,"default_value":ls[0],"enable_events":True})]
-for each in topics_js.keys():
-    classifiers_layout.append(create_dropdown(each,topics_js[each]))
-classifiers_layout = [get_gui_fun("Frame",args={"title":"classifiers","layout":classifiers_layout})]
-for each in get_all_choice_tags():
-    sections_layout.append(create_inputs(each))
-create_check_marks()
-globals()["path_checked"] = False
-sections_layout = [get_gui_fun("Frame",args={"title":"classifiers","layout":sections_layout})]
-default_inputs_layout = [get_gui_fun("Frame",args={"title":"choose default inputs","layout":[[sg.Button("default_inputs_submit"),get_gui_fun('Input',args={"default_text":os.path.join(os.getcwd(),"default_inputs.json"),"key":"default_inputs"}), get_gui_fun('FileBrowse', {"initial_folder": os.getcwd()})]]})]
-parent_folder_layout = [get_gui_fun("Frame",args={"title":"Parent Folder","layout":[[get_gui_fun('Input',args={"default_text":os.getcwd(),"key":"parent_folder"}), get_gui_fun('FolderBrowse', {"initial_folder": os.getcwd()})]]})]
-check_mark_layout = [get_gui_fun("Frame",args={"title":"Files To Create","layout":ensure_nested_list(check_mark_layout)})]
-layout = [[default_inputs_layout],[parent_folder_layout],[sections_layout],[classifiers_layout],[check_mark_layout]]
-window = window_mgr.get_new_window(args={"title":'setup_window','layout':ensure_nested_list([layout,[sg.Button("Submit")]])},event_function="value_function",exit_events=["Submit"])
-window_mgr.while_basic(window)
-write_files()
-write_to_file(filepath=os.path.join(parent_folder,"default_inputs.json"),contents=json.dumps(type_choices))
+def create_module_folder():
+    for each in topics_js.keys():
+        classifiers_layout.append(create_dropdown(each,topics_js[each]))
+    classifiers_layout = [get_gui_fun("Frame",args={"title":"classifiers","layout":classifiers_layout})]
+    for each in get_all_choice_tags():
+        sections_layout.append(create_inputs(each))
+    create_check_marks()
+    globals()["path_checked"] = False
+    sections_layout = [get_gui_fun("Frame",args={"title":"classifiers","layout":sections_layout})]
+    default_inputs_layout = [get_gui_fun("Frame",args={"title":"choose default inputs","layout":[[sg.Button("default_inputs_submit"),get_gui_fun('Input',args={"default_text":os.path.join(os.getcwd(),"default_inputs.json"),"key":"default_inputs"}), get_gui_fun('FileBrowse', {"initial_folder": os.getcwd()})]]})]
+    parent_folder_layout = [get_gui_fun("Frame",args={"title":"Parent Folder","layout":[[get_gui_fun('Input',args={"default_text":os.getcwd(),"key":"parent_folder"}), get_gui_fun('FolderBrowse', {"initial_folder": os.getcwd()})]]})]
+    check_mark_layout = [get_gui_fun("Frame",args={"title":"Files To Create","layout":ensure_nested_list(check_mark_layout)})]
+    layout = [[default_inputs_layout],[parent_folder_layout],[sections_layout],[classifiers_layout],[check_mark_layout]]
+    window = window_mgr.get_new_window(args={"title":'setup_window','layout':ensure_nested_list([layout,[sg.Button("Submit")]])},event_function="value_function",exit_events=["Submit"])
+    window_mgr.while_basic(window)
+    write_files()
+    write_to_file(filepath=os.path.join(parent_folder,"default_inputs.json"),contents=json.dumps(type_choices))
 
 
 
