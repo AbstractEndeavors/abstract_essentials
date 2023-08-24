@@ -302,7 +302,7 @@ class WindowManager:
                 name = self.register_window(window)
         if name in self.get_window_names():
             self.all_windows['last_window'] = name
- def send_to_bridge(self):
+     def send_to_bridge(self):
         """
         Update the global bridge with the current state of the windows.
         """
