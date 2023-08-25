@@ -228,20 +228,205 @@ Unregister a window.
 - Args:
   - `window` (any): The window to unregister.
 
-## Helper Functions
+### Additional Functionality
+- Here are some non-class methods that add more capabilities to the module:
 
-The module also includes several helper functions:
+### `ensure_nested_list(obj)`
+- Ensure that the input object is a nested list.
 
-- `get_window(title=None, layout=None, args=None)`: Get a PySimpleGUI window.
-- `out_of_bounds(upper: (int or float) = 100, lower: (int or float) = 0, obj: (int or float) = -
+- **Parameters**:
+  - `obj` (any): The object to ensure as a nested list.
 
-1)`: Checks if the given object is out of the specified upper and lower bounds.
-- `det_bool_F(obj: (tuple or list or bool) = False)`: Determines if the given object is a boolean False value.
-- `det_bool_T(obj: (tuple or list or bool) = False)`: Determines if the given object is a boolean True value.
-- `T_or_F_obj_eq(event: any = '', obj: any = '')`: Compares two objects and returns True if they are equal, False otherwise.
-- `get_gui_fun(name: str = '', args: dict = {})`: Returns a callable object for a specific PySimpleGUI function with the provided arguments.
-- `expandable(size: tuple = (None, None))`: Returns a dictionary with window parameters for creating an expandable PySimpleGUI window.
-- `get_browser(title:str=None,type:str='Folder',args:dict={},initial_folder:str=get_current_path())`: Function to get a browser GUI based on the type specified.
+- **Returns**:
+  - `list`: A nested list containing the object or the original list if it's already nested.
+
+### `create_row(*args)`
+- Create a row layout containing the provided arguments.
+
+- **Parameters**:
+  - `*args`: Elements to be placed in the row layout.
+
+- **Returns**:
+  - `list`: A row layout containing the provided elements.
+
+### `create_column(*args)`
+- Create a column layout containing the provided arguments.
+
+- **Parameters**:
+  - `*args`: Elements to be placed in the column layout.
+
+- **Returns**:
+  - `list`: A column layout containing the provided elements.
+
+### `concatenate_rows(*args)`
+- Concatenate multiple row layouts into a single row layout.
+
+- **Parameters**:
+  - `*args`: Row layouts to be concatenated.
+
+- **Returns**:
+  - `list`: A row layout containing concatenated elements from input row layouts.
+
+### `concatenate_layouts(*args)`
+- Concatenate multiple layouts into a single layout.
+
+- **Parameters**:
+  - `*args`: Layouts to be concatenated.
+
+- **Returns**:
+  - `list`: A layout containing concatenated elements from input layouts.
+
+### `create_row_of_buttons(*args)`
+- Create a row layout containing buttons generated from the provided arguments.
+
+- **Parameters**:
+  - `*args`: Arguments for creating buttons.
+
+- **Returns**:
+  - `list`: A row layout containing buttons created from the provided arguments.
+
+### `get_buttons(*args)`
+Generate button elements based on the provided arguments.
+
+- **Parameters**:
+  - `*args`: Arguments specifying button elements.
+
+- **Returns**:
+  - `list`: Button elements generated from the provided arguments.
+
+### `make_list_add(obj, values)`
+- Add multiple values to a list and return the resulting list.
+
+- **Parameters**:
+  - `obj` (list): The original list.
+  - `values` (iterable): Values to be added to the list.
+
+- **Returns**:
+  - `list`: The modified list containing the original elements and the added values.
+
+### `if_not_window_make_window(window)`
+- Checks if the provided object is a window and creates a new window if it isn't.
+
+- **Parameters**:
+  - `window`: The object to be checked. If not a window, it's expected to be a dictionary with layout information.
+
+- **Returns**:
+  - `window`: The valid window object.
+
+### `while_quick(window, return_events=[], exit_events=[sg.WIN_CLOSED], event_return=False)`
+- Reads events from the given window and handles them based on the provided conditions.
+
+- **Parameters**:
+  - `window`: The window to read events from.
+  - `return_events` (list or str): Events that would lead to the window being closed and a value returned.
+  - `exit_events` (list or str): Events that would lead to the window being closed without returning a value.
+  - `event_return` (bool): If True, returns the event. If False, returns the values.
+
+- **Returns**:
+  - `event` or `values`: Depending on the `event_return` flag.
+
+### `verify_args(args=None, layout=None, title=None, event_function=None, exit_events=None)`
+- Verifies and/or sets default values for window arguments.
+
+- **Parameters**:
+  - `args` (dict, optional): Dictionary containing window arguments.
+  - `layout` (list, optional): The layout for the window.
+  - `title` (str, optional): The title of the window.
+  - `event_function` (str, optional): The function to be executed when an event occurs.
+  - `exit_events` (list or str, optional): List of events that would close the window.
+
+- **Returns**:
+  - `dict`: The verified/updated window arguments.
+
+### `get_window(title=None, layout=None, args=None)`
+- Get a PySimpleGUI window.
+
+- **Parameters**:
+  - `title` (str, optional): The name of the window.
+  - `layout` (list, optional): The layout of the window.
+  - `args` (dict, optional): Additional arguments for the window.
+
+- **Returns**:
+  - `any`: A PySimpleGUI window.
+
+### `get_browser_layout(title=None, type='Folder', args={}, initial_folder=get_current_path())`
+- Function to get a browser GUI based on the type specified.
+
+**Parameters**:
+- `title` (str): The title of the GUI window. Defaults to 'Directory'.
+- `type` (str): The type of GUI window to display. Defaults to 'Folder'.
+- `args` (dict): Additional arguments for the window.
+- `initial_folder` (str): The starting folder for browsing.
+
+**Returns**:
+- `dict`: Returns the results of single_call function on the created GUI window.
+
+### `get_yes_no_layout(title="Answer Window", text="would you like to proceed?", args={})`
+Creates a layout for a Yes/No window.
+
+**Parameters**:
+- `title` (str, optional): The title of the window.
+- `text` (str, optional): The prompt text.
+- `args` (dict, optional): Additional arguments for the window.
+
+**Returns**:
+- `dict`: The layout dictionary.
+
+### `get_input_layout(title="Input Window", text="please enter your input", default=None, args={})`
+Function to get an input GUI window layout.
+
+**Parameters**:
+- `title` (str, optional): The title of the window.
+- `text` (str, optional): The prompt text.
+- `default` (str, optional): The default input value.
+- `args` (dict, optional): Additional arguments for the window.
+
+**Returns**:
+- `dict`: The layout dictionary.
+
+Please let me know if you need the rest of the function descriptions to be formatted in Markdown as well.
+
+**T_or_F_obj_eq(event, obj)**
+- Compares two objects and returns `True` if they are equal, `False` otherwise.
+- **Parameters**:
+  - `event` (any): The first object to compare.
+  - `obj` (any): The second object to compare.
+- **Returns**: `True` if the objects are equal, `False` otherwise.
+
+**get_gui_fun(name, args)**
+- Returns a callable object for a specific PySimpleGUI function with the provided arguments.
+- **Parameters**:
+  - `name` (str): The name of the PySimpleGUI function.
+  - `args` (dict): The arguments to pass to the PySimpleGUI function.
+- **Returns**: A callable object that invokes the PySimpleGUI function with the specified arguments when called.
+
+**expandable(size, resizable, scrollable, auto_size_text, expand_x, expand_y)**
+- Returns a dictionary with window parameters for creating an expandable PySimpleGUI window.
+- **Parameters**:
+  - `size` (tuple, default=(None, None)): The desired size of the window.
+  - `resizable` (bool, default=True): Whether the window is resizable or not.
+  - `scrollable` (bool, default=True): Whether the window content is scrollable.
+  - `auto_size_text` (bool, default=True): Whether to automatically adjust text size.
+  - `expand_x` (bool, default=True): Allow horizontal expansion.
+  - `expand_y` (bool, default=True): Allow vertical expansion.
+- **Returns**: A dictionary with parameters suitable for a PySimpleGUI window.
+
+**create_window_manager(script_name, global_var)**
+- Initializes a window manager for a given script.
+- **Parameters**:
+  - `script_name` (str, default='default_script_name'): The name of the script.
+  - `global_var` (dict, default=globals()): The global variables associated with the script.
+- **Returns**: A tuple containing the `WindowManager`, bridge, and script name.
+
+---
+
+
+For detailed usage, parameter information, and return types, please refer to the individual method documentation.
+
+## Bug Reports & Contact
+For any bugs or issues, please report on the [Github page](https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_gui). For direct queries, you can email the team at [partners@abstractendeavors.com](mailto:partners@abstractendeavors.com).
+
+---
 
 ## Example Usage
 
@@ -277,6 +462,28 @@ window_manager.while_basic(window)
 all_windows = window_manager.get_all_windows()
 ```
 
+```python
+import PySimpleGUI as sg
+# ... [Other necessary imports and your provided functions and class]
+
+# Initialize the window manager
+window_manager, _, script_name = create_window_manager(script_name="MyScript")
+
+layout = [
+    [sg.Text("Hello from PySimpleGUI!")],
+    [sg.Button("Exit")]
+]
+
+window = sg.Window("My Window", layout, **expandable())
+
+while True:
+    event, values = window.read()
+
+    if event == sg.WIN_CLOSED or event == "Exit":
+        break
+
+window.close()
+```
 Please refer to the source code for the complete list of classes and functions provided by the module, as well as their detailed documentation.
 
 ## Contributing
@@ -295,4 +502,10 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 * putkoff - main developer
 
-This README file was last updated on May 29, 2023.
+
+For detailed usage, parameter information, and return types, please refer to the individual method documentation.
+
+## Bug Reports & Contact
+For any bugs or issues, please report on the [Github page](https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_gui). For direct queries, you can email the team at [partners@abstractendeavors.com](mailto:partners@abstractendeavors.com).
+
+---
