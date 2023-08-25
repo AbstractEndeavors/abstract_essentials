@@ -1,0 +1,81 @@
+Metadata-Version: 2.1
+Name: abstract_security
+Version: 0.0.1
+Summary: abstract_security is a python module that simplifies the handling of environment variables. It provides functions for searching for and reading .env files, checking for the existence of .env files in a specified path, safely loading .env files, and retrieving the value of specified environment variables. 
+Home-page: https://github.com/AbstractEndeavors/abstract_essentials/abstract_security
+Author: putkoff
+Author-email: partners@abstractendeavors.com
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
+---
+```markdown
+# Abstract Security
+
+Abstract Security is a Python module that simplifies the handling of environment variables. It provides functions for searching for and reading .env files, checking for the existence of .env files in a specified path, safely loading .env files, and retrieving the value of specified environment variables. 
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Functions](#functions)
+- [License](#license)
+- [Contact](#contact)
+
+## Installation
+
+```bash
+pip install abstract_security
+```
+
+## Usage
+
+```python
+from abstract_security import get_env_value
+
+# Retrieve the value of the MY_PASSWORD environment variable from the .env file
+password = get_env_value()
+```
+
+## Functions
+
+### find_and_read_env_file
+
+Search for an environment file and read a specific key from it. 
+
+### search_for_env_key
+
+Search for a specific key in a .env file. 
+
+### check_env_file
+
+Check if the environment file exists in a specified path.
+
+### safe_env_load
+
+Safely load the .env file if it exists at a specified path.
+
+### get_env_value
+
+Retrieves the value of the specified environment variable.
+
+For more detailed information, refer to the function docstrings in the code.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## Contact
+
+Author: putkoff  
+Email: partners@abstractendeavors.com  
+Project Link: [https://github.com/AbstractEndeavors/abstract_essentials/abstract_security](https://github.com/AbstractEndeavors/abstract_essentials/abstract_security)
+```
+---
+
+Please note that the usage sections are basic and may not encompass all the functionalities your module provides. You might need to adjust or add more examples based on the complexity of your module.
