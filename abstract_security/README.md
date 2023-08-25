@@ -78,7 +78,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Author**: putkoff  
 **Email**: partners@abstractendeavors.com  
-**Project Link**: [https://github.com/AbstractEndeavors/abstract_essentials/abstract_security](https://github.com/AbstractEndeavors/abstract_essentials/abstract_security)
+**Project Link**: [https://github.com/AbstractEndeavors/abstract_essentials/main/tree/abstract_security](https://github.com/AbstractEndeavors/abstract_essentials/main/tree/abstract_security)
 ```
 
 This expanded README provides potential users with a clearer understanding of the features and functionalities of the `abstract_security` module. Adjustments and further additions can be made as needed.
