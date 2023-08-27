@@ -1,0 +1,124 @@
+Metadata-Version: 2.1
+Name: abstract_webtools
+Version: 0.0.192
+Summary: Abstract Web Tools is a Python package that provides various utility functions for web scraping tasks. It is built on top of popular libraries such as `requests`, `BeautifulSoup`, and `urllib3` to simplify the process of fetching and parsing web content.
+Home-page: https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_webtools
+Author: putkoff
+Author-email: partners@abstractendeavors.com
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
+```
+# abstract_webtools for parsing web content.
+
+## Installation
+
+You can install the package via pip:
+
+```bash
+pip install abstract_webtools
+```
+
+## Usage
+
+### Get Status Code
+
+The `get_status` function fetches the status code of the URL.
+
+```python
+from abstract_webtn_url
+
+urls = clean_url('https://example.com')
+print(urls)  # Output: ['https://example.com', 'http://example.com']
+tps://example.com'
+```
+
+### Try Request
+
+The `try_request` function makes HTTP requests to a URL and returns the response if successful.
+
+```python
+from abstract_webtools import try_request
+
+response = try_request('https://www.example.com')
+print(response)  # Output: <Response [200]>
+```
+
+### Is Valid URL
+
+The `is_valid` function checks whether a given URL is valid.
+
+```python
+from abstract_webtools import is_valid
+
+valid = is_valid('https://www.example.com')
+print(valid)  # Output: True
+```
+
+### Get Source Code
+
+The `get_Source_code` function fetches the source code of a URL with a custom user-agent.
+
+```python
+from abstract_webtools import get_Source_code
+
+source_code = get_Source_code('https://www.example.com')
+print(source_code)  # Output: HTML source code of the URL
+```
+
+### Parse React Source
+
+The `parse_react_source` function fetches the source code of a URL and extracts JavaScript and JSX source code (React components).
+
+```python
+from abstract_webtools import parse_react_source
+
+react_code = parse_react_source('https://www.example.com')
+print(react_code)  # Output: List of JavaScript and JSX source code found in <script> tags
+```
+
+### Get All Website Links
+
+The `get_all_website_links` function returns all URLs found on a specified URL that belong to the same website.
+
+```python
+from abstract_webtools import get_all_website_links
+
+links = get_all_website_links('https://www.example.com')
+print(links)  # Output: List of URLs belonging to the same website as the specified URL
+```
+
+### Parse All
+
+The `parse_all` function fetches the source code of a URL and extracts information about HTML elements, attribute values, attribute names, and class names.
+
+```python
+from abstract_webtools import parse_all
+
+HTML_components = parse_all('https://www.example.com')
+print(HTML_components["element_types"])       # Output: List of HTML element types
+print(HTML_components["attribute_values"])    # Output: List of attribute values
+print(HTML_components["attribute_names"])     # Output: List of attribute names
+print(HTML_components["class_names"])         # Output: List of class names
+```
+
+### Extract Elements
+
+The `extract_elements` function fetches the source code of a URL and extracts portions of the source code based on provided filters.
+
+```python
+from abstract_webtools import extract_elements
+
+elements = extract_elements('https://www.example.com', element_type='div', attribute_name='class', class_name='container')
+print(elements)  # Output: List of HTML elements that match the provided filters
+```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```
