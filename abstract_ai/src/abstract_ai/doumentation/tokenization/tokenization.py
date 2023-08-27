@@ -1,5 +1,4 @@
 from nltk.tokenize import word_tokenize
-from .endpoints import default_tokens
 def count_tokens(text):
     """
     Counts the number of tokens in the given text.

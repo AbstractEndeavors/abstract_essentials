@@ -45,13 +45,13 @@ def create_prompt(prompt_js: dict = None,endpoint:str=default_endpoint(), model:
         dict: The prompt dictionary.
     """
     if prompt_js is None or not isinstance(prompt_js, dict):
-        prompt_js = {"model": model, "prompt": prompt, "max_tokens": max_tokens}
+        prompt_js = {"endpoint":endpoint,"model": model, "prompt": prompt, "max_tokens": max_tokens}
     else:
         prompt_js.setdefault("model", model)
         prompt_js.setdefault("prompt", prompt)
         prompt_js.setdefault("max_tokens", max_tokens)
         prompt_js.setdefault("endpoint", endpoint)
-    prompt_data = {"model": prompt_js['model'], "messages": [{"role": "user", "content": f'{prompt_js["prompt"]}'}],
+    prompt_data = {"endpoint":prompt_js['endpoint'],"model": prompt_js['model'], "messages": [{"role": "user", "content": f'{prompt_js["prompt"]}'}],
                    "max_tokens": prompt_js['max_tokens']}
     return prompt_data
 

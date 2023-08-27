@@ -1,11 +1,10 @@
 from abstract_utilities.path_utils import path_join, mkdirs,get_file_create_time
 from abstract_utilities.time_utils import get_time_stamp,get_date
 from abstract_utilities.read_write_utils import write_to_file
-from .endpoints import get_endpoint_defaults
 from abstract_gui import get_browser
 import json
 import os
-def create_unique_title(title:str=str(get_time_stamp()),directory:str=os.getcwd()):
+def get_unique_title(title:str=str(get_time_stamp()),directory:str=os.getcwd()):
     """
     Generates a unique title by appending an index number to the given base title.
 
@@ -16,10 +15,10 @@ def create_unique_title(title:str=str(get_time_stamp()),directory:str=os.getcwd(
     Returns:
         A unique title string formed by appending an index number to the base title.
     """
-    existing_indices = [int(name.split('_')[-1]) for name in os.listdir(directory) if name.startswith(title + '_') and name.split('_')[-1].isdigit()]
+    existing_indices = [int(name.split('_')[-1]) for name in dir_list if name.startswith(title + '_') and name.split('_')[-1].isdigit()]
     next_index = max(existing_indices, default=-1) + 1 if existing_indices else 0
     return title + '_' + str(next_index)
-def save_response(prompt_js:dict={},endpoint:str=None,response:(dict or str)=None, title:str=None,directory:str=None):
+def save_response(prompt_js:dict={},endpoint:str=None response:(dict or str)=None, title:str=None,directory:str=None):
     """
     Saves the response JSON and generated text to a file.
 
@@ -32,27 +31,28 @@ def save_response(prompt_js:dict={},endpoint:str=None,response:(dict or str)=Non
         str: The generated text.
     """
     if directory == None:
-        directory = 'response_data'
+        diretocyr = 'response_data'
     if title == None:
         title= str(get_time_stamp())
-    if endpoint == None and "endpoint" in prompt_js:
-        endpoint = prompt_js["endpoint"]
+    if endpoint == None:
+        js
     if response == None:
         return {}
+    generated_text = response.text
     try:
-        prompt_js['response'] = response.json()
+        js['response'] = response.json()
     except:
-        prompt_js['response'] =response
+        pass
     try:
-        prompt_js['output'] = get_response(json_data=prompt_js['response'],endpoint=endpoint)
-        if 'title' in prompt_js:
-            title = prompt_js['title']
+        generated_text = json.loads(js['response']['choices'][0]['message']['content'])
+        if 'title' in generated_text:
+            title = generated_text['title']
     except:
-        prompt_js['output'] = False
-    path = mkdirs(path_join(mkdirs(path_join(mkdirs(directory), get_date())), prompt_js['model']))
+        pass
+    path = mkdirs(path_join(mkdirs(path_join(mkdirs(directory), get_date())), js['model']))
     create_unique_title(title=title,directory=mkdirs(directory))
-    write_to_file(filepath=path_join(path, title + '.json'), contents=json.dumps(prompt_js))
-    return prompt_js
+    write_to_file(filepath=path_join(path, title + '.json'), contents=json.dumps(js))
+    return generated_text
 def find_keys(data, target_keys):
     """
     Finds the values associated with the specified target keys in a nested dictionary or list.
@@ -257,7 +257,7 @@ def find_path_to_value(json_data, value_to_find):
 
     path = search_path(json_data)
     return path
-def get_response(endpoint:str,json_data:dict=get_endpoint_defaults(),endpoint_subsection:str=None,param:(str)="response_key"):
+def get_response(endpoint:str,endpoint_subsection:str=None,param:(str)="response_key"):
     """
     Retrieves information about a specific OpenAI API endpoint.
 
@@ -274,14 +274,15 @@ def get_response(endpoint:str,json_data:dict=get_endpoint_defaults(),endpoint_su
         key_path = find_path_to_key(get_endpoint_defaults(),endpoint)
     if key_path[-1] != endpoint_subsection and endpoint_subsection is not None:
         key_path.append(endpoint_subsection)
-    response = find_value_by_key_path(json_data,key_path)
-    key_path[-1]=param
+    response = find_value_by_key_path(get_endpoint_defaults(),key_path)
+    key_path.append(param)
+    input(key_path)
     if param == "response_key":
         response_key = find_value_by_key_path(get_endpoint_defaults(),key_path)
         if isinstance(response_key,list):
             if isinstance(response_key[0],dict):
                 if "value" in response_key[0]:
                     response_key = response_key[0]["value"]
-        response=find_value_by_key_path(json_data,[response_key])[0]["value"]
+        response=find_value_by_key_path(response,[response_key])[0]["value"]
     return response
 import json
