@@ -5,6 +5,41 @@ import threading
 import speech_recognition as sr
 from abstract_utilities.read_write_utils import write_to_file, create_and_read_file,read_from_file
 from abstract_gui import *
+"""
+This module provides functionalities to capture and manipulate audio input 
+from a microphone and save them into a text file. It uses an abstract GUI 
+to display the state of audio recording and playback.
+
+The main functions in this script are as follows:
+- change_glob: A utility function to update and retrieve global variables dynamically.
+- get_globe: A utility function to retrieve the value of a global variable if it exists.
+- cmd_it: Executes a shell command using subprocess and returns a Popen object for communication.
+- get_output: Retrieves the output of a subprocess Popen object.
+- mic_switch: Toggles the microphone state between on and off using the 'amixer set Capture toggle' command.
+- parse_mic_state: Parses the microphone state from the output of 'amixer' command.
+- get_mic_state: Retrieves the current microphone state.
+- win_update: Updates the GUI window with new values for a given key.
+- get_cmd_out: Executes a shell command and returns its output.
+- get_values: Retrieves a value from the GUI window's stored values using the given key.
+- save_voice: Saves the voice recording to a file 'voice.txt' and updates the GUI window accordingly.
+- playback: Starts the speech recognition process and updates the GUI window with the recognized text.
+- start_recording_threaded: Starts the recording process in a separate thread to avoid blocking the GUI.
+- ambient_noise: Adjusts for ambient noise before starting the actual audio recording.
+- listen_audio: Listens for audio input and stores it in the global variable 'audio'.
+- recognzer: Uses the Google Web Speech API to recognize the audio and store the result in 'voice_value'.
+- start_recording: Starts the audio recording process and handles exceptions for KeyboardInterrupt.
+- get_gui_layout: Defines the layout for the PySimpleGUI GUI window.
+- voice_record_function: Handles different events triggered by the GUI window and performs corresponding actions.
+- gui: Initializes the GUI window, sets global variables, and starts the main GUI event loop.
+- main: Sets up global variables, initializes the SpeechRecognizer and Microphone objects, and starts the GUI.
+
+To use this script, run it as a Python program. It will open a GUI window with a 'record' button. Clicking on the 'record' button will start the audio recording, and the GUI screen will turn green to indicate recording. Once you stop speaking, the recorded audio will be processed using the Google Web Speech API, and the recognized text will be displayed in the GUI window.
+
+Note: To use this script, make sure to have the required libraries installed, such as PySimpleGUI and SpeechRecognition.
+
+Author: putkoff
+Date: 8/1/23
+"""
 def change_glob(x, y):
     globals()[x] = y
     return y
@@ -199,5 +234,4 @@ def main():
     
     return gui()
 window_mgr,bridge,script_name = abstract_gui.create_window_manager(script_name="speech_to_text",global_var=globals())
-output = main()
-input(output['-OUTPUT-'])
+
