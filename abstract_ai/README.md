@@ -38,13 +38,12 @@ Please note that `abstract_ai` requires Python 3.6 or later.
 Here is a basic example of using `abstract_ai`:
 
 ```python
-from abstract_ai.response_handling import save_response, find_keys
-from abstract_ai.api_call import hard_request, load_openai_key
-
-load_openai_key()
-prompt = "Translate the following English text to French: '{}'"
-response = hard_request(prompt.format("Hello World"))
-save_response({"prompt": prompt}, response)
+import os
+from abstract_ai.api_calls import safe_send
+request = "please convert the prompt data to chinese"
+prompt_data = "hi welcome to abstract ai"
+output = safe_send(prompt_data=prompt_data,request=request,model="gpt-4",title="test_prompt",completion_percentage=40,additional_responses=False,directory=os.getcwd())
+print(output[0]["response"])
 ```
 
 ## Documentation
@@ -53,7 +52,7 @@ save_response({"prompt": prompt}, response)
 
 ### 1. `response_handling.py`:
 
-Handles API responses and provides additional functionalities.
+`response_handling.py` is a utility module designed to manage and process responses, typically in JSON format. The module allows users to save, aggregate, and retrieve conversations, generating unique titles if needed.  It also offers utility functions like generating unique titles, finding keys in nested dictionaries or lists, navigating complex nested JSON structures, and more.
 
 - `save_response(js:dict, response:dict, title: str = str(get_time_stamp()))`: Saves the response JSON and generated text to a file.
 - `find_keys(data, target_keys)`: Finds the values associated with the specified target keys in a nested dictionary or list.
@@ -63,28 +62,29 @@ Handles API responses and provides additional functionalities.
 
 ### 2. `api_call.py`:
 
-Facilitates API calls to OpenAI.
+`api_call.py` facilitates communication with the OpenAI API for various tasks. The script provides functions for sending requests, handling responses, and managing tokens for efficient usage. Here's an overview of the key components and functionalities:
 
 - `get_openai_key(key:str='OPENAI_API_KEY')`: Retrieves the OpenAI API key from the environment variables.
-- `load_openai_key()`: Loads the OpenAI API key for authentication.
-- `headers(content_type:str='application/json',api_key:str=get_openai_key())`: Returns the headers for the API request.
-- `post_request()`: Sends a POST request to the OpenAI API.
-- `hard_request()`: Sends a hard request to the OpenAI API.
-- `quick_request()`: Sends a quick request to the OpenAI API.
-- `raw_data()`: Sends a raw data request to the specified endpoint with the provided parameters.
+- `load_openai_key()`: Loads the OpenAI API key into the application for authentication, ensuring calls to the OpenAI API are authorized.
+- `headers(content_type:str='application/json',api_key:str=get_openai_key())`: Constructs and returns the necessary headers for an API request. The default content type is set to 'application/json'.
+- `post_request()`: Sends a generic POST request to the OpenAI API, useful for tasks that don't fit the mold of the more specialized requests.
+- `hard_request()`: Designed for sending more robust or specific requests to the OpenAI API, it provides more control over parameters and headers.
+- `quick_request()`: A lightweight and faster method for sending requests to the OpenAI API. It simplifies the process for tasks that don't require detailed configurations.
+- `raw_data()`: This function allows users to send raw data directly to the specified OpenAI endpoint, providing maximum control over the data being sent.
 
 ### 3. `endpoints.py`:
 
-Manages endpoints and associated information.
+`endpoints.py` is a crucial utility module within the `abstract_ai` package. Its primary function is to manage and offer comprehensive information regarding tokens, models, and the associated endpoints of various AI utilities.
 
-- `get_model_info()`: Retrieves the inverted JSON dictionary of model information.
-- `get_endpoint_info()`: Retrieves the JSON dictionary containing endpoint information.
-- `get_token_info()`: Retrieves the inverted JSON dictionary of token information.
-- `default_endpoint()`: Returns the default endpoint.
-- `default_model()`: Returns the default model.
-- `default_tokens()`: Returns the default number of tokens.
-- `get_defaults()`: Returns a dictionary containing the default values for endpoint, model, and tokens.
-
+- `get_model_info()`: Extracts the inversed JSON dictionary for model data. The dictionary maps model names (as keys) to their respective token counts, helping users gauge the complexity and capacity of each model.
+- `get_endpoint_info()`: Offers a concise JSON dictionary where each endpoint is linked to its affiliated model(s), streamlining the process of selecting the correct endpoint for a given model.
+- `get_token_info()`: Procures an inverted JSON dictionary concerning token information. In this dictionary, the token counts serve as the keys, while the associated model names are the values, providing a reverse lookup mechanism for understanding model capacities.
+- `get_token_js()`: Fetches a JSON dictionary detailing token and endpoint relations for multiple AI models, making it easier to understand the linkage between models and their respective tokens
+- `default_endpoint()`: Determines and provides the default endpoint. This choice is based on the preset 'endpoint_selection' configuration within the module.
+- `default_model()`: Supplies the default AI model as configured in the 'model_selection' setting. Useful for users who frequently rely on a specific model.
+- `default_tokens()`: Offers the default token count setting, derived from the 'token_selection' configuration, ensuring consistent token allocations in the absence of specific instructions.
+- `get_defaults()`: Gathers and presents a comprehensive dictionary outlining default settings for endpoints, models, and tokens. This function also provides flexibility by allowing users to input their preferences for endpoints, models, and tokens.
+- `get_endpoint_defaults()`: Returns a dictionary detailing default configurations for endpoints. It encapsulates details for various functionalities, including audio transcriptions, translations, chat completions, embeddings, image operations, moderations, and in-depth model particulars.
 ### 4. `tokenization.py`
 
  view entire revision history to see all changes.Manages tokenization and related operations.
