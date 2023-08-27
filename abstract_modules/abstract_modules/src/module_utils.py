@@ -1,6 +1,8 @@
 import os
 import ast
 import re
+import importlib
+import inspect
 from abstract_gui import get_browser
 import pkg_resources
 def scan_folder_for_required_modules(folder_path=None):
@@ -84,4 +86,23 @@ def get_installed_versions(install_requires):
             installed_versions.append(f'{module_name}>={version}')
 
     return installed_versions
-input(get_installed_versions(scan_folder_for_required_modules(folder_path=None)))
+def gather_header_docs(folder_path):
+    header_docs = ""
+
+    for file_name in os.listdir(folder_path):
+        if file_name.endswith(".py"):
+            module_name = file_name[:-3]  # Remove the ".py" extension
+            module = importlib.import_module(module_name)
+
+            for name, obj in inspect.getmembers(module):
+                if inspect.isclass(obj) and hasattr(obj, "__doc__"):
+                    docstring = inspect.getdoc(obj)
+                    if docstring:
+                        header_docs += f"{name}:\n{docstring}\n\n"
+
+    return header_docs
+
+# Usage example
+folder_path = "/path/to/your/folder"  # Replace with the path to your folder
+header_docs = gather_header_docs(folder_path)
+print(header_docs)
