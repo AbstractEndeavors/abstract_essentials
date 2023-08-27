@@ -965,8 +965,10 @@ def get_browser(title:str=None,type:str='Folder',args:dict={},initial_folder:str
     results = while_quick(window=window,exit_events=exit_events,return_events=return_events)
     if isinstance(results, dict):
         if results['output']=='':
-            results['output'] =initial_folder
-    return results
+            results['output'] = initial_folder
+    if results == None:
+        results={'output':initial_folder}
+    return results['output']
 def out_of_bounds(upper: (int or float) = 100, lower: (int or float) = 0, obj: (int or float) = -1):
     """
     Checks if the given object is out of the specified upper and lower bounds.
