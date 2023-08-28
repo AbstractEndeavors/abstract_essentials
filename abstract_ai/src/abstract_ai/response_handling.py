@@ -1,10 +1,11 @@
-from abstract_utilities.path_utils import path_join, mkdirs,get_file_create_time
-from abstract_utilities.time_utils import get_time_stamp,get_date
-from abstract_utilities.read_write_utils import write_to_file
-from .endpoints import get_endpoint_defaults
-from abstract_gui import get_browser
 import json
 import os
+from abstract_utilities.path_utils import path_join, mkdirs,get_file_create_time,split_text
+from abstract_utilities.time_utils import get_time_stamp,get_date
+from abstract_utilities.read_write_utils import write_to_file
+from abstract_utilities.json_utils import find_values_by_key,find_value_by_key_path,find_path_to_value,find_path_to_key
+from .endpoints import get_endpoint_defaults
+from abstract_gui import get_browser
 def create_unique_title(title:str=str(get_time_stamp()),directory:str=os.getcwd()):
     """
     Generates a unique title by appending an index number to the given base title.
@@ -16,9 +17,15 @@ def create_unique_title(title:str=str(get_time_stamp()),directory:str=os.getcwd(
     Returns:
         A unique title string formed by appending an index number to the base title.
     """
-    existing_indices = [int(name.split('_')[-1]) for name in os.listdir(directory) if name.startswith(title + '_') and name.split('_')[-1].isdigit()]
-    next_index = max(existing_indices, default=-1) + 1 if existing_indices else 0
-    return title + '_' + str(next_index)
+    dir_list = os.listdir(directory)
+    for i,each in enumerate(dir_list):
+        dir_list[i] = split_text(each)[0]
+    if title not in dir_list:
+        return title
+    i=0
+    while title+'_'+str(i) in dir_list:
+        i+=1
+    return title+'_'+str(i)
 def save_response(prompt_js:dict={},endpoint:str=None,response:(dict or str)=None, title:str=None,directory:str=None):
     """
     Saves the response JSON and generated text to a file.
@@ -50,7 +57,7 @@ def save_response(prompt_js:dict={},endpoint:str=None,response:(dict or str)=Non
     except:
         prompt_js['output'] = False
     path = mkdirs(path_join(mkdirs(path_join(mkdirs(directory), get_date())), prompt_js['model']))
-    create_unique_title(title=title,directory=mkdirs(directory))
+    title=create_unique_title(title=title,directory=mkdirs(path))
     write_to_file(filepath=path_join(path, title + '.json'), contents=json.dumps(prompt_js))
     return prompt_js
 def find_keys(data, target_keys):
@@ -141,122 +148,6 @@ def get_responses(path):
         aggregate_conversations(get_browser())
     else:
         aggregate_conversations(get_browser())#path_join(path,"response_data"))
-def find_value_by_key_path(json_data, key_path):
-    """
-    Finds the value in a JSON-like structure given a specific key path.
-
-    Args:
-        json_data (dict or list): The JSON-like structure to search in.
-        key_path (list): A list of keys representing the path to the desired value.
-
-    Returns:
-        The value found at the specified key path, or None if not found.
-    """
-    def search_in_path(data, keys):
-        for key in keys:
-            if isinstance(data, dict):
-                if key in data:
-                    data = data[key]
-                else:
-                    return find_values_by_key(data, key)
-            elif isinstance(data, list):
-                try:
-                    index = int(key)
-                    data = data[index]
-                except (ValueError, IndexError):
-                    return None
-            else:
-                return None
-        return data
-
-    value = search_in_path(json_data, key_path)
-    return value
-
-def find_values_by_key(json_data, key):
-    """
-    Finds all values in a JSON-like structure associated with a specific key.
-
-    Args:
-        json_data (dict or list): The JSON-like structure to search in.
-        key (str): The key to search for.
-
-    Returns:
-        A list of dictionaries containing the path of keys leading to each value and the value itself.
-    """
-    result = []
-    def search_in_json(data, keys=[]):
-        if isinstance(data, dict):
-            if key in data:
-                result.append({"keys": keys + [key], "value": data[key]})
-            for sub_key, value in data.items():
-                search_in_json(value, keys + [sub_key])
-        elif isinstance(data, list):
-            for index, item in enumerate(data):
-                search_in_json(item, keys + [str(index)])
-    search_in_json(json_data)
-    return result
-def find_path_to_key(json_data, key_to_find):
-    """
-    Finds the path to a specific key within a JSON-like structure.
-
-    Args:
-        json_data (dict or list): The JSON-like structure to search in.
-        key_to_find (str): The key to find the path for.
-
-    Returns:
-        A list of keys representing the path to the specified key, or None if the key is not found.
-    """
-    def search_path(data, current_path=[]):
-        if isinstance(data, dict):
-            for key, value in data.items():
-                new_path = current_path + [key]
-                if key == key_to_find:
-                    return new_path
-                found_path = search_path(value, new_path)
-                if found_path:
-                    return found_path
-        elif isinstance(data, list):
-            for index, item in enumerate(data):
-                new_path = current_path + [index]
-                found_path = search_path(item, new_path)
-                if found_path:
-                    return found_path
-        return None
-
-    path = search_path(json_data)
-    return path
-def find_path_to_value(json_data, value_to_find):
-    """
-    Finds the path to a specific value within a JSON-like structure.
-
-    Args:
-        json_data (dict or list): The JSON-like structure to search in.
-        value_to_find: The value to find the path for.
-
-    Returns:
-        A list of keys representing the path to the specified value, or None if the value is not found.
-    """
-    def search_path(data, current_path=[]):
-        if isinstance(data, dict):
-            for key, value in data.items():
-                new_path = current_path + [key]
-                if value == value_to_find:
-                    return new_path
-                found_path = search_path(value, new_path)
-                if found_path:
-                    return found_path
-        elif isinstance(data, list):
-            for index, item in enumerate(data):
-                new_path = current_path + [index]
-                if item == value_to_find:
-                    return new_path
-                found_path = search_path(item, new_path)
-                if found_path:
-                    return found_path
-        return None
-
-    path = search_path(json_data)
-    return path
 def get_response(endpoint:str,json_data:dict=get_endpoint_defaults(),endpoint_subsection:str=None,param:(str)="response_key"):
     """
     Retrieves information about a specific OpenAI API endpoint.
@@ -284,4 +175,3 @@ def get_response(endpoint:str,json_data:dict=get_endpoint_defaults(),endpoint_su
                     response_key = response_key[0]["value"]
         response=find_value_by_key_path(json_data,[response_key])[0]["value"]
     return response
-import json

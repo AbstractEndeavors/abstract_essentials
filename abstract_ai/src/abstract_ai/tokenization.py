@@ -33,42 +33,45 @@ def create_chunks(content, size_per_chunk):
     chunks.append(' '.join(current_chunk))
     return chunks
 
-def calculate_token_distribution(max_tokens:int=default_tokens(), prompt:str="null", completion_percentage:float=40, size_per_chunk:int=None):
-    max_tokens = int(max_tokens)*0.85
-    completion_percentage = convert_to_percentage(completion_percentage)
-    prompt_length = count_tokens(prompt)
-    prompt_percentage = 1 - completion_percentage
-    prompt_desired = int(max_tokens * prompt_percentage)
-    prompt_available = max(0, prompt_desired - prompt_length)
-    completion_available = int(max_tokens * completion_percentage)
-    completion_desired = completion_available
 
-    if size_per_chunk is None:
-        size_per_chunk = prompt_length if prompt_length < max_tokens else max_tokens
+def calculate_token_distribution(max_tokens:int=default_tokens(), prompt:str="null", completion_percentage:float=40, size_per_chunk:int=None,chunk_prompt:str="",tokenize_js:dict={}):
+    total_prompt = ''
+    for each in tokenize_js.keys():
+        if each != "prompt_data":
+            total_prompt+=str(tokenize_js[each])
+    total_chunk_data = tokenize_js["prompt_data"]
+    completion_percent = convert_to_percentage(tokenize_js["completion_percentage"])
+    max_tokens = int(tokenize_js["max_tokens"])
+    completion_desired = int(max_tokens*completion_percent)
 
-    num_chunks = prompt_length // size_per_chunk + 1 if prompt_length % size_per_chunk > 0 else prompt_length // size_per_chunk
-
-    chunked_data = create_chunks(prompt, size_per_chunk)
-
+    request_data_total_length = int(max_tokens)-int(completion_desired)
+    total_prompt_length = int(count_tokens(total_prompt))
+    ficticious_chunk_length = int(request_data_total_length) - int(total_prompt_length)
+    total_chunk_length = int(count_tokens(total_chunk_data))
+    ficticious_chunk_length=ficticious_chunk_length
+    num_chunks=1
+    while ficticious_chunk_length < total_chunk_length:
+         total_chunk_length = total_chunk_length- ficticious_chunk_length
+         num_chunks+=1
+         print(num_chunks)
+    chunked_data = create_chunks(total_chunk_data, ficticious_chunk_length)
     token_distribution = {
-        "percent_distribution": {
-            "prompt": prompt_percentage * 100,
-            "completion": completion_percentage * 100
-        },
         "prompt": {
-            "available": prompt_available,
-            "used": prompt_length,
-            "desired": prompt_desired
+            "available": request_data_total_length-total_prompt_length-ficticious_chunk_length,
+            "used": total_prompt_length,
+            "desired": request_data_total_length
         },
         "completion": {
-            "available": prompt_available + completion_available,
+            "available": int(request_data_total_length-total_prompt_length-ficticious_chunk_length) + completion_desired,
             "used": 0,
             "desired": completion_desired
         },
         "chunks": {
             "total": num_chunks,
-            "length_per": size_per_chunk,
+            "length_per": ficticious_chunk_length,
             "data": chunked_data
         }
     }
+    print(token_distribution)
     return token_distribution
+
