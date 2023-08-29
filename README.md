@@ -456,26 +456,26 @@ pip install abstract_gui
 	    - **Returns**:
 		- `variable (str)`: The name of the global variable to retrieve.
 		- `script_name (str, optional)`: The name of the script. If None, the global variable in the base context will be retrieved.
-		
-- ###### `WindowManager`
-    - **Description**: A class to manage PySimpleGUI windows and their events.
-    - **Attributes**:
-    	`all_windows (dict)`: A dictionary to store registered windows along with their details.
-	`last_window (str)`: The name of the last accessed window.
-        `script_name (str)`: The name of the script that is using the WindowManager.
-        `global_bridge`: The global bridge to access shared variables between different scripts.
-        `global_vars (dict)`: A dictionary to store global variables for this script.
 
-    - **Methods**:
-	- `__init__(self, script_name, global_bridge)`
-	    - **Purpose**: Initialize a WindowManager instance.
-	    - **Arguments**:
-		`script_name (str)`: The name of the script that is using the WindowManager.
-        	`global_bridge (GlobalBridge)`: An instance of GlobalBridge to access shared variables between different scripts.
+- ###### `WindowManager`
+	- **Description**: A class to manage PySimpleGUI windows and their events.
+	- **Attributes**:
+    		- `all_windows (dict)`: A dictionary to store registered windows along with their details.
+		- `last_window (str)`: The name of the last accessed window.
+        	- `script_name (str)`: The name of the script that is using the WindowManager.
+        	- `global_bridge`: The global bridge to access shared variables between different scripts.
+        	- `global_vars (dict)`: A dictionary to store global variables for this script.
+
+  	- **Methods**:
+		- `__init__(self, script_name, global_bridge)`
+	    		- **Purpose**: Initialize a WindowManager instance.
+	    		- **Arguments**:
+				- `script_name (str)`: The name of the script that is using the WindowManager.
+        			- `global_bridge (GlobalBridge)`: An instance of GlobalBridge to access shared variables between different scripts.
 		
-	    - **Returns**:
-		- `script_name (str)`: The name of the script that is using the WindowManager.
-		- `global_bridge (GlobalBridge)`: An instance of GlobalBridge to access shared variables between different scripts.
+	    		- **Returns**:
+				- `script_name (str)`: The name of the script that is using the WindowManager.
+				- `global_bridge (GlobalBridge)`: An instance of GlobalBridge to access shared variables between different scripts.
 	    
 	- `get_all_windows(self)`
 	    - **Purpose**: Get all registered windows.
