@@ -417,6 +417,38 @@ Abstract WebTools offers a suite of utilities designed for web content inspectio
   - `BeautifulSoup` from `bs4`
 
 #### **Functions**:
+##### **Classes**:
+
+- ###### `TLSAdapter(HTTPAdapter: int)`
+    - **Description**: A custom HTTPAdapter class that sets TLS/SSL options and ciphers.
+    - **Attributes**:
+      - `ssl_options (int)`: The TLS/SSL options to use when creating the SSL context.
+    - **Methods**:
+        - `ssl_options(self) -> int`
+            - **Purpose**: Returns the SSL options to be used when creating the SSL context.
+            - **Returns**: The SSL options.
+        - `__init__(self, ssl_options:int=0, *args, **kwargs) -> None`
+            - **Purpose**: Initializes the TLSAdapter with the specified SSL options.
+            - **Arguments**:
+                - `ssl_options (int, optional)`: The TLS/SSL options to use when creating the SSL context. Defaults to 0.
+        - `add_string_list(self, ls: (list or str), delim: str = '', string: str = '') -> str`
+            - **Purpose**: Concatenates the elements of a list into a single string with the given delimiter.
+            - **Arguments**:
+                - `ls (list or str)`: The list of elements or a comma-separated string.
+                - `delim (str, optional)`: The delimiter to use when concatenating elements. Defaults to an empty string.
+                - `string (str, optional)`: The initial string to append elements. Defaults to an empty string.
+            - **Returns**: The concatenated string.
+        - `get_ciphers(self) -> list`
+            - **Purpose**: Returns a list of preferred TLS/SSL ciphers.
+            - **Returns**: A list of TLS/SSL ciphers.
+        - `create_ciphers_string(self, ls: list = None) -> str`
+            - **Purpose**: Creates a colon-separated string of TLS/SSL ciphers from a list of ciphers.
+            - **Arguments**:
+                - `ls (list, optional)`: The list of TLS/SSL ciphers to use. Defaults to None, in which case it uses the default list.
+            - **Returns**: The colon-separated string of TLS/SSL ciphers.
+        - `init_poolmanager(self, *args, **kwargs) -> None`
+            - **Purpose**: Initializes the pool manager with the custom SSL context and ciphers.
+            - **Description**: This method leverages the given TLS/SSL ciphers and options to set up the pool manager with an appropriate SSL context.
 
 - ##### `get_status(url:str) -> int`
     - **Purpose**: Gets the HTTP status code of the given URL.
@@ -460,38 +492,6 @@ Abstract WebTools offers a suite of utilities designed for web content inspectio
       - `user_agent`: The user-agent string to be used. Defaults to the first user-agent in the list.
     - **Returns**: A dictionary containing the 'user-agent' header.
 
-#### **Classes**:
-
-- ##### `TLSAdapter(HTTPAdapter: int)`
-    - **Description**: A custom HTTPAdapter class that sets TLS/SSL options and ciphers.
-    - **Attributes**:
-      - `ssl_options (int)`: The TLS/SSL options to use when creating the SSL context.
-    - **Methods**:
-        - `ssl_options(self) -> int`
-            - **Purpose**: Returns the SSL options to be used when creating the SSL context.
-            - **Returns**: The SSL options.
-        - `__init__(self, ssl_options:int=0, *args, **kwargs) -> None`
-            - **Purpose**: Initializes the TLSAdapter with the specified SSL options.
-            - **Arguments**:
-                - `ssl_options (int, optional)`: The TLS/SSL options to use when creating the SSL context. Defaults to 0.
-        - `add_string_list(self, ls: (list or str), delim: str = '', string: str = '') -> str`
-            - **Purpose**: Concatenates the elements of a list into a single string with the given delimiter.
-            - **Arguments**:
-                - `ls (list or str)`: The list of elements or a comma-separated string.
-                - `delim (str, optional)`: The delimiter to use when concatenating elements. Defaults to an empty string.
-                - `string (str, optional)`: The initial string to append elements. Defaults to an empty string.
-            - **Returns**: The concatenated string.
-        - `get_ciphers(self) -> list`
-            - **Purpose**: Returns a list of preferred TLS/SSL ciphers.
-            - **Returns**: A list of TLS/SSL ciphers.
-        - `create_ciphers_string(self, ls: list = None) -> str`
-            - **Purpose**: Creates a colon-separated string of TLS/SSL ciphers from a list of ciphers.
-            - **Arguments**:
-                - `ls (list, optional)`: The list of TLS/SSL ciphers to use. Defaults to None, in which case it uses the default list.
-            - **Returns**: The colon-separated string of TLS/SSL ciphers.
-        - `init_poolmanager(self, *args, **kwargs) -> None`
-            - **Purpose**: Initializes the pool manager with the custom SSL context and ciphers.
-            - **Description**: This method leverages the given TLS/SSL ciphers and options to set up the pool manager with an appropriate SSL context.
 
 
 - ##### `get_Source_code(url: str = 'https://www.example.com', user_agent= desktop_user_agents()[0]) -> str`
