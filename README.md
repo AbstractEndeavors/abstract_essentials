@@ -376,7 +376,7 @@ Certainly! Here's the provided content reformatted for consistency with the prev
 
 ---
 
-### Abstract GUI Tools
+## Abstract GUI Tools
 The `abstract_gui` module provides utilities for managing PySimpleGUI windows and events in a more abstract manner, with advanced capabilities for global variable management across scripts.
 
 - **Features**:
@@ -404,15 +404,16 @@ pip install abstract_gui
 #### **Functions**:
 ##### **Classes**:
 
-# WindowGlobalBridge Class
+###### WindowGlobalBridge Class
 
-## Description
+####### Description
+
 The `WindowGlobalBridge` class offers a structured approach to manage global variables that are shared between different scripts. This can help in maintaining consistency and organization across various parts of a project.
 
-## Attributes
+####### Attributes
 - `global_vars (dict)`: A dictionary that holds global variables for each script.
 
-## Methods
+####### Methods
 - `__init__(self) -> None`
   - **Purpose**: Initialize the `WindowGlobalBridge` with an empty dictionary for `global_vars`.
 
@@ -608,7 +609,7 @@ The `WindowManager` class facilitates the management of PySimpleGUI windows and 
   - **Returns**:
     - `window (any)`: The window to unregister.
 
-	
+
 - ##### `ensure_nested_list(obj)`
     - **Purpose**: Ensure that the input object is a nested list.
     - **Arguments**:
