@@ -407,40 +407,40 @@ pip install abstract_gui
 - ###### `WindowGlobalBridge`
     - **Description**: Provides a structured way to manage global variables shared between different scripts.
     - **Attributes**:
-      - `global_vars (dict)`: Dictionary housing global variables for each script.
+    	- `global_vars (dict)`: Dictionary housing global variables for each script.
     - **Methods**:
-        - `__init__(self) -> None`
-            - **Purpose**: Initializes the `WindowGlobalBridge` with an empty dictionary for `global_vars`.
-        - `retrieve_global_variables(self, script_name: str, global_variables: dict, tag_script_name: bool = False) -> None`
-            - **Purpose**: Stores global variables for a script within the `global_vars` dictionary.
-            - **Arguments**:
-                - `script_name (str)`: Name of the script.
-                - `global_variables (dict)`: Global variables to store.
-                - `tag_script_name (bool)`: If set to True, the `script_name` is added to the `global_variables` dictionary. Defaults to False.
-        - `return_global_variables(self, script_name: str = None) -> dict`
-            - **Purpose**: Retrieves global variables for a given script.
-            - **Arguments**:
-                - `script_name (str, optional)`: Name of the script. If omitted, all global variables are returned.
-            - **Returns**: The global variables for the specified script or all if `script_name` is None.
-        - `change_globals(self, variable: str, value: any, script_name: str = None) -> None`
-            - **Purpose**: Modifies a global variable's value for a given script.
-            - **Arguments**:
-                - `variable (str)`: Name of the global variable.
-                - `value (any)`: New value for the global variable.
-                - `script_name (str, optional)`: Name of the script. If omitted, modifies the global variable in the base context.
-        - `search_globals_values(self, value: any, script_name: str = None) -> Union[str, False]`
-            - **Purpose**: Searches for a specific value within a script's global variables.
-            - **Arguments**:
-                - `value (any)`: Value to search for.
-                - `script_name (str, optional)`: Name of the script. If omitted, the search covers the base context.
-            - **Returns**: Name of the first global variable containing the value or False if not found.
-        - `return_global_value(self, variable: str, script_name: str = None) -> any`
-            - **Purpose**: Retrieves the value of a specified global variable from a given script.
-            - **Arguments**:
-                - `variable (str)`: Name of the global variable.
-                - `script_name (str, optional)`: Name of the script. If omitted, retrieves from the base context.
-            - **Returns**: Value of the specified global variable.
-
+	  	- `__init__(self) -> None`
+	            - **Purpose**: Initializes the `WindowGlobalBridge` with an empty dictionary for `global_vars`.
+	        - `retrieve_global_variables(self, script_name: str, global_variables: dict, tag_script_name: bool = False) -> None`
+	            - **Purpose**: Stores global variables for a script within the `global_vars` dictionary.
+	            - **Arguments**:
+	                - `script_name (str)`: Name of the script.
+	                - `global_variables (dict)`: Global variables to store.
+	                - `tag_script_name (bool)`: If set to True, the `script_name` is added to the `global_variables` dictionary. Defaults to False.
+	        - `return_global_variables(self, script_name: str = None) -> dict`
+	            - **Purpose**: Retrieves global variables for a given script.
+	            - **Arguments**:
+	                - `script_name (str, optional)`: Name of the script. If omitted, all global variables are returned.
+	            - **Returns**: The global variables for the specified script or all if `script_name` is None.
+	        - `change_globals(self, variable: str, value: any, script_name: str = None) -> None`
+	            - **Purpose**: Modifies a global variable's value for a given script.
+	            - **Arguments**:
+	                - `variable (str)`: Name of the global variable.
+	                - `value (any)`: New value for the global variable.
+	                - `script_name (str, optional)`: Name of the script. If omitted, modifies the global variable in the base context.
+	        - `search_globals_values(self, value: any, script_name: str = None) -> Union[str, False]`
+	            - **Purpose**: Searches for a specific value within a script's global variables.
+	            - **Arguments**:
+	                - `value (any)`: Value to search for.
+	                - `script_name (str, optional)`: Name of the script. If omitted, the search covers the base context.
+	            - **Returns**: Name of the first global variable containing the value or False if not found.
+	        - `return_global_value(self, variable: str, script_name: str = None) -> any`
+	            - **Purpose**: Retrieves the value of a specified global variable from a given script.
+	            - **Arguments**:
+	                - `variable (str)`: Name of the global variable.
+	                - `script_name (str, optional)`: Name of the script. If omitted, retrieves from the base context.
+	            - **Returns**: Value of the specified global variable.
+	
 
 - ###### `WindowManager`
 	- **Description**: A class to manage PySimpleGUI windows and their events.
