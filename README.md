@@ -406,14 +406,14 @@ pip install abstract_gui
 
 ###### WindowGlobalBridge Class
 
-####### Description
+###### Description
 
 The `WindowGlobalBridge` class offers a structured approach to manage global variables that are shared between different scripts. This can help in maintaining consistency and organization across various parts of a project.
 
-####### Attributes
+###### Attributes
 - `global_vars (dict)`: A dictionary that holds global variables for each script.
 
-####### Methods
+###### Methods
 - `__init__(self) -> None`
   - **Purpose**: Initialize the `WindowGlobalBridge` with an empty dictionary for `global_vars`.
 
@@ -451,19 +451,19 @@ The `WindowGlobalBridge` class offers a structured approach to manage global var
     - `script_name (str, optional)`: The name of the script. If omitted, the value is retrieved from the base context.
   - **Returns**: The value of the specified global variable.
 	
-# WindowManager Class
+###### WindowManager Class
 
-## Description
+###### Description
 The `WindowManager` class facilitates the management of PySimpleGUI windows and their associated events. This class provides methods to create, update, and interact with windows, making it easier to handle user interfaces in your scripts.
 
-## Attributes
+###### Attributes
 - `all_windows (dict)`: A dictionary to store registered windows along with their details.
 - `last_window (str)`: The name of the last accessed window.
 - `script_name (str)`: The name of the script that is using the WindowManager.
 - `global_bridge`: The global bridge to access shared variables between different scripts.
 - `global_vars (dict)`: A dictionary to store global variables for this script.
 
-## Methods
+###### Methods
 - `__init__(self, script_name, global_bridge)`
   - **Purpose**: Initialize a WindowManager instance.
   - **Arguments**:
