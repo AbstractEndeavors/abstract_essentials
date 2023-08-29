@@ -410,7 +410,7 @@ pip install abstract_gui
 #### **Functions**:
 ##### **Classes**:
 
--###### `WindowGlobalBridge`
+- ###### `WindowGlobalBridge`
     - **Description**: A class to manage the global variables shared between different scripts.
     - **Attributes**:
       - `global_vars (dict)`: A dictionary to store global variables for each script.
@@ -457,7 +457,7 @@ pip install abstract_gui
 		- `variable (str)`: The name of the global variable to retrieve.
 		- `script_name (str, optional)`: The name of the script. If None, the global variable in the base context will be retrieved.
 		
--###### `WindowManager`
+- ###### `WindowManager`
     - **Description**: A class to manage PySimpleGUI windows and their events.
     - **Attributes**:
     	`all_windows (dict)`: A dictionary to store registered windows along with their details.
