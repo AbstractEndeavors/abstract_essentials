@@ -456,25 +456,20 @@ pip install abstract_gui
 	    		- **Arguments**:
 				- `script_name (str)`: The name of the script that is using the WindowManager.
         			- `global_bridge (GlobalBridge)`: An instance of GlobalBridge to access shared variables between different scripts.
-		
-	    		- **Returns**:
+			- **Returns**:
 				- `script_name (str)`: The name of the script that is using the WindowManager.
 				- `global_bridge (GlobalBridge)`: An instance of GlobalBridge to access shared variables between different scripts.
 	    
 		- `get_all_windows(self)`
      			- **Purpose**: Get all registered windows.
 		    	- **Arguments**:
-			
 		    	- **Returns**:
-			
 		    
 		- `get_window_names(self)`
 			- **Purpose**: Get the names of all registered windows.
 			- **Arguments**:
-			
 			- **Returns**:
 			
-
 		- `register_window(self, window=None)`
 		    	- **Purpose**: Register a window.
 			- **Arguments**:
@@ -509,35 +504,30 @@ pip install abstract_gui
 		- `update_last_window(self, window)`
 			- **Purpose**: Update the last accessed window.
 			- **Arguments**:
-			
 			- **Returns**:
 				- `window (any)`: The window to set as the last accessed window.
 		    
 		- `read_window(self, window)`
 			- **Purpose**: Read the event and values from a window and update the WindowManager's state.
 			- **Arguments**:
-			
 			- **Returns**:
 				- `window (any)`: The window to read from.
 		    
 		- `get_last_window_info(self)`
 			- **Purpose**: Retrieve the details of the last accessed window.
 			- **Arguments**:
-			
 			- **Returns**:
 			
 		    
 		- `get_last_window_method(self)`
 			- **Purpose**: Get the method associated with the last accessed window.
 			- **Arguments**:
-			
 			- **Returns**:
 			
 		    
 		- `update_values(self, window=None, key:str=None, value:any=None, values:any=None, args:dict=None)`
 			- **Purpose**: Update the values associated with a given window.
 			- **Arguments**:
-			
 			- **Returns**:
 				- `window (any, optional)`: The window to update values for. Defaults to the last accessed window.
 				- `key (str, optional)`: The key to be updated in the window.
@@ -562,14 +552,12 @@ pip install abstract_gui
 		- `while_basic(self, window=None)`
 			- **Purpose**: Run an event loop for a window.
 			- **Arguments**:
-			
 			- **Returns**:
 				- `window (any, optional)`: The window to run the event loop for. If not provided, the last accessed window is used.
 
 		- `get_window_name(self, obj=None)`
 			- **Purpose**: Get the names of all registered windows.
 			- **Arguments**:
-			
 			- **Returns**:
 
 		    
@@ -598,23 +586,19 @@ pip install abstract_gui
 		- `create_window_name(self)`
 			- **Purpose**: Create a unique name for a window.
 			- **Arguments**:
-			
 			- **Returns**:
 			
 
 		- `close_window_element(self)`
 			- **Purpose**: Get the constant representing a closed window event in PySimpleGUI.
 			- **Arguments**:
-			
 			- **Returns**:
 
-		    
 		- `unregister_window(self, window)`
 			- **Purpose**: Unregister a window from the WindowManager.
 			- **Arguments**:
-			
 			- **Returns**:
-			- `window (any)`: The window to unregister.
+				- `window (any)`: The window to unregister.
 
 	
 - ##### `ensure_nested_list(obj)`
