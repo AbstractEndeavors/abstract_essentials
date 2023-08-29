@@ -372,36 +372,30 @@ Enhances AI interactions with utilities for API handling, requests, tokenization
   - [Brief description of notable features.]
   - ...
 
-### Abstract Gui
-Advanced management for PySimpleGUI windows and events. 
-- **Key Classes**: `WindowGlobalBridge`, `WindowManager`
-- **Features**:
-  - [Brief description of notable features.]
-  - ...
+Certainly! Here's the provided content reformatted for consistency with the previous structure:
+
 ---
-## Abstract GUI
-Provides utilities for inspecting and parsing web content, including React components and URL utilities, with enhanced capabilities for managing HTTP requests and TLS configurations.
+
+### Abstract GUI Tools
+The `abstract_gui` module provides utilities for managing PySimpleGUI windows and events in a more abstract manner, with advanced capabilities for global variable management across scripts.
 
 - **Features**:
-  - URL Validation: Ensures URL correctness and attempts different URL variations.
-  - HTTP Request Manager: Custom HTTP request handling, including tailored user agents and improved TLS security through a custom adapter.
-  - Source Code Acquisition: Retrieves the source code of specified websites.
-  - React Component Parsing: Extracts JavaScript and JSX source code from web pages.
-  - Comprehensive Link Extraction: Collects all internal links from a specified website.
-  - Web Content Analysis: Extracts and categorizes various web content components such as HTML elements, attribute values, attribute names, and class names.
-
+  - **PySimpleGUI Windows Management**: Abstract handling of PySimpleGUI windows and events.
+  - **Global Variable Bridge**: Seamlessly manage global variables shared across different scripts with `WindowGlobalBridge`.
+  
 ### abstract_gui.py
-The `abstract_gui` module provides classes and functions to manage PySimpleGUI windows and events in a more abstract manner. It includes a class called `WindowGlobalBridge` to manage global variables shared between different scripts and a class called `WindowManager` to manage PySimpleGUI windows and their events.
+**Description:**  
+The `abstract_gui` module offers a refined way to manage PySimpleGUI windows and their events. It introduces the `WindowGlobalBridge` class, an efficient way to manage global variables shared between different scripts, ensuring data consistency and inter-script communication. Additionally, this module provides an abstract approach to handle PySimpleGUI windows, making the GUI management process more intuitive and modular.
 
 #### Installation
 
-You can install the `abstract_gui` module using `pip`:
+To harness the power of the `abstract_gui` module, you can install it using `pip`:
 
-```
+```bash
 pip install abstract_gui
 ```
 
-#### **Dependencies**:
+- **Dependencies**:
   - `PySimpleGUI` as `sg`
   - `thread_alive` from `abstract_utilities.thread_utils`
   - `get_fun` from `abstract_utilities.class_utils`
@@ -411,51 +405,42 @@ pip install abstract_gui
 ##### **Classes**:
 
 - ###### `WindowGlobalBridge`
-    - **Description**: A class to manage the global variables shared between different scripts.
+    - **Description**: Provides a structured way to manage global variables shared between different scripts.
     - **Attributes**:
-      - `global_vars (dict)`: A dictionary to store global variables for each script.
+      - `global_vars (dict)`: Dictionary housing global variables for each script.
     - **Methods**:
-        - `__init__(self)`
-	    - **Purpose**: Initializes the WindowGlobalBridge with an empty dictionary for global_vars.
-	- `retrieve_global_variables(self, script_name:str, global_variables:dict, tag_script_name:bool=False)`
-	    - **Purpose**: Stores the global variables of a script in the global_vars dictionary.
-	    - **Arguments**:
-	    - **Returns**:
-		- `script_name (str)`: The name of the script.
-		- `global_variables (dict)`: The global variables to store for the script.
-		- `tag_script_name (bool, optional)`: If True, the script_name will be stored in the global_variables dictionary. Defaults to False.
-		    
-	- `return_global_variables(self, script_name=None)`
-	    - **Purpose**: Returns the global variables of a script.
-	    - **Arguments**:
-		- `dict`: The global variables of the script. If no global variables are found, it returns an empty dictionary.
-	    - **Returns**:
-		- `script_name (str, optional)`: The name of the script. If None, all global variables will be returned.
-	    
-	- `change_globals(self, variable:str, value:any, script_name:str=None)`
-	    - **Purpose**: Modifies a global variable value for a specified script.
-	    - **Arguments**:
-		
-	    - **Returns**:
-		- `variable (str)`: The name of the global variable to modify.
-		- `value (any)`: The new value to assign to the global variable.
-		- `script_name (str, optional)`: The name of the script. If None, the global variable in the base context will be modified.
-		    
-	- `search_globals_values(self, value:any, script_name:str=None)`
-	    - **Purpose**: Searches for a specific value in the global variables of a script.
-	    - **Arguments**:
-		- `str or False`: The name of the first global variable containing the given value, or False if not found.
-	    - **Returns**:
-		- `value (any)`: The value to search for in the global variables.
-		- `script_name (str, optional)`: The name of the script. If None, the search will be performed in the base context.
-	    
-	- `return_global_value(self, variable:str, script_name:str=None)`
-	    - **Purpose**: Returns the value of a specific global variable in a script.
-	    - **Arguments**:
-		- `any`: The value of the specified global variable.
-	    - **Returns**:
-		- `variable (str)`: The name of the global variable to retrieve.
-		- `script_name (str, optional)`: The name of the script. If None, the global variable in the base context will be retrieved.
+        - `__init__(self) -> None`
+            - **Purpose**: Initializes the `WindowGlobalBridge` with an empty dictionary for `global_vars`.
+        - `retrieve_global_variables(self, script_name: str, global_variables: dict, tag_script_name: bool = False) -> None`
+            - **Purpose**: Stores global variables for a script within the `global_vars` dictionary.
+            - **Arguments**:
+                - `script_name (str)`: Name of the script.
+                - `global_variables (dict)`: Global variables to store.
+                - `tag_script_name (bool)`: If set to True, the `script_name` is added to the `global_variables` dictionary. Defaults to False.
+        - `return_global_variables(self, script_name: str = None) -> dict`
+            - **Purpose**: Retrieves global variables for a given script.
+            - **Arguments**:
+                - `script_name (str, optional)`: Name of the script. If omitted, all global variables are returned.
+            - **Returns**: The global variables for the specified script or all if `script_name` is None.
+        - `change_globals(self, variable: str, value: any, script_name: str = None) -> None`
+            - **Purpose**: Modifies a global variable's value for a given script.
+            - **Arguments**:
+                - `variable (str)`: Name of the global variable.
+                - `value (any)`: New value for the global variable.
+                - `script_name (str, optional)`: Name of the script. If omitted, modifies the global variable in the base context.
+        - `search_globals_values(self, value: any, script_name: str = None) -> Union[str, False]`
+            - **Purpose**: Searches for a specific value within a script's global variables.
+            - **Arguments**:
+                - `value (any)`: Value to search for.
+                - `script_name (str, optional)`: Name of the script. If omitted, the search covers the base context.
+            - **Returns**: Name of the first global variable containing the value or False if not found.
+        - `return_global_value(self, variable: str, script_name: str = None) -> any`
+            - **Purpose**: Retrieves the value of a specified global variable from a given script.
+            - **Arguments**:
+                - `variable (str)`: Name of the global variable.
+                - `script_name (str, optional)`: Name of the script. If omitted, retrieves from the base context.
+            - **Returns**: Value of the specified global variable.
+
 
 - ###### `WindowManager`
 	- **Description**: A class to manage PySimpleGUI windows and their events.
