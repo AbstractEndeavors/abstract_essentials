@@ -404,201 +404,209 @@ pip install abstract_gui
 #### **Functions**:
 ##### **Classes**:
 
-- ###### `WindowGlobalBridge`
-    - **Description**: Provides a structured way to manage global variables shared between different scripts.
-    - **Attributes**:
-    	- `global_vars (dict)`: Dictionary housing global variables for each script.
-    - **Methods**:
-	  	- `__init__(self) -> None`
-	            - **Purpose**: Initializes the `WindowGlobalBridge` with an empty dictionary for `global_vars`.
-	        - `retrieve_global_variables(self, script_name: str, global_variables: dict, tag_script_name: bool = False) -> None`
-	            - **Purpose**: Stores global variables for a script within the `global_vars` dictionary.
-	            - **Arguments**:
-	                - `script_name (str)`: Name of the script.
-	                - `global_variables (dict)`: Global variables to store.
-	                - `tag_script_name (bool)`: If set to True, the `script_name` is added to the `global_variables` dictionary. Defaults to False.
-	        - `return_global_variables(self, script_name: str = None) -> dict`
-	            - **Purpose**: Retrieves global variables for a given script.
-	            - **Arguments**:
-	                - `script_name (str, optional)`: Name of the script. If omitted, all global variables are returned.
-	            - **Returns**: The global variables for the specified script or all if `script_name` is None.
-	        - `change_globals(self, variable: str, value: any, script_name: str = None) -> None`
-	            - **Purpose**: Modifies a global variable's value for a given script.
-	            - **Arguments**:
-	                - `variable (str)`: Name of the global variable.
-	                - `value (any)`: New value for the global variable.
-	                - `script_name (str, optional)`: Name of the script. If omitted, modifies the global variable in the base context.
-	        - `search_globals_values(self, value: any, script_name: str = None) -> Union[str, False]`
-	            - **Purpose**: Searches for a specific value within a script's global variables.
-	            - **Arguments**:
-	                - `value (any)`: Value to search for.
-	                - `script_name (str, optional)`: Name of the script. If omitted, the search covers the base context.
-	            - **Returns**: Name of the first global variable containing the value or False if not found.
-	        - `return_global_value(self, variable: str, script_name: str = None) -> any`
-	            - **Purpose**: Retrieves the value of a specified global variable from a given script.
-	            - **Arguments**:
-	                - `variable (str)`: Name of the global variable.
-	                - `script_name (str, optional)`: Name of the script. If omitted, retrieves from the base context.
-	            - **Returns**: Value of the specified global variable.
+# WindowGlobalBridge Class
+
+## Description
+The `WindowGlobalBridge` class offers a structured approach to manage global variables that are shared between different scripts. This can help in maintaining consistency and organization across various parts of a project.
+
+## Attributes
+- `global_vars (dict)`: A dictionary that holds global variables for each script.
+
+## Methods
+- `__init__(self) -> None`
+  - **Purpose**: Initialize the `WindowGlobalBridge` with an empty dictionary for `global_vars`.
+
+- `retrieve_global_variables(self, script_name: str, global_variables: dict, tag_script_name: bool = False) -> None`
+  - **Purpose**: Store global variables for a script within the `global_vars` dictionary.
+  - **Arguments**:
+    - `script_name (str)`: The name of the script.
+    - `global_variables (dict)`: The global variables to store.
+    - `tag_script_name (bool)`: If set to True, the `script_name` is added to the `global_variables` dictionary. Defaults to False.
+
+- `return_global_variables(self, script_name: str = None) -> dict`
+  - **Purpose**: Retrieve global variables for a given script.
+  - **Arguments**:
+    - `script_name (str, optional)`: The name of the script. If omitted, all global variables are returned.
+  - **Returns**: The global variables for the specified script or all if `script_name` is None.
+
+- `change_globals(self, variable: str, value: any, script_name: str = None) -> None`
+  - **Purpose**: Modify a global variable's value for a given script.
+  - **Arguments**:
+    - `variable (str)`: The name of the global variable.
+    - `value (any)`: The new value for the global variable.
+    - `script_name (str, optional)`: The name of the script. If omitted, the global variable in the base context is modified.
+
+- `search_globals_values(self, value: any, script_name: str = None) -> Union[str, False]`
+  - **Purpose**: Search for a specific value within a script's global variables.
+  - **Arguments**:
+    - `value (any)`: The value to search for.
+    - `script_name (str, optional)`: The name of the script. If omitted, the search covers the base context.
+  - **Returns**: The name of the first global variable containing the value or False if not found.
+
+- `return_global_value(self, variable: str, script_name: str = None) -> any`
+  - **Purpose**: Retrieve the value of a specified global variable from a given script.
+  - **Arguments**:
+    - `variable (str)`: The name of the global variable.
+    - `script_name (str, optional)`: The name of the script. If omitted, the value is retrieved from the base context.
+  - **Returns**: The value of the specified global variable.
 	
-- ###### `WindowManager`
-    - **Description**: A class to manage PySimpleGUI windows and their events.
-    - **Attributes**:
-    		- `all_windows (dict)`: A dictionary to store registered windows along with their details.
-		- `last_window (str)`: The name of the last accessed window.
-        	- `script_name (str)`: The name of the script that is using the WindowManager.
-        	- `global_bridge`: The global bridge to access shared variables between different scripts.
-        	- `global_vars (dict)`: A dictionary to store global variables for this script.
+# WindowManager Class
 
-    - **Methods**:
-		- `__init__(self, script_name, global_bridge)`
-	    		- **Purpose**: Initialize a WindowManager instance.
-	    		- **Arguments**:
-				- `script_name (str)`: The name of the script that is using the WindowManager.
-        			- `global_bridge (GlobalBridge)`: An instance of GlobalBridge to access shared variables between different scripts.
-			- **Returns**:
-				- `script_name (str)`: The name of the script that is using the WindowManager.
-				- `global_bridge (GlobalBridge)`: An instance of GlobalBridge to access shared variables between different scripts.
-	    
-		- `get_all_windows(self)`
-     			- **Purpose**: Get all registered windows.
-		    	- **Arguments**:
-		    	- **Returns**:
-		    
-		- `get_window_names(self)`
-			- **Purpose**: Get the names of all registered windows.
-			- **Arguments**:
-			- **Returns**:
-			
-		- `register_window(self, window=None)`
-		    	- **Purpose**: Register a window.
-			- **Arguments**:
-				- `str`: The name of the registered window.
-			- **Returns**:
-				- `obj (any, optional)`: The window to register. If not provided, a new window is created.
-			    
-		- `get_new_window(self, title:str=None, layout:list=None, args:dict=None, event_function:str=None,exit_events:(list or str)=None)`
-			- **Purpose**: Create a new window.
-			- **Arguments**:
-				- `any`: A new PySimpleGUI window.
-			- **Returns**:
-				- `title (str, optional)`: The title of the window. If not provided, 'window' is used.
-				- `layout (list, optional)`: The layout of the window. If not provided, an empty layout is used.
-				- `args (dict, optional)`: Additional arguments for the window.
-				- `event_function (str, optional)`: The event function for the window.
-		    
-		- `search_global_windows(self, window)`
-			- **Purpose**: Search for a window in the global variables.
-			- **Arguments**:
-				- `any`: The name of the window if found, False otherwise.
-			- **Returns**:
-				- `window (any)`: The window to search for.
-		    
-		- `verify_window(self, window=None) -> bool`
-			- **Purpose**: Verifies if the given object is a valid PySimpleGUI window.
-			- **Arguments**:
-				- `bool`: True if the object is a valid window, False otherwise.
-			- **Returns**:
-				- `win (any)`: The object to verify.
-					    
-		- `update_last_window(self, window)`
-			- **Purpose**: Update the last accessed window.
-			- **Arguments**:
-			- **Returns**:
-				- `window (any)`: The window to set as the last accessed window.
-		    
-		- `read_window(self, window)`
-			- **Purpose**: Read the event and values from a window and update the WindowManager's state.
-			- **Arguments**:
-			- **Returns**:
-				- `window (any)`: The window to read from.
-		    
-		- `get_last_window_info(self)`
-			- **Purpose**: Retrieve the details of the last accessed window.
-			- **Arguments**:
-			- **Returns**:
-			
-		    
-		- `get_last_window_method(self)`
-			- **Purpose**: Get the method associated with the last accessed window.
-			- **Arguments**:
-			- **Returns**:
-			
-		    
-		- `update_values(self, window=None, key:str=None, value:any=None, values:any=None, args:dict=None)`
-			- **Purpose**: Update the values associated with a given window.
-			- **Arguments**:
-			- **Returns**:
-				- `window (any, optional)`: The window to update values for. Defaults to the last accessed window.
-				- `key (str, optional)`: The key to be updated in the window.
-				- `value (any, optional)`: The value to set for the given key.
-				- `values (any, optional)`: Multiple values to set.
-				- `args (dict, optional)`: Additional arguments to update the window with.
+## Description
+The `WindowManager` class facilitates the management of PySimpleGUI windows and their associated events. This class provides methods to create, update, and interact with windows, making it easier to handle user interfaces in your scripts.
 
-		- `get_event(self, window=None)`
-			- **Purpose**: Get the last event from a window.
-			- **Arguments**:
-				- `any`: The last event from the window.
-			- **Returns**:
-				- `win (any, optional)`: The window to get the event from. If not provided, the last accessed window is used.
+## Attributes
+- `all_windows (dict)`: A dictionary to store registered windows along with their details.
+- `last_window (str)`: The name of the last accessed window.
+- `script_name (str)`: The name of the script that is using the WindowManager.
+- `global_bridge`: The global bridge to access shared variables between different scripts.
+- `global_vars (dict)`: A dictionary to store global variables for this script.
 
-		- `get_values(self, window=None)`
-			- **Purpose**: Get the values from a window.
-			- **Arguments**:
-				- `dict`: The values from the window.
-			- **Returns**:
-				- `win (any, optional)`: The window to get the values from. If not provided, the last accessed window is used.
+## Methods
+- `__init__(self, script_name, global_bridge)`
+  - **Purpose**: Initialize a WindowManager instance.
+  - **Arguments**:
+    - `script_name (str)`: The name of the script that is using the WindowManager.
+    - `global_bridge (GlobalBridge)`: An instance of GlobalBridge to access shared variables between different scripts.
+  - **Returns**:
+    - `script_name (str)`: The name of the script that is using the WindowManager.
+    - `global_bridge (GlobalBridge)`: An instance of GlobalBridge to access shared variables between different scripts.
 
-		- `while_basic(self, window=None)`
-			- **Purpose**: Run an event loop for a window.
-			- **Arguments**:
-			- **Returns**:
-				- `window (any, optional)`: The window to run the event loop for. If not provided, the last accessed window is used.
+- `get_all_windows(self)`
+  - **Purpose**: Get all registered windows.
+  - **Arguments**:
+  - **Returns**:
 
-		- `get_window_name(self, obj=None)`
-			- **Purpose**: Get the names of all registered windows.
-			- **Arguments**:
-			- **Returns**:
+- `get_window_names(self)`
+  - **Purpose**: Get the names of all registered windows.
+  - **Arguments**:
+  - **Returns**:
 
-		    
-		- `win_closed(self, window)`
-			- **Purpose**: Check if a window event calls to close the window.
-			- **Arguments**:
-				- `bool`: True if the window is closed, False otherwise.
-			- **Returns**:
-				- `event (str)`: The event to check.
+- `register_window(self, window=None)`
+  - **Purpose**: Register a window.
+  - **Arguments**:
+    - `str`: The name of the registered window.
+  - **Returns**:
+    - `obj (any, optional)`: The window to register. If not provided, a new window is created.
 
-		- `delete_from_list(self, _list, var)`
-			- **Purpose**: Remove a specific variable from a list.
-			- **Arguments**:
-				- `list`: A list with the specified variable removed.
-			- **Returns**:
-				- `_list (list)`: The list to remove the variable from.
-				- `var (any)`: The variable to remove from the list.
-		    
-		- `is_window_object(self, obj)`
-			- **Purpose**: Check if an object is a PySimpleGUI window object.
-			- **Arguments**:
-				- `bool`: True if the object is a window object, False otherwise.
-			- **Returns**:
-				- `obj (any)`: The object to check.
+- `get_new_window(self, title:str=None, layout:list=None, args:dict=None, event_function:str=None,exit_events:(list or str)=None)`
+  - **Purpose**: Create a new window.
+  - **Arguments**:
+    - `title (str, optional)`: The title of the window. If not provided, 'window' is used.
+    - `layout (list, optional)`: The layout of the window. If not provided, an empty layout is used.
+    - `args (dict, optional)`: Additional arguments for the window.
+    - `event_function (str, optional)`: The event function for the window.
+  - **Returns**:
+    - A new PySimpleGUI window.
 
-		- `create_window_name(self)`
-			- **Purpose**: Create a unique name for a window.
-			- **Arguments**:
-			- **Returns**:
-			
+- `search_global_windows(self, window)`
+  - **Purpose**: Search for a window in the global variables.
+  - **Arguments**:
+    - `any`: The name of the window if found, False otherwise.
+  - **Returns**:
+    - `window (any)`: The window to search for.
 
-		- `close_window_element(self)`
-			- **Purpose**: Get the constant representing a closed window event in PySimpleGUI.
-			- **Arguments**:
-			- **Returns**:
+- `verify_window(self, window=None) -> bool`
+  - **Purpose**: Verify if the given object is a valid PySimpleGUI window.
+  - **Arguments**:
+    - `bool`: True if the object is a valid window, False otherwise.
+  - **Returns**:
+    - `win (any)`: The object to verify.
 
-		- `unregister_window(self, window)`
-			- **Purpose**: Unregister a window from the WindowManager.
-			- **Arguments**:
-			- **Returns**:
-				- `window (any)`: The window to unregister.
+- `update_last_window(self, window)`
+  - **Purpose**: Update the last accessed window.
+  - **Arguments**:
+  - **Returns**:
+    - `window (any)`: The window to set as the last accessed window.
+
+- `read_window(self, window)`
+  - **Purpose**: Read the event and values from a window and update the WindowManager's state.
+  - **Arguments**:
+  - **Returns**:
+    - `window (any)`: The window to read from.
+
+- `get_last_window_info(self)`
+  - **Purpose**: Retrieve the details of the last accessed window.
+  - **Arguments**:
+  - **Returns**:
+
+- `get_last_window_method(self)`
+  - **Purpose**: Get the method associated with the last accessed window.
+  - **Arguments**:
+  - **Returns**:
+
+- `update_values(self, window=None, key:str=None, value:any=None, values:any=None, args:dict=None)`
+  - **Purpose**: Update the values associated with a given window.
+  - **Arguments**:
+  - **Returns**:
+    - `window (any, optional)`: The window to update values for. Defaults to the last accessed window.
+    - `key (str, optional)`: The key to be updated in the window.
+    - `value (any, optional)`: The value to set for the given key.
+    - `values (any, optional)`: Multiple values to set.
+    - `args (dict, optional)`: Additional arguments to update the window with.
+
+- `get_event(self, window=None)`
+  - **Purpose**: Get the last event from a window.
+  - **Arguments**:
+    - `any`: The last event from the window.
+  - **Returns**:
+    - `win (any, optional)`: The window to get the event from. If not provided, the last accessed window is used.
+
+- `get_values(self, window=None)`
+  - **Purpose**: Get the values from a window.
+  - **Arguments**:
+    - `dict`: The values from the window.
+  - **Returns**:
+    - `win (any, optional)`: The window to get the values from. If not provided, the last accessed window is used.
+
+- `while_basic(self, window=None)`
+  - **Purpose**: Run an event loop for a window.
+  - **Arguments**:
+  - **Returns**:
+    - `window (any, optional)`: The window to run the event loop for. If not provided, the last accessed window is used.
+
+- `get_window_name(self, obj=None)`
+  - **Purpose**: Get the names of all registered windows.
+  - **Arguments**:
+  - **Returns**:
+
+- `win_closed(self, window)`
+  - **Purpose**: Check if a window event calls to close the window.
+  - **Arguments**:
+    - `bool`: True if the window is closed, False otherwise.
+  - **Returns**:
+    - `event (str)`: The event to check.
+
+- `delete_from_list(self, _list, var)`
+  - **Purpose**: Remove a specific variable from a list.
+  - **Arguments**:
+    - `list`: A list with the specified variable removed.
+    - `var (any)`: The variable to remove from the list.
+  - **Returns**:
+    - `_list (list)`: The list with the variable removed.
+
+- `is_window_object(self, obj)`
+  - **Purpose**: Check if an object is a PySimpleGUI window object.
+  - **Arguments**:
+    - `bool`: True if the object is a window object, False otherwise.
+  - **Returns**:
+    - `obj (any)`: The object to check.
+
+- `create_window_name(self)`
+  - **Purpose**: Create a unique name for a window.
+  - **Arguments**:
+  - **Returns**:
+
+- `close_window_element(self)`
+  - **Purpose**: Get the constant representing a closed window event in PySimpleGUI.
+  - **Arguments**:
+  - **Returns**:
+
+- `unregister_window(self, window)`
+  - **Purpose**: Unregister a window from the WindowManager.
+  - **Arguments**:
+  - **Returns**:
+    - `window (any)`: The window to unregister.
 
 	
 - ##### `ensure_nested_list(obj)`
