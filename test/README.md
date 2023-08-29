@@ -28,8 +28,10 @@
 ```python
 __init__(self, script_name, global_bridge)
 ```
+
 **Purpose:**
 Initialize a WindowManager instance.
+
 **Arguments:**
   * script_name (str): The name of the script that is using the WindowManager.
   * global_bridge (GlobalBridge): An instance of GlobalBridge to access shared variables between different scripts.
@@ -38,6 +40,7 @@ Initialize a WindowManager instance.
 ```python
 get_all_windows(self)
 ```
+
 **Purpose:**
 Get all registered windows.
 ---
@@ -45,6 +48,7 @@ Get all registered windows.
 ```python
 get_window_names(self)
 ```
+
 **Purpose:**
 Get the names of all registered windows.
 ---
@@ -52,8 +56,10 @@ Get the names of all registered windows.
 ```python
 register_window(self, window=None)
 ```
+
 **Purpose:**
 Register a window.
+
 **Arguments:**
   * obj (any, optional): The window to register. If not provided, a new window is created.
 **Returns:**
@@ -63,8 +69,10 @@ Register a window.
 ```python
 get_new_window(self, title:str=None, layout:list=None, args:dict=None, event_function:str=None,exit_events:(list or str)=None)
 ```
+
 **Purpose:**
 Create a new window.
+
 **Arguments:**
   * title (str, optional): The title of the window. If not provided, 'window' is used.
   * layout (list, optional): The layout of the window. If not provided, an empty layout is used.
@@ -77,8 +85,10 @@ Create a new window.
 ```python
 search_global_windows(self, window)
 ```
+
 **Purpose:**
 Search for a window in the global variables.
+
 **Arguments:**
   * window (any): The window to search for.
 **Returns:**
@@ -88,8 +98,10 @@ Search for a window in the global variables.
 ```python
 verify_window(self, window=None) -> bool
 ```
+
 **Purpose:**
 Verifies if the given object is a valid PySimpleGUI window.
+
 **Arguments:**
   * win (any): The object to verify.
 **Returns:**
@@ -99,8 +111,10 @@ Verifies if the given object is a valid PySimpleGUI window.
 ```python
 update_last_window(self, window)
 ```
+
 **Purpose:**
 Update the last accessed window.
+
 **Arguments:**
   * window (any): The window to set as the last accessed window.
 ---
@@ -108,8 +122,10 @@ Update the last accessed window.
 ```python
 read_window(self, window)
 ```
+
 **Purpose:**
 Read the event and values from a window and update the WindowManager's state.
+
 **Arguments:**
   * window (any): The window to read from.
 ---
@@ -117,6 +133,7 @@ Read the event and values from a window and update the WindowManager's state.
 ```python
 get_last_window_info(self)
 ```
+
 **Purpose:**
 Retrieve the details of the last accessed window.
 ---
@@ -124,6 +141,7 @@ Retrieve the details of the last accessed window.
 ```python
 get_last_window_method(self)
 ```
+
 **Purpose:**
 Get the method associated with the last accessed window.
 ---
@@ -131,8 +149,10 @@ Get the method associated with the last accessed window.
 ```python
 update_values(self, window=None, key:str=None, value:any=None, values:any=None, args:dict=None)
 ```
+
 **Purpose:**
 Update the values associated with a given window.
+
 **Arguments:**
   * window (any, optional): The window to update values for. Defaults to the last accessed window.
   * key (str, optional): The key to be updated in the window.
@@ -144,8 +164,10 @@ Update the values associated with a given window.
 ```python
 get_event(self, window=None)
 ```
+
 **Purpose:**
 Get the last event from a window.
+
 **Arguments:**
   * win (any, optional): The window to get the event from. If not provided, the last accessed window is used.
 **Returns:**
@@ -155,8 +177,10 @@ Get the last event from a window.
 ```python
 get_values(self, window=None)
 ```
+
 **Purpose:**
 Get the values from a window.
+
 **Arguments:**
   * win (any, optional): The window to get the values from. If not provided, the last accessed window is used.
 **Returns:**
@@ -166,8 +190,10 @@ Get the values from a window.
 ```python
 while_basic(self, window=None)
 ```
+
 **Purpose:**
 Run an event loop for a window.
+
 **Arguments:**
   * window (any, optional): The window to run the event loop for. If not provided, the last accessed window is used.
 ---
@@ -175,6 +201,7 @@ Run an event loop for a window.
 ```python
 get_window_name(self, obj=None)
 ```
+
 **Purpose:**
 Get the names of all registered windows.
 ---
@@ -182,8 +209,10 @@ Get the names of all registered windows.
 ```python
 win_closed(self, window)
 ```
+
 **Purpose:**
 Check if a window event calls to close the window.
+
 **Arguments:**
   * event (str): The event to check.
 **Returns:**
@@ -193,8 +222,10 @@ Check if a window event calls to close the window.
 ```python
 delete_from_list(self, _list, var)
 ```
+
 **Purpose:**
 Remove a specific variable from a list.
+
 **Arguments:**
   * _list (list): The list to remove the variable from.
   * var (any): The variable to remove from the list.
@@ -205,8 +236,10 @@ Remove a specific variable from a list.
 ```python
 is_window_object(self, obj)
 ```
+
 **Purpose:**
 Check if an object is a PySimpleGUI window object.
+
 **Arguments:**
   * obj (any): The object to check.
 **Returns:**
@@ -216,6 +249,7 @@ Check if an object is a PySimpleGUI window object.
 ```python
 create_window_name(self)
 ```
+
 **Purpose:**
 Create a unique name for a window.
 ---
@@ -223,6 +257,7 @@ Create a unique name for a window.
 ```python
 close_window_element(self)
 ```
+
 **Purpose:**
 Get the constant representing a closed window event in PySimpleGUI.
 ---
@@ -230,11 +265,14 @@ Get the constant representing a closed window event in PySimpleGUI.
 ```python
 unregister_window(self, window)
 ```
+
 **Purpose:**
 Unregister a window from the WindowManager.
+
 **Arguments:**
   * window (any): The window to unregister.
 ---
+
 
 
 
