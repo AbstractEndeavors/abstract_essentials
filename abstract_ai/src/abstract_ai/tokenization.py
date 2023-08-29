@@ -1,3 +1,64 @@
+"""
+tokenization.py
+=====================
+This module is part of the `abstract_ai` module of the `abstract_essentials` package. It primarily handles the task of tokenization and chunking of text data. The utilities present in this module are essential for effectively managing the token constraints set by the OpenAI API and optimizing the request structure.
+
+Functions:
+----------
+
+### `count_tokens(text: str) -> int`
+
+- **Description**: Counts the number of tokens in the given text using word tokenization.
+- **Arguments**:
+  - `text` (str): The input text.
+- **Returns**: The number of tokens in the text.
+
+### `convert_to_percentage(number: float) -> float`
+
+- **Description**: Converts a number to its percentage if greater than one; otherwise, returns the original number.
+- **Arguments**:
+  - `number` (float): The number to be converted.
+- **Returns**: The percentage value of the number if greater than one, otherwise the original number.
+
+### `create_chunks(content: str, size_per_chunk: int) -> list`
+
+- **Description**: Divides the content into chunks of specified size and returns a list of these chunks.
+- **Arguments**:
+  - `content` (str): The content to be chunked.
+  - `size_per_chunk` (int): The desired size per chunk.
+- **Returns**: A list of content chunks.
+
+### `calculate_token_distribution(max_tokens: int = default_tokens(), prompt: str = "null", completion_percentage: float = 40, size_per_chunk: int = None, chunk_prompt: str = "", tokenize_js: dict = {}) -> dict`
+
+- **Description**: Calculates the token distribution between prompts, completions, and chunks to ensure effective token utilization.
+- **Arguments**:
+  - `max_tokens` (int, optional): The maximum number of tokens allowed. Defaults to `default_tokens()`.
+  - `prompt` (str, optional): The prompt to be used. Defaults to "null".
+  - `completion_percentage` (float, optional): The completion percentage. Defaults to 40.
+  - `size_per_chunk` (int, optional): The size per chunk. Defaults to None.
+  - `chunk_prompt` (str, optional): The chunk prompt. Defaults to an empty string.
+  - `tokenize_js` (dict, optional): Tokenization data. Defaults to an empty dictionary.
+- **Returns**: A dictionary containing token distribution information.
+
+Notes:
+------
+The module leverages the nltk library for tokenization. Ensure nltk is properly installed and set up. Additionally, the module provides various utilities that closely work with the OpenAI's token constraints. When working with large text, the module ensures that the text is properly segmented to fit within the API's limits.
+
+About abstract_ai
+--------------------
+part of: abstract_ai
+Version: 0.1.7.1
+Author: putkoff
+Contact: partners@abstractendeavors.com
+Content Type: text/markdown
+Source and Documentation:
+For the source code, documentation, and more details, visit the official GitHub repository.
+github: https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_ai
+
+Notes:
+------
+For optimal performance, it's important to understand the token limits imposed by OpenAI and adjust the configuration settings in the module accordingly. As OpenAI's API evolves, these constraints might change, so always keep an eye on their official documentation.
+"""
 from nltk.tokenize import word_tokenize
 from .endpoints import default_tokens
 def count_tokens(text):
@@ -13,12 +74,31 @@ def count_tokens(text):
     return len(word_tokenize(text))
 
 def convert_to_percentage(number):
+    """
+    Converts a number to its percentage if greater than one; otherwise, returns the original number.
+    
+    Args:
+        number (float): The number to be converted.
+        
+    Returns:
+        float: The percentage value of the number if greater than one, otherwise the original number.
+    """
     if number > 1:
         return number / 100
     else:
         return number
 
 def create_chunks(content, size_per_chunk):
+    """
+    Divides the content into chunks of specified size and returns a list of these chunks.
+    
+    Args:
+        content (str): The content to be chunked.
+        size_per_chunk (int): The desired size per chunk.
+        
+    Returns:
+        list: A list of content chunks.
+    """
     tokens = word_tokenize(content)
     chunks = []
     current_chunk = []
@@ -35,6 +115,20 @@ def create_chunks(content, size_per_chunk):
 
 
 def calculate_token_distribution(max_tokens:int=default_tokens(), prompt:str="null", completion_percentage:float=40, size_per_chunk:int=None,chunk_prompt:str="",tokenize_js:dict={}):
+    """
+    Calculates the token distribution between prompts, completions, and chunks to ensure effective token utilization.
+    
+    Args:
+        max_tokens (int, optional): The maximum number of tokens allowed. Defaults to `default_tokens()`.
+        prompt (str, optional): The prompt to be used. Defaults to "null".
+        completion_percentage (float, optional): The completion percentage. Defaults to 40.
+        size_per_chunk (int, optional): The size per chunk. Defaults to None.
+        chunk_prompt (str, optional): The chunk prompt. Defaults to an empty string.
+        tokenize_js (dict, optional): Tokenization data. Defaults to an empty dictionary.
+        
+    Returns:
+        dict: A dictionary containing token distribution information.
+    """
     total_prompt = ''
     for each in tokenize_js.keys():
         if each != "prompt_data":

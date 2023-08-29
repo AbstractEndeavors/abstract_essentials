@@ -1,3 +1,51 @@
+"""
+api_calls.py
+=====================
+This module is part of the `abstract_ai` module of the `abstract_essentials` package. It provides essential utilities for making API calls to OpenAI, handling responses, and performing related operations.
+
+Functions:
+----------
+- get_openai_key(): Fetches the OpenAI API key from the environment variables.
+- load_openai_key(): Sets the API key for further OpenAI API interactions.
+- headers(): Generates the headers for making API calls.
+- post_request(): Sends a POST request to a specified endpoint.
+- hard_request(): Sends a detailed request to OpenAI API.
+- quick_request(): Quickly sends a request to OpenAI and fetches the response.
+- get_additional_response(): Determines additional responses based on input.
+- get_notation(): Determines notation or context notes.
+- get_suggestions(): Suggests improvements or clarifications.
+- get_abort(): Determines if a request should be aborted.
+- get_default(): Returns the default response or user-defined response.
+- default_instructions(): Generates a default instruction template.
+- create_chunk_communication(): Formulates a communication format for chunked data.
+- handle_abort(): Handles a scenario where a query might be aborted.
+- process_response(): Converts the API response to a Python dictionary.
+- get_current_chunk(): Retrieves current chunk data from a series.
+- get_response_from_str(): Extracts response dictionary from a string representation.
+- get_response(): Retrieves the JSON response from an API call.
+- create_prompt_js(): Formulates the prompt in a JSON structure for API calls.
+- get_save_output(): Saves the output of the API call.
+- safe_send(): Safely sends a request to the OpenAI API and manages token limitations and chunked data.
+
+Notes:
+------
+This module is intricately tied with environment variables and dependent modules. For seamless requests and response handling, ensure proper setup of dependencies and appropriate setting of environment variables.
+
+About abstract_ai
+--------------------
+part of: abstract_ai
+Version: 0.1.7.1
+Author: putkoff
+Contact: partners@abstractendeavors.com
+Content Type: text/markdown
+Source and Documentation:
+For the source code, documentation, and more details, visit the official GitHub repository.
+github: https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_ai
+
+Notes:
+------
+This module relies heavily on environment variables and other dependencies to successfully send requests and handle responses. Ensure that you've set up all dependencies correctly and provided the right environment variables.
+"""
 import os
 import json
 import requests
@@ -283,7 +331,10 @@ def get_response_from_str(api_response):
         if len(curr_value) != 0:
             while curr_value[0] !=':' and len(curr_value) >0:
                 curr_value=curr_value[1:]
-        api_response_js[key]=eatAll(curr_value,['',' ',',','\n',':'])
+                if len(curr_value)==0:
+                    break
+        if len(curr_value)!=0:
+            api_response_js[key]=eatAll(curr_value,['',' ',',','\n',':'])
         i+=1
   
     for key in api_response_js.keys():
@@ -389,585 +440,4 @@ def safe_send(prompt_data:str=default_prompt(),request:str="null",instructions:s
             break
         chunk += 1
     return output
-request = """
-below is the first module in a packag's readme that will consist of 8 modules total, they all need to be the same format, style and appeal. in the chunked data i will be providing a single module, abstract_modules, which will consist of 3 components, upload_utils.py, module_utils.py, and create_module_folder.py, please create a readme as best you can; the example readme is abstract security
-## Abstract Security
 
-**Description:**  
-Abstract Security simplifies the management and access of environment variables stored in `.env` files. Its key feature is the ability to search multiple directories for these files, ensuring you always fetch the right environment variables with minimal hassle.
-
-**Dependencies**:
-- `os`
-- `dotenv`
-- Various utilities from `abstract_utilities`
-
-**Functions**:
-
-### 1. `find_and_read_env_file`
-- **Purpose**: Search for an environment file and read a specific key from it.
-- **Arguments**:
-  - `file_name`: Name of the `.env` file to be searched. Defaults to `.env`.
-  - `key`: Key to be retrieved from the `.env` file. Defaults to 'MY_PASSWORD'.
-  - `start_path`: Directory path to start the search from. Defaults to the current directory.
-- **Returns**: The value corresponding to the key if found, otherwise None.
-
-### 2. `search_for_env_key`
-- **Purpose**: Search for a specific key in a `.env` file.
-- **Arguments**:
-  - `path`: The path to the `.env` file.
-  - `key`: The key to search for.
-- **Returns**: The value of the key if found, otherwise None.
-
-### 3. `check_env_file`
-- **Purpose**: Check if the environment file exists in a specified path.
-- **Arguments**:
-  - `path`: The path to check for the `.env` file.
-  - `file_name`: The name of the `.env` file. Defaults to '.env'.
-- **Returns**: The path of the `.env` file if it exists, otherwise False.
-
-### 4. `safe_env_load`
-- **Purpose**: Safely load the `.env` file if it exists at a specified path.
-- **Arguments**:
-  - `path`: The path to load the `.env` file from.
-- **Returns**: True if the `.env` file is successfully loaded, otherwise False.
-
-### 5. `get_env_value`
-- **Purpose**: Retrieves the value of the specified environment variable.
-- **Arguments**:
-  - `start_path`: The path to the environment file.
-  - `file_name`: The name of the environment file. Defaults to '.env'.
-  - `key`: The key to search for. Defaults to 'MY_PASSWORD'.
-- **Returns**: The value of the environment variable if found, otherwise None.
-
----
-
-
-here is a description of pload_utils:
-
-#abstract_modules
-# Python Module Upload to PyPI
-
-This utility script allows you to easily upload your Python module to the Python Package Index (PyPI) using Twine. It automates several steps of the packaging and distribution process, making it easier to share your module with the Python community.
-Author: putkoff
-partOf: abstract_modules
-Date: 05/31/2023
-Version: 0.0.1.0
-author_email: 'partners@abstractendeavors.com'
-url: 'https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_utilities'
-
-#abstract_modules
-# Python Module Upload to PyPI
-
-This utility script allows you to easily upload your Python module to the Python Package Index (PyPI) using Twine. It automates several steps of the packaging and distribution process, making it easier to share your module with the Python community.
-## Usage
-
-Run the script `upload_to_pypi.py` with Python 3:
-
-```bash
-python3 upload_to_pypi.py
-```
-
-The script will guide you through the following steps:
-
-1. **Selecting Module Directory**: You will be prompted to pick the module directory using a GUI window. This directory should contain the necessary files, including the `setup.py` file.
-
-2. **Updating Version Number**: If the version number in the `setup.py` file matches an existing version in the `dist` directory, you will be asked to enter a new version number.
-
-3. **Building the Module**: The script will build your module using the `setup.py` script. The distribution files (wheels) will be placed in the `dist` directory.
-
-4. **Uploading to PyPI**: The script will prompt you to enter your PyPI username and password securely. It will then upload the module to PyPI using Twine.
-
-5. **Installing the Module**: After successful upload, you will have the option to install the module using pip for testing purposes.
-
-"""
-
-prompt_data='''
-upload_utils.py
-import os
-import math
-from abstract_utilities.read_write_utils import read_from_file,write_to_file
-from abstract_utilities.cmd_utils import get_sudo_password,get_env_value,get_sudo_password,cmd_run_sudo,cmd_run,pexpect_cmd_with_args
-from abstract_utilities.string_clean import eatAll
-from abstract_gui import get_browser,create_row_of_buttons,get_gui_fun,create_window_manager,get_yes_no,expandable
-from .module_utils import get_installed_versions,scan_folder_for_required_modules
-windows_mgr,upload_bridge,script_name=create_window_manager(global_var=globals())
-def get_parent_directory(directory: str = os.getcwd()) -> str:
-    """
-    Opens a file browser to allow the user to pick a module directory and returns the chosen directory.
-    If no directory is chosen, it keeps prompting until a selection is made.
-    
-    :param directory: The initial directory to open the file browser. Defaults to current working directory.
-    :return: The path of the selected directory.
-    """
-    browser_values = None
-    while browser_values is None:
-        browser_values = get_browser(title="pick a module directory", type="folder", initial_folder=directory)
-    return browser_values
-def get_output_text(parent_directory: str = os.getcwd()) -> str:
-    """
-    Generate the path for the output text file based on the provided directory.
-
-    :param parent_directory: Base directory.
-    :return: Path to the output text file.
-    """
-    return os.path.join(parent_directory, 'output.txt')
-def install_setup() -> str:
-    """
-    Return the command to install setup.
-
-    :return: Command string.
-    """
-    return "sudo python3 setup.py sdist"
-def install_twine() -> str:
-    """
-    Return the command to install twine.
-
-    :return: Command string.
-    """
-    return "pip3 install build twine --break-system-packages"
-
-def build_module(dist_dir: str) -> str:
-    """
-    If the 'dist' directory doesn't exist, create it. 
-    Return the command to build the module.
-
-    :param dist_dir: Directory to build the module in.
-    :return: Command string.
-    """
-    if not os.path.exists(dist_dir):
-        os.makedirs(dist_dir)
-    return "sudo python3 setup.py bdist_wheel"
-
-def module_upload_cmd() -> str:
-    """
-    Return the command to upload the module.
-
-    :return: Command string.
-    """
-    return "python3 -m twine upload dist/*.whl --skip-existing"
-
-def upload_module(output_text: str = get_output_text()) -> str:
-    """
-    Execute the module upload command and handle the required child runs.
-
-    :param output_text: Path to the output text.
-    :return: Response from the command execution.
-    """
-    return pexpect_cmd_with_args(
-        command=module_upload_cmd(),
-        child_runs=[
-            {"prompt": "Enter your username: ", "pass": None, "key": "PYPI_USERNAME"},
-            {"prompt": "Enter your password: ", "pass": None, "key": "PYPI_PASSWORD"}
-        ],
-        output_text=output_text
-    )
-
-def save_new_setup(contents, filepath: str = os.getcwd()):
-    """
-    Save the new setup contents to a file.
-
-    :param contents: Contents to be written to the file.
-    :param filepath: Path to the file.
-    """
-    with open(filepath, 'w', encoding='utf-8') as fh:
-        fh.write(contents)
-def read_setup(filepath) -> dict:
-    """
-    Read the setup file and extract necessary information.
-
-    :param filepath: Path to the setup file.
-    :return: Dictionary with extracted information.
-    """
-    with open(filepath, 'r', encoding='utf-8') as fh:
-        setup_file = fh.read()
-    cleaner_ls = ['', ' ', '\n', '\t', '"', "'"]
-    version = eatAll(x=setup_file.split('version=')[-1].split(',')[0], ls=cleaner_ls)
-    name = eatAll(x=setup_file.split('name=')[-1].split(',')[0], ls=cleaner_ls)
-    url = eatAll(x=setup_file.split('url=')[-1].split(',')[0], ls=cleaner_ls)
-    install_requires = eatAll(x=setup_file.split('install_requires=')[-1].split(']')[0] + ']', ls=cleaner_ls)
-    return {
-        "filepath": filepath,
-        "file": setup_file,
-        "version": version,
-        "name": name,
-        "url": url,
-        "install_requires": install_requires
-    }
-def get_url(setup_js):
-    """
-    Determine if the URL in the setup information needs to be updated and prompt the user for changes.
-    
-    Args:
-        setup_js (dict): Dictionary containing setup information.
-    """
-    if setup_js["url"].split('/')[-1] != setup_js["name"]:
-        url_new = setup_js["url"][:-len(setup_js["url"].split('/')[-1])]+setup_js["name"]
-        permission = get_yes_no(text=f"would you like to change the url requires from {setup_js['url']} to {url_new}?'")
-        windows_mgr.while_quick(windows_mgr.get_new_window(title='version number', args={"layout": [
-                [[get_gui_fun("T", {"text": "would you like to change the url requires from {setup_js['url']} to {url_new}?"})],
-                [get_gui_fun('Input', {"default_text": url_new, "key": "output"})],
-                create_row_of_buttons("OK")]]},exit_events=["OK","Override"]))["output"]
-        if permission == 'Yes':
-            save_new_setup(filepath=setup_js['filepath'],contents=read_setup(setup_js['filepath'])["file"].replace(install_requires,install_requires_new))
-def edit_installs(event):
-    """
-    Handle the event of editing module installations based on user action.
-    
-    Args:
-        event (str): Event trigger for editing installations.
-    """
-    if event == "Default":
-        windows_mgr.update_values(window=windows_mgr.get_last_window_method(),key="-EDIT_INSTALLS-",value=windows_mgr.get_values()["-DEFAULT_INSTALLS-"])
-def get_install_requires(setup_js, project_dir,project_name):
-    """
-    Get the list of required module installations for the given project directory.
-    
-    Args:
-        setup_js (dict): Dictionary containing setup information.
-        project_dir (str): Path to the project directory.
-    """
-    install_requires_new = get_installed_versions(scan_folder_for_required_modules(folder_path=project_dir,exclude=["setuptools",project_name]))
-    if setup_js['install_requires'] != install_requires_new:
-        new_text = f"would you like to change the install requires from {setup_js['install_requires']} to :"
-        default_length = len(install_requires_new)/len(new_text)
-        line = "Multiline"
-        if math.ceil(default_length) == 1:
-            line = "Input"
-        layout =[
-            [[get_gui_fun("T",args={"text":new_text})],
-             [get_gui_fun(line,args={"default_text":install_requires_new,"key":"-DEFAULT_INSTALLS-","size":(len(new_text),math.ceil(default_length)),"disabled":True}),get_gui_fun("T",args={"text":"?"})],
-             get_gui_fun("Multiline",args={"default_text":install_requires_new,"size":(len(new_text),10),"key":"-EDIT_INSTALLS-",**expandable()}),
-             ],
-            [create_row_of_buttons("Yes","No","Choose Edited","Default")]
-            ]
-        installs = windows_mgr.while_basic(windows_mgr.get_new_window(title='Install Requirements', args={"layout": layout},event_function="edit_installs",exit_events=["Yes","No","Choose Edited"]))
-        event = windows_mgr.get_event(window=windows_mgr.get_last_window_method())
-        update = installs["-DEFAULT_INSTALLS-"]
-        if event == "Choose Edited":
-            update = installs["-EDIT_INSTALLS-"]
-        if event not in ["No","exit","Exit","EXIT"]:
-            save_new_setup(filepath=setup_js['filepath'],contents=read_setup(setup_js['filepath'])["file"].replace(str(setup_js['install_requires']),str(update)))
-def organize_versions_from_high_to_low(version_list) -> list:
-    """
-    Organize the list of version numbers from highest to lowest.
-    :param version_list: A list of version numbers to organize.
-    :return: A new list of version numbers sorted from highest to lowest.
-    """
-    sorted_versions = sorted(version_list, key=lambda x: list(map(int, x.split('.'))), reverse=True)
-    return sorted_versions
-
-def get_distributions_from_packages(setup_js, version_numbers: list = []) ->list:
-    """
-    Retrieve distribution versions from package directory and populate the provided version_numbers list.
-    
-    Args:
-        setup_js (dict): Dictionary containing setup information.
-        version_numbers (list): List of version numbers to populate.
-        
-    Returns:
-        list: Updated version_numbers list.
-    """
-    dist_dir = os.path.join(setup_js['filepath'][:-len(os.path.basename(setup_js['filepath']))], 'dist')
-    if os.path.isdir(dist_dir):
-        dist_list = os.listdir(dist_dir)
-        for dist in dist_list:
-            rest = dist[len(setup_js['name'] + '-'):]
-            version = ''
-            while len(rest) > 0 and rest[0] in '0123456789.':
-                version += rest[0]
-                rest = rest[1:]
-            version = version.rstrip('.')
-            if version not in version_numbers:
-                version_numbers.append(version)
-    return version_numbers
-def get_version_input(highest) ->str:
-    """
-    Get user input for a new version number.
-    
-    Args:
-        highest (dict): Dictionary containing version information.
-        
-    Returns:
-        str: New version number provided by the user.
-    """
-    text = ''
-    if highest["exists"] == True:
-        text += f"Version number {highest['version']} already exists."
-    if highest["exists"] == True:
-        text += f"Version number {highest['version']} does not exist."
-    if highest["bool"] == False:
-        text += f"\nYour version number {highest['version']} is lower than the highest version number {highest['highest']}."
-    if highest["bool"] == True:
-        text += f"\nYour version number {highest['version']} is the highest version number found."
-    text += '\n\nplease enter a new version number:'
-    layout = [
-        [get_gui_fun("T", {"text": text})],
-        [get_gui_fun('Input', {"default_text": highest['highest'], "key": "version_number"})],
-        create_row_of_buttons("OK")
-    ]
-    new_version = windows_mgr.while_basic(windows_mgr.get_new_window(title='Version number', args={"layout": layout},exit_events=["OK", "Override"]))["version_number"]
-    return new_version
-def get_highest(distributions, version) -> dict:
-    """
-    Determine the highest version in a list of distributions relative to a given version.
-    
-    Args:
-        distributions (list): List of distribution versions.
-        version (str): Version to compare against.
-        
-    Returns:
-        dict: Dictionary containing comparison results.
-    """
-    highest = {"bool":False,"version":version,"highest":version,"exists":False}
-    if highest['version'] in distributions:
-        highest["bool"] = False
-        highest["highest"] = distributions[0]
-        highest["exists"] = True
-    if highest['version'] not in distributions:
-        highest["exists"] = False
-        curr_high = organize_versions_from_high_to_low([distributions[0],version])
-        if curr_high[0] == version:
-            highest["bool"]=True
-            highest["highest"] = version
-        if curr_high[0] != version:
-            highest["bool"]=False
-            highest["highest"] = curr_high[0]
-    return highest
-def get_all_versions(distributions, installed) -> list:
-    """
-    Get all versions by combining distributions and installed versions.
-    
-    Args:
-        distributions (list): List of distribution versions.
-        installed (list): List of installed versions.
-        
-    Returns:
-        list: List of combined versions, organized from high to low.
-    """
-    if len(installed) != 0:
-        if '=' in installed[0]:
-            version_number = installed[0].split('=')[-1]
-    if version_number not in distributions:
-        distributions.append(version_number)
-    return organize_versions_from_high_to_low(distributions)
-def finalize_version(setup_js):
-    """
-    Finalize the version for setup by interacting with the user.
-    
-    Args:
-        setup_js (dict): Dictionary containing setup information.
-    """
-    version = setup_js['version']
-    distributions = get_all_versions(get_distributions_from_packages(setup_js),get_installed_versions([setup_js['name']]))
-    while True:
-        highest = get_highest(distributions,version)
-        if highest["bool"] == False:
-            new_version=get_version_input(highest)
-            if highest['highest'] == organize_versions_from_high_to_low([highest['highest'],new_version])[0]:
-                override_prompt = f"this is still not the highest version number;\nWould you like to override the version number with {new_version}?"
-                override = get_yes_no(text=override_prompt)
-                if override == "Yes":
-                    break
-            else:
-                version = new_version
-        if highest["bool"] == True and highest["exists"] == False:
-            break
-    save_new_setup(filepath=setup_js['filepath'],contents=read_setup(setup_js['filepath'])["file"].replace(str(setup_js['version']),str(version)))
-def install_module(event):
-    """
-    Install a module based on event trigger.
-    
-    Args:
-        event (str): Event trigger for installation.
-    """
-    if event == "install_module":
-        cmd_run(f'pip install {read_setup(globals()["setup_file_path"])["name"]}=={read_setup(globals()["setup_file_path"])["version"]} --break-system-packages')
-        cmd_run(f'pip install {read_setup(globals()["setup_file_path"])["name"]}=={read_setup(globals()["setup_file_path"])["version"]} --break-system-packages')
-def install_mods_layout():
-    """
-    Display installation module layout.
-    """
-    win=windows_mgr.get_new_window(title="install module",layout=[create_row_of_buttons('install_module','EXIT')],event_function='install_module')
-    events = windows_mgr.while_basic(window=win)
-def get_list_of_projects(parent_directory) -> str:
-    """
-    Get a list of projects in the given directory.
-    
-    Args:
-        parent_directory (str): Parent directory to search for projects.
-        
-    Returns:
-        str: Selected project from the list.
-    """
-    win=windows_mgr.get_new_window(title="list_window",args={"layout":[[get_gui_fun('Listbox',{"values":os.listdir(parent_directory),"size":(25,10),'key':'projects',"enable_events":True}),
-                                                                        get_gui_fun('Button',{'button_text':'submit','key':'exit'})]]})
-    return windows_mgr.while_basic(window=win)['projects'][0]
-def run_setup_loop(parent_directory: str = os.getcwd()) -> str:
-    """
-    Run the setup process in a loop for a given parent directory.
-    
-    Args:
-        parent_directory (str): Parent directory containing projects.
-        
-    Returns:
-        str: Project directory where setup was run.
-    """
-    output_text = get_output_text(parent_directory)
-    cmd_run_sudo(cmd=install_twine(),key="SUDO_PASSWORD",output_text=output_text)
-    project_name = get_list_of_projects(parent_directory)
-    project_dir = os.path.join(parent_directory,project_name)
-    setup_file_path = os.path.join(project_dir,"setup.py")
-    src_dir = os.path.join(project_dir,"src")
-    dist_dir = os.path.join(project_dir,"dist")
-    setup_js = read_setup(setup_file_path)
-    finalize_version(setup_js)
-    get_install_requires(setup_js,project_dir,project_name)
-    get_url(setup_js)
-    print(f"Running setup.py for project: {project_dir}")
-    globals()["setup_file_path"]=setup_file_path
-    os.chdir(project_dir)
-    cmd_run_sudo(cmd=install_setup(),key="SUDO_PASSWORD",output_text=output_text)
-    cmd_run_sudo(cmd=build_module(dist_dir),key="SUDO_PASSWORD",output_text=output_text)
-    upload_module(output_text=output_text)
-    print(f"Completed setup.py for project: {project_dir}")
-    install_mods_layout()
-    return project_dir
-def upload_main(directory: str = os.getcwd()):
-    """
-    Upload the main program for execution.
-    
-    Args:
-        directory (str): Current working directory.
-    """
-    parent_directory= get_parent_directory(directory)
-    run_setup_loop(parent_directory)
-
-
-module_utils.py
-import os
-import ast
-import re
-import importlib
-import inspect
-from abstract_gui import get_browser
-import pkg_resources
-def scan_folder_for_required_modules(folder_path=None,exclude:(str or list)=[]):
-    """
-    Scan the specified folder for Python files and create a list of necessary Python modules.
-    :param folder_path: The path of the folder to scan. If None, a folder will be picked using a GUI window.
-    :return: A list of required Python modules based on all Python files found in the folder.
-    """
-    exclude=list(exclude)
-    if folder_path is None:
-        folder_path = get_browser(
-            title="Please choose the destination for your import scripts to be analyzed",
-            initial_folder=os.getcwd()
-        )
-    
-    required_modules = set()
-
-    def visit_file(file_path):
-        try:
-            with open(file_path, 'r', encoding='utf-8') as file:
-                tree = ast.parse(file.read())
-                for node in ast.walk(tree):
-                    if isinstance(node, ast.Import):
-                        for name in node.names:
-                            required_modules.add(name.name)
-                    elif isinstance(node, ast.ImportFrom):
-                        module_parts = node.module.split('.')
-                        if node.level > 0:
-                            module_parts = ['.'.join(module_parts[:node.level])] + module_parts[node.level:]
-                        module_name = '.'.join(module_parts)
-                        for name in node.names:
-                            required_modules.add(f'{module_name}.{name.name}')
-        except SyntaxError:
-            # Skip files with syntax errors
-            pass
-
-    for root, _, files in os.walk(folder_path):
-        for file in files:
-            if file.endswith('.py'):
-                file_path = os.path.join(root, file)
-                visit_file(file_path)
-                
-    # Update the required_modules to include submodules
-    updated_required_modules = set()
-    for module in required_modules:
-        if module not in exclude:
-            parts = module.split('.')
-            for i in range(len(parts)):
-                updated_required_modules.add('.'.join(parts[:i+1]))
-    
-    required_list = list(updated_required_modules)
-    return required_list
-def get_installed_versions(install_requires):
-    """
-    Get the version numbers of the installed Python modules listed in 'install_requires'.
-    :param install_requires: A list of Python module names with optional version constraints.
-    :return: A list of module names with their version numbers appended.
-    """
-    installed_versions = []
-    for requirement in install_requires:
-        module_name = requirement.split('>=')[0].split('==')[0].strip()
-        
-        # Validate module_name and skip if not valid
-        if not is_valid_package_name(module_name):
-            continue
-
-        try:
-            version = pkg_resources.get_distribution(module_name).version
-        except pkg_resources.DistributionNotFound:
-            # Module not found, skip it and continue
-            continue
-
-        # Append the version number to the module name in the required format
-        if '>=' in requirement:
-            installed_versions.append(f'{module_name}>={version}')
-        elif '==' in requirement:
-            installed_versions.append(f'{module_name}=={version}')
-        else:
-            installed_versions.append(f'{module_name}>={version}')
-
-    return installed_versions
-def is_valid_package_name(package_name):
-    """
-    Check if a given package name is a valid Python package name.
-    
-    Args:
-        package_name (str): Package name to be validated.
-        
-    Returns:
-        bool: True if the package name is valid, False otherwise.
-    """
-    return re.match(r'^[a-zA-Z][a-zA-Z0-9_]*$', package_name) is not None
-
-def gather_header_docs(folder_path):
-    """
-    Gather header documentation from Python modules within a specified folder.
-    
-    Args:
-        folder_path (str): Path to the folder containing Python modules.
-        
-    Returns:
-        str: Concatenated header documentation for classes with docstrings.
-    """
-    header_docs = ""
-    for file_name in os.listdir(folder_path):
-        if file_name.endswith(".py"):
-            module_name = file_name[:-3]  # Remove the ".py" extension
-            module = importlib.import_module(module_name)
-
-            for name, obj in inspect.getmembers(module):
-                if inspect.isclass(obj) and hasattr(obj, "__doc__"):
-                    docstring = inspect.getdoc(obj)
-                    if docstring:
-                        header_docs += f"{name}:\n{docstring}\n\n"
-
-    return header_docs
-
-'''
-
-output = safe_send(prompt_data=prompt_data,request=request,model="gpt-4",title="test_prompt",
-                   completion_percentage=50,additional_responses=False,directory=os.getcwd())
-print(output)

@@ -1,3 +1,37 @@
+"""
+response_handling.py
+=====================
+This module is part of the `abstract_ai` module of the `abstract_essentials` package. It provides comprehensive utilities for processing and managing the responses obtained from the OpenAI API. It also offers tools for aggregating, saving, and analyzing the data.
+
+Functions:
+----------
+- create_unique_title(): Generates a unique title for saving responses, ensuring there's no overwrite.
+- save_response(): Saves the JSON response from the API call to a structured directory.
+- find_keys(): Recursively finds values associated with specified keys in nested dictionaries or lists.
+- print_it(): Prints the provided string and returns it.
+- aggregate_conversations(): Aggregates conversation data from multiple JSON files within a directory.
+- get_responses(): Retrieves and processes aggregated conversations from JSON files.
+- get_response(): Retrieves specific details about an OpenAI API endpoint from the response.
+
+Notes:
+------
+This module also contains hidden functionalities (or "hidden gems") that can be handy for specific purposes. While the code provides a robust foundation for handling API responses, ensure you adjust the settings and configurations to suit your specific needs.
+
+About abstract_ai
+--------------------
+part of: abstract_ai
+Version: 0.1.7.1
+Author: putkoff
+Contact: partners@abstractendeavors.com
+Content Type: text/markdown
+Source and Documentation:
+For the source code, documentation, and more details, visit the official GitHub repository.
+github: https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_ai
+
+Notes:
+------
+The utilities provided in this module are closely tied to the format and structure of the OpenAI API responses. Ensure you have the right environment setup and dependencies for the module to function correctly.
+"""
 import json
 import os
 from abstract_utilities.path_utils import path_join, mkdirs,get_file_create_time,split_text

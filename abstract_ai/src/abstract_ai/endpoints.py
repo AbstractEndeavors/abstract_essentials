@@ -1,3 +1,50 @@
+"""
+abstract_ai_calls.py
+=====================
+This module is part of the `abstract_ai` module of the `abstract_essentials` package. It provides functionality to abstract calls to OpenAI's API, enabling a higher-level interface for users.
+
+Functions:
+----------
+- initialize_key(): Sets the OpenAI API key for interactions.
+- prepare_headers(): Generates the headers for OpenAI API requests.
+- send_post(): A generalized POST request to OpenAI's endpoints.
+- detailed_request(): Sends an extensive request with full parameters.
+- simple_request(): Sends a minimalist request, returning a response.
+- additional_response_handling(): Fetches additional responses if required.
+- notation_processing(): Analyzes and interprets response notations.
+- response_suggestions(): Provides potential improvements or clarifications for the returned output.
+- abort_check(): Evaluates if the ongoing request should be terminated.
+- default_response_handling(): Processes and returns the default or a user-defined response if needed.
+- standard_instruction_creation(): Generates a typical instruction format.
+- chunked_data_communication(): Manages communication for chunked data inputs.
+- abort_action(): Manages the procedure if a query needs to be terminated.
+- response_to_dict(): Transforms the OpenAI API response to a Python dictionary format.
+- fetch_current_data_chunk(): Gets the current chunk of data from a series.
+- string_to_response_dict(): Parses a string representation to extract the response dictionary.
+- fetch_response(): Extracts the JSON formatted response post API call.
+- generate_prompt_json(): Creates a JSON structure for API calls.
+- save_api_output(): Stores the result of the OpenAI API call.
+- secure_request_send(): Safely manages the request considering token limits and chunked data.
+
+Notes:
+------
+This module is intricately tied with environment variables and dependent modules. For seamless requests and response handling, ensure proper setup of dependencies and appropriate setting of environment variables.
+
+About abstract_ai
+--------------------
+Part of: abstract_ai
+Version: 0.1.7.1
+Author: putkoff
+Contact: partners@abstractendeavors.com
+
+Source and Documentation:
+For the source code, documentation, and more details, visit the official GitHub repository.
+github: https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_ai
+
+Notes:
+------
+This module relies heavily on environment variables and other dependencies to successfully send requests and handle responses. Ensure that you've set up all dependencies correctly and provided the right environment variables.
+"""
 from abstract_utilities.json_utils import invert_json
 from abstract_utilities.global_utils import change_glob, get_globes, if_none_default
 def get_token_js():

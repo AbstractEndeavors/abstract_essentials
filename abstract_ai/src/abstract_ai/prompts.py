@@ -1,3 +1,52 @@
+"""
+prompts.py
+=====================
+This module is part of the `abstract_ai` module of the `abstract_essentials` package. It provides functionalities related to prompts, their descriptions, and related operations.
+
+Functions:
+----------
+- call_functions_hard(instance, function_name, varis) : Calls the specified function name with provided arguments.
+- default_prompt() : Returns the default prompt string.
+- create_prompt(prompt_js, endpoint, model, prompt, max_tokens) : Creates a prompt dictionary with specified values.
+- get_json_response() : Returns a description for the 'response' key in JSON format.
+- assign_keys(st) : Returns a description for assigning a value to a specific key.
+- get_key_desc(st, text) : Returns a description for a specified key with provided text.
+- get_notation() : Returns a description for the 'notation' key.
+- get_title() : Returns a description for the 'title' key.
+- get_instruction() : Returns a description for the 'instruction' key.
+- get_inputs() : Returns a description for the 'inputs' key.
+- get_text() : Returns a description for the 'text' key.
+- get_bash() : Returns a description for the 'bash' key.
+- get_response() : Returns a description for the 'response' key.
+- get_context() : Returns a description for the 'context' key.
+- get_security() : Returns a description for the 'security' key.
+- get_formatting() : Returns a description for the 'formatting' key.
+- get_validation() : Returns a description for the 'validation' key.
+- get_error_handling() : Returns a description for the 'error_handling' key.
+- get_revision() : Returns a description for the 'revision' key.
+- return_instruction() : Returns an instruction dictionary for creating a basic react forum.
+- create_prompt_keys(values) : Creates output text based on selected keys.
+
+Notes:
+------
+This module is intricately tied with environment variables and dependent modules. For seamless requests and response handling, ensure proper setup of dependencies and appropriate setting of environment variables.
+
+About abstract_ai
+--------------------
+part of: abstract_ai
+Version: 0.1.7.1
+Author: putkoff
+Contact: partners@abstractendeavors.com
+Content Type: text/markdown
+Source and Documentation:
+For the source code, documentation, and more details, visit the official GitHub repository.
+github: https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_ai
+
+Notes:
+------
+This module mainly focuses on defining and describing various prompt-related keys for better communication with the API. It helps streamline the process of sending prompts to the OpenAI API by ensuring that they adhere to a consistent format.
+
+"""
 from .endpoints import default_model, default_tokens,default_endpoint
 def call_functions_hard(instance, function_name, varis):
     """
