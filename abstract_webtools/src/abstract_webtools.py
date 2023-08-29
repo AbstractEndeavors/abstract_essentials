@@ -320,24 +320,31 @@ def parse_all(url):
                     if dat[c + 1] not in class_names:
                         class_names.append(dat[c + 1])
     return {"element_types":element_types, "attribute_values":attribute_values, "attribute_names":attribute_names, "class_names":class_names}
-def extract_elements(url, element_type=None, attribute_name=None, class_name=None):
+def extract_elements(url:str=None, source_code:str=None, element_type=None, attribute_name=None, class_name=None):
     """
     Extracts portions of the source code from the specified URL based on provided filters.
 
     Args:
         url (str): The URL to fetch the source code from.
+        source_code (str): The source code of the desired domain
         element_type (str, optional): The HTML element type to filter by. Defaults to None.
         attribute_name (str, optional): The attribute name to filter by. Defaults to None.
         class_name (str, optional): The class name to filter by. Defaults to None.
 
     Returns:
-        list: A list of strings containing portions of the source code that match the provided filters.
+        list: A list of strings containing portions of the source code that match the provided filters, or None no url or source code is provided.
     """
-    url = get_correct_url(url)
-    if url is None:
-        return []
-
-    data = get_Source_code(url)
+    data = None
+    if url != None:
+        url = get_correct_url(url)
+        if url is None:
+            return []
+    
+        data = get_Source_code(url)
+    if source_code != None:
+        data = source_code
+    if data == None:
+        return 
     soup = BeautifulSoup(data, 'html.parser')
 
     elements = []
