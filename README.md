@@ -420,43 +420,43 @@ Abstract WebTools offers a suite of utilities designed for web content inspectio
 
 - **Functions**:
 
-### 1. `get_status`
+### `get_status`
 - **Purpose**: Gets the HTTP status code of the given URL.
 - **Arguments**:
   - `url`: The URL to check the status of.
 - **Returns**: The HTTP status code of the URL, or None if the request fails.
 
-### 2. `clean_url`
+### `clean_url`
 - **Purpose**: Cleans the given URL and returns a list of possible variations.
 - **Arguments**:
   - `url`: The URL to clean.
 - **Returns**: A list of possible URL variations, including 'http://' and 'https://' prefixes.
 
-### 3. `get_correct_url`
+### `get_correct_url`
 - **Purpose**: Gets the correct URL from the possible variations by trying each one with an HTTP request.
 - **Arguments**:
   - `url`: The URL to find the correct version of.
   - `session`: The requests session to use for making HTTP requests. Defaults to requests.
 - **Returns**: The correct version of the URL if found, or None if none of the variations are valid.
 
-### 4. `try_request`
+### `try_request`
 - **Purpose**: Tries to make an HTTP request to the given URL using the provided session.
 - **Arguments**:
   - `url`: The URL to make the request to.
   - `session`: The requests session to use for making HTTP requests. Defaults to requests.
 - **Returns**: The response object if the request is successful, or None if the request fails.
 
-### 5. `is_valid`
+### `is_valid`
 - **Purpose**: Checks whether `url` is a valid URL.
 - **Arguments**:
   - `url`: The URL to check.
 - **Returns**: True if the URL is valid, False otherwise.
 
-### 6. `desktop_user_agents`
+### `desktop_user_agents`
 - **Purpose**: Returns a list of popular desktop user-agent strings for various browsers.
 - **Returns**: A list of desktop user-agent strings.
 
-### 7. `get_user_agent`
+### `get_user_agent`
 - **Purpose**: Returns the user-agent header dictionary with the specified user-agent.
 - **Arguments**:
   - `user_agent`: The user-agent string to be used. Defaults to the first user-agent in the list.
@@ -464,27 +464,27 @@ Abstract WebTools offers a suite of utilities designed for web content inspectio
 
 ---
 
-### 8. Class: `TLSAdapter`
+### Class: `TLSAdapter`
 - **Description**: A custom HTTPAdapter class that sets TLS/SSL options and ciphers.
 - **Attributes**:
   - `ssl_options (int)`: The TLS/SSL options to use when creating the SSL context.
 
 ---
 
-#### 8.1. Method: `ssl_options`
+#### Method: `ssl_options`
 - **Purpose**: Returns the SSL options to be used when creating the SSL context.
 - **Returns**: The SSL options.
 
 ---
 
-#### 8.2. Method: `__init__`
+#### Method: `__init__`
 - **Purpose**: Initializes the TLSAdapter with the specified SSL options.
 - **Arguments**:
   - `ssl_options (int, optional)`: The TLS/SSL options to use when creating the SSL context. Defaults to 0.
 
 ---
 
-#### 8.3. Method: `add_string_list`
+#### Method: `add_string_list`
 - **Purpose**: Concatenates the elements of a list into a single string with the given delimiter.
 - **Arguments**:
   - `ls (list or str)`: The list of elements or a comma-separated string.
@@ -494,13 +494,13 @@ Abstract WebTools offers a suite of utilities designed for web content inspectio
 
 ---
 
-#### 8.4. Method: `get_ciphers`
+#### Method: `get_ciphers`
 - **Purpose**: Returns a list of preferred TLS/SSL ciphers.
 - **Returns**: A list of TLS/SSL ciphers.
 
 ---
 
-#### 8.5. Method: `create_ciphers_string`
+#### Method: `create_ciphers_string`
 - **Purpose**: Creates a colon-separated string of TLS/SSL ciphers from a list of ciphers.
 - **Arguments**:
   - `ls (list, optional)`: The list of TLS/SSL ciphers to use. Defaults to None, in which case it uses the default list.
@@ -508,13 +508,13 @@ Abstract WebTools offers a suite of utilities designed for web content inspectio
 
 ---
 
-#### 8.6. Method: `init_poolmanager`
+#### Method: `init_poolmanager`
 - **Purpose**: Initializes the pool manager with the custom SSL context and ciphers.
 - **Description**: This method leverages the given TLS/SSL ciphers and options to set up the pool manager with an appropriate SSL context.
 
 ---
 
-### 9. `get_Source_code`
+### `get_Source_code`
 - **Purpose**: Fetches the source code of the specified URL using a custom user-agent.
 - **Arguments**:
   - `url (str, optional)`: The URL to fetch the source code from. Defaults to 'https://www.example.com'.
@@ -523,7 +523,7 @@ Abstract WebTools offers a suite of utilities designed for web content inspectio
 
 ---
 
-### 10. `parse_react_source`
+### `parse_react_source`
 - **Purpose**: Fetches the source code of the specified URL and extracts JavaScript and JSX source code (React components).
 - **Arguments**:
   - `url (str)`: The URL to fetch the source code from.
@@ -531,7 +531,7 @@ Abstract WebTools offers a suite of utilities designed for web content inspectio
 
 ---
 
-### 11. `get_all_website_links`
+### `get_all_website_links`
 - **Purpose**: Returns all URLs that are found on the specified URL and belong to the same website.
 - **Arguments**:
   - `url (str)`: The URL to search for links.
@@ -539,7 +539,7 @@ Abstract WebTools offers a suite of utilities designed for web content inspectio
 
 ---
 
-### 12. `parse_all`
+### `parse_all`
 - **Purpose**: Parses the source code of the specified URL and extracts information about HTML elements, attribute values, attribute names, and class names.
 - **Arguments**:
   - `url (str)`: The URL to fetch the source code from.
@@ -547,7 +547,7 @@ Abstract WebTools offers a suite of utilities designed for web content inspectio
 
 ---
 
-### 13. `extract_elements`
+### `extract_elements`
 - **Purpose**: Extracts portions of the source code from the specified URL based on provided filters.
 - **Arguments**:
   - `url (str)`: The URL to fetch the source code from.
@@ -656,6 +656,4 @@ print(elements)  # Output: List of HTML elements that match the provided filters
 **Date**: 08/29/2023
 **Version**: 0.1.2
 ---
----
 
-This structure provides a clear and systematic overview of the `abstract_essentials` package, guiding readers through its functionalities. Adjust and elaborate as needed!
