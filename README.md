@@ -392,7 +392,7 @@ A comprehensive suite for various tasks.
   - ...
 
 ---
-### Abstract WebTools
+## Abstract WebTools
 Provides utilities for inspecting and parsing web content, including React components and URL utilities, with enhanced capabilities for managing HTTP requests and TLS configurations.
 
 - **Features**:
@@ -403,9 +403,9 @@ Provides utilities for inspecting and parsing web content, including React compo
   - Comprehensive Link Extraction: Collects all internal links from a specified website.
   - Web Content Analysis: Extracts and categorizes various web content components such as HTML elements, attribute values, attribute names, and class names.
 
+### abstract_webtools.py
 **Description:**  
 Abstract WebTools offers a suite of utilities designed for web content inspection and parsing. One of its standout features is its ability to analyze URLs, ensuring their validity and automatically attempting different URL variations to obtain correct website access. It boasts a custom HTTP request management system that tailors user-agent strings and employs a specialized TLS adapter for heightened security. The toolkit also provides robust capabilities for extracting source code, including detecting React components on web pages. Additionally, it offers functionalities for extracting all internal website links and performing in-depth web content analysis. This makes Abstract WebTools an indispensable tool for web developers, cybersecurity professionals, and digital analysts.
----
 
 - **Dependencies**:
   - `requests`
@@ -416,75 +416,65 @@ Abstract WebTools offers a suite of utilities designed for web content inspectio
   - `urlparse`, `urljoin` from `urllib.parse`
   - `BeautifulSoup` from `bs4`
 
----
+#### **Functions**:
 
-- **Functions**:
-
-### `get_status`
+##### `get_status`
 - **Purpose**: Gets the HTTP status code of the given URL.
 - **Arguments**:
   - `url`: The URL to check the status of.
 - **Returns**: The HTTP status code of the URL, or None if the request fails.
 
-### `clean_url`
+##### `clean_url`
 - **Purpose**: Cleans the given URL and returns a list of possible variations.
 - **Arguments**:
   - `url`: The URL to clean.
 - **Returns**: A list of possible URL variations, including 'http://' and 'https://' prefixes.
 
-### `get_correct_url`
+##### `get_correct_url`
 - **Purpose**: Gets the correct URL from the possible variations by trying each one with an HTTP request.
 - **Arguments**:
   - `url`: The URL to find the correct version of.
   - `session`: The requests session to use for making HTTP requests. Defaults to requests.
 - **Returns**: The correct version of the URL if found, or None if none of the variations are valid.
 
-### `try_request`
+##### `try_request`
 - **Purpose**: Tries to make an HTTP request to the given URL using the provided session.
 - **Arguments**:
   - `url`: The URL to make the request to.
   - `session`: The requests session to use for making HTTP requests. Defaults to requests.
 - **Returns**: The response object if the request is successful, or None if the request fails.
 
-### `is_valid`
+##### `is_valid`
 - **Purpose**: Checks whether `url` is a valid URL.
 - **Arguments**:
   - `url`: The URL to check.
 - **Returns**: True if the URL is valid, False otherwise.
 
-### `desktop_user_agents`
+##### `desktop_user_agents`
 - **Purpose**: Returns a list of popular desktop user-agent strings for various browsers.
 - **Returns**: A list of desktop user-agent strings.
 
-### `get_user_agent`
+##### `get_user_agent`
 - **Purpose**: Returns the user-agent header dictionary with the specified user-agent.
 - **Arguments**:
   - `user_agent`: The user-agent string to be used. Defaults to the first user-agent in the list.
 - **Returns**: A dictionary containing the 'user-agent' header.
 
----
-
-### Class: `TLSAdapter`
+##### Class: `TLSAdapter`
 - **Description**: A custom HTTPAdapter class that sets TLS/SSL options and ciphers.
 - **Attributes**:
   - `ssl_options (int)`: The TLS/SSL options to use when creating the SSL context.
 
----
-
-#### Method: `ssl_options`
+###### Method: `ssl_options`
 - **Purpose**: Returns the SSL options to be used when creating the SSL context.
 - **Returns**: The SSL options.
 
----
-
-#### Method: `__init__`
+###### Method: `__init__`
 - **Purpose**: Initializes the TLSAdapter with the specified SSL options.
 - **Arguments**:
   - `ssl_options (int, optional)`: The TLS/SSL options to use when creating the SSL context. Defaults to 0.
 
----
-
-#### Method: `add_string_list`
+###### Method: `add_string_list`
 - **Purpose**: Concatenates the elements of a list into a single string with the given delimiter.
 - **Arguments**:
   - `ls (list or str)`: The list of elements or a comma-separated string.
@@ -492,62 +482,46 @@ Abstract WebTools offers a suite of utilities designed for web content inspectio
   - `string (str, optional)`: The initial string to append elements. Defaults to an empty string.
 - **Returns**: The concatenated string.
 
----
-
-#### Method: `get_ciphers`
+###### Method: `get_ciphers`
 - **Purpose**: Returns a list of preferred TLS/SSL ciphers.
 - **Returns**: A list of TLS/SSL ciphers.
 
----
-
-#### Method: `create_ciphers_string`
+###### Method: `create_ciphers_string`
 - **Purpose**: Creates a colon-separated string of TLS/SSL ciphers from a list of ciphers.
 - **Arguments**:
   - `ls (list, optional)`: The list of TLS/SSL ciphers to use. Defaults to None, in which case it uses the default list.
 - **Returns**: The colon-separated string of TLS/SSL ciphers.
 
----
-
-#### Method: `init_poolmanager`
+###### Method: `init_poolmanager`
 - **Purpose**: Initializes the pool manager with the custom SSL context and ciphers.
 - **Description**: This method leverages the given TLS/SSL ciphers and options to set up the pool manager with an appropriate SSL context.
 
----
-
-### `get_Source_code`
+##### `get_Source_code`
 - **Purpose**: Fetches the source code of the specified URL using a custom user-agent.
 - **Arguments**:
   - `url (str, optional)`: The URL to fetch the source code from. Defaults to 'https://www.example.com'.
   - `user_agent (str, optional)`: The user-agent to use for the request. Defaults to the first user-agent in the list.
 - **Returns**: The source code of the URL if the request is successful, or None if the request fails.
 
----
-
-### `parse_react_source`
+##### `parse_react_source`
 - **Purpose**: Fetches the source code of the specified URL and extracts JavaScript and JSX source code (React components).
 - **Arguments**:
   - `url (str)`: The URL to fetch the source code from.
 - **Returns**: A list of strings containing JavaScript and JSX source code found in <script> tags.
 
----
-
-### `get_all_website_links`
+##### `get_all_website_links`
 - **Purpose**: Returns all URLs that are found on the specified URL and belong to the same website.
 - **Arguments**:
   - `url (str)`: The URL to search for links.
 - **Returns**: A list of URLs that belong to the same website as the specified URL.
 
----
-
-### `parse_all`
+##### `parse_all`
 - **Purpose**: Parses the source code of the specified URL and extracts information about HTML elements, attribute values, attribute names, and class names.
 - **Arguments**:
   - `url (str)`: The URL to fetch the source code from.
 - **Returns**: A dict containing keys: [element_types, attribute_values, attribute_names, class_names] with values as lists for keys element types, attribute values, attribute names, and class names found in the source code.
 
----
-
-### `extract_elements`
+##### `extract_elements`
 - **Purpose**: Extracts portions of the source code from the specified URL based on provided filters.
 - **Arguments**:
   - `url (str)`: The URL to fetch the source code from.
@@ -556,10 +530,9 @@ Abstract WebTools offers a suite of utilities designed for web content inspectio
   - `class_name (str, optional)`: The class name to filter by. Defaults to None.
 - **Returns**: A list containing the extracted portions of the source code based on the provided filters.
 
----
-## Usage
+#### Usage
 
-### Get Status Code
+##### Get Status Code
 
 The `get_status` function fetches the status code of the URL.
 
@@ -571,7 +544,7 @@ print(urls)  # Output: ['https://example.com', 'http://example.com']
 tps://example.com'
 ```
 
-### Try Request
+##### Try Request
 
 The `try_request` function makes HTTP requests to a URL and returns the response if successful.
 
@@ -582,7 +555,7 @@ response = try_request('https://www.example.com')
 print(response)  # Output: <Response [200]>
 ```
 
-### Is Valid URL
+##### Is Valid URL
 
 The `is_valid` function checks whether a given URL is valid.
 
@@ -593,7 +566,7 @@ valid = is_valid('https://www.example.com')
 print(valid)  # Output: True
 ```
 
-### Get Source Code
+##### Get Source Code
 
 The `get_Source_code` function fetches the source code of a URL with a custom user-agent.
 
@@ -604,7 +577,7 @@ source_code = get_Source_code('https://www.example.com')
 print(source_code)  # Output: HTML source code of the URL
 ```
 
-### Parse React Source
+##### Parse React Source
 
 The `parse_react_source` function fetches the source code of a URL and extracts JavaScript and JSX source code (React components).
 
@@ -615,7 +588,7 @@ react_code = parse_react_source('https://www.example.com')
 print(react_code)  # Output: List of JavaScript and JSX source code found in <script> tags
 ```
 
-### Get All Website Links
+##### Get All Website Links
 
 The `get_all_website_links` function returns all URLs found on a specified URL that belong to the same website.
 
@@ -626,7 +599,7 @@ links = get_all_website_links('https://www.example.com')
 print(links)  # Output: List of URLs belonging to the same website as the specified URL
 ```
 
-### Parse All
+##### Parse All
 
 The `parse_all` function fetches the source code of a URL and extracts information about HTML elements, attribute values, attribute names, and class names.
 
@@ -640,7 +613,7 @@ print(HTML_components["attribute_names"])     # Output: List of attribute names
 print(HTML_components["class_names"])         # Output: List of class names
 ```
 
-### Extract Elements
+##### Extract Elements
 
 The `extract_elements` function fetches the source code of a URL and extracts portions of the source code based on provided filters.
 
@@ -651,7 +624,11 @@ elements = extract_elements('https://www.example.com', element_type='div', attri
 print(elements)  # Output: List of HTML elements that match the provided filters
 ```
 
+#### Module Information
 **Author**: putkoff
+**Author Email**: partners@abstractendeavors.com
+**Github**: https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_webtools
+**PYPI**: https://pypi.org/project/abstract-webtools
 **Part of**: abstract_essentials
 **Date**: 08/29/2023
 **Version**: 0.1.2
