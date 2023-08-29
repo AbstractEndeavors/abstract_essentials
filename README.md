@@ -419,10 +419,10 @@ Abstract WebTools offers a suite of utilities designed for web content inspectio
 #### **Functions**:
 
 - ##### `get_status(url:str) -> int`
--- **Purpose**: Gets the HTTP status code of the given URL.
--- **Arguments**:
-  --- `url`: The URL to check the status of.
--- **Returns**: The HTTP status code of the URL, or None if the request fails.
+- ###### **Purpose**: Gets the HTTP status code of the given URL.
+- ###### **Arguments**:
+  - `url`: The URL to check the status of.
+- ###### **Returns**: The HTTP status code of the URL, or None if the request fails.
 
 ##### `clean_url(url:str) -> list`
 - **Purpose**: Cleans the given URL and returns a list of possible variations.
