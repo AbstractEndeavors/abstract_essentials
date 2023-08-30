@@ -326,12 +326,6 @@ Upload Utils provides a utility script to easily upload a Python module to the P
 
 The process of uploading a module involves also functions to handle editing the setup file, changing the version number of the module, and installing the module. For a full summary of functions and their usage, please refer to the code comments of the upload_utils.py file.
 
-**Usage**:
-
-```bash
-python3 upload_utils.py
-```
-
 ### Scan Folder Utils
 
 **Description:**  
@@ -375,7 +369,7 @@ File: `module_utils.py`
   - `folder_path`: Path to the folder containing Python modules.
 - **Returns**: Concatenated header documentation for classes with docstrings.
 
-**Usage**:
+**Example Usage**:
 
 ```python
 # Scan a folder for required modules
@@ -405,7 +399,7 @@ File: `create_module_folder.py`
 - `abstract_utilities.read_write_utils`
 - `abstract_gui`
 
-**Usage**:
+**Example Usage**:
 
 This function can be used from Python directly as follows:
 
@@ -613,7 +607,7 @@ To ensure smooth functionality, the following modules and packages are required:
 
 Make sure to have all these dependencies installed to avoid any runtime errors.
 
-## Usage
+## Example Usage
 
 Here's a simple example showcasing some of the functionalities:
 
@@ -809,7 +803,7 @@ For local use, navigate to the root directory of the project where `setup.py` re
 pip install -e .
 ```
 
-## Usage
+## Example Usage
 
 Import the modules and use the functions in your Python scripts:
 
@@ -851,7 +845,7 @@ To run Abstract WebTools smoothly, you will need the following packages:
 - `urlparse`, `urljoin` from `urllib.parse`
 - `BeautifulSoup` from `bs4`
 
-## Usage
+## Example Usage
 
 ### Get Status Code
 
