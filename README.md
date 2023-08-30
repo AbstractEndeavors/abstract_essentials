@@ -70,65 +70,116 @@ for now, please download the modules individually as you see fit
 
 ## Modules
 ---
-## Abstract Security
+# Abstract Security
 
-Abstract Security offers a streamlined solution to managing and accessing environment variables within `.env` files. Its standout feature is the unparalleled ability to search through multiple directories, ensuring accurate and efficient retrieval of environment variables.
+The `abstract_security` module provides a set of functions for managing environment files and retrieving sensitive information securely.
 
-- **Key Features**:
+## Features
   - Simplified access and management of environment variables from `.env` files.
   - Unique search capability across multiple directories to locate and fetch the right environment variables.
 
-**Description:**  
-Abstract Security simplifies the management and access of environment variables stored in `.env` files. Its key feature is the ability to search multiple directories for these files, ensuring you always fetch the right environment variables with minimal hassle.
-
 ## Installation
 
-for now, please install the individual modules seperately.
+You can install `abstract_security` using pip:
 
-- **Dependencies**:
- - `os`
- - `dotenv`
- - Various utilities from `abstract_utilities`
+```bash
+pip install abstract_security
+```
 
-- **Functions**:
+## Description
 
-### 1. `find_and_read_env_file`
-- **Purpose**: Search for an environment file and read a specific key from it.
-- **Arguments**:
-  - `file_name`: Name of the `.env` file to be searched. Defaults to `.env`.
-  - `key`: Key to be retrieved from the `.env` file. Defaults to 'MY_PASSWORD'.
-  - `start_path`: Directory path to start the search from. Defaults to the current directory.
-- **Returns**: The value corresponding to the key if found, otherwise None.
+Abstract Security simplifies the management and access of environment variables stored in `.env` files. Its key feature is the ability to search multiple directories for these files, ensuring you always fetch the right environment variables with minimal hassle. 
 
-### 2. `search_for_env_key`
-- **Purpose**: Search for a specific key in a `.env` file.
-- **Arguments**:
-  - `path`: The path to the `.env` file.
-  - `key`: The key to search for.
-- **Returns**: The value of the key if found, otherwise None.
+## Example Usage
 
-### 3. `check_env_file`
-- **Purpose**: Check if the environment file exists in a specified path.
-- **Arguments**:
-  - `path`: The path to check for the `.env` file.
-  - `file_name`: The name of the `.env` file. Defaults to '.env'.
-- **Returns**: The path of the `.env` file if it exists, otherwise False.
+### `find_and_read_env_file`
 
-### 4. `safe_env_load`
-- **Purpose**: Safely load the `.env` file if it exists at a specified path.
-- **Arguments**:
-  - `path`: The path to load the `.env` file from.
-- **Returns**: True if the `.env` file is successfully loaded, otherwise False.
+```python
+from abstract_security import find_and_read_env_file
 
-### 5. `get_env_value`
-- **Purpose**: Retrieves the value of the specified environment variable.
-- **Arguments**:
-  - `start_path`: The path to the environment file.
-  - `file_name`: The name of the environment file. Defaults to '.env'.
-  - `key`: The key to search for. Defaults to 'MY_PASSWORD'.
-- **Returns**: The value of the environment variable if found, otherwise None.
+value = find_and_read_env_file(file_name=".env", key="MY_PASSWORD")
+if value:
+    print(f"Value found: {value}")
+else:
+    print("Value not found.")
+```
+
+This function searches for the specified key in the given `.env` file and returns its corresponding value.
+
+### `search_for_env_key`
+
+```python
+from abstract_security import search_for_env_key
+
+value = search_for_env_key(path="/path/to/.env", key="MY_PASSWORD")
+if value:
+    print(f"Value found: {value}")
+else:
+    print("Value not found.")
+```
+
+This function searches for the specified key in a given `.env` file and returns its corresponding value.
+
+### `check_env_file`
+
+```python
+from abstract_security import check_env_file
+
+path = check_env_file(path="/path/to")
+if path:
+    print(f".env file found at: {path}")
+else:
+    print(".env file not found.")
+```
+
+This function checks if an `.env` file exists in the specified path and returns its path if found.
+
+### `safe_env_load`
+
+```python
+from abstract_security import safe_env_load
+
+loaded = safe_env_load(path="/path/to/.env")
+if loaded:
+    print("Environment variables loaded successfully.")
+else:
+    print("Failed to load environment variables.")
+```
+
+This function safely loads the `.env` file if it exists at the specified path.
+
+### `get_env_value`
+
+```python
+from abstract_security import get_env_value
+
+value = get_env_value(file_name=".env", key="MY_PASSWORD")
+if value:
+    print(f"Environment variable value: {value}")
+else:
+    print("Environment variable not found.")
+```
+
+This function retrieves the value of the specified environment variable from either an `.env` file or directly from the environment variables.
+
+## Dependencies
+
+The following dependencies are required for the proper functioning of `abstract_security`:
+
+- `os`: Operating system interfaces.
+- `dotenv`: Dotenv file parsing and environment variable loading.
+- `abstract_utilities`: A utility package containing various helpful modules:
+  - `string_clean`: String manipulation and cleaning utilities.
+  - `compare_utils`: Utilities for comparing strings.
+  - `type_utils`: Utilities for type checking and conversion.
+  - `path_utils`: Utilities for working with file paths.
+
+Make sure to have all these dependencies installed to avoid any runtime errors.
+
+## Note
+
+When working with sensitive information and environment variables, make sure to follow security best practices and avoid hardcoding sensitive data directly into your scripts. Instead, use environment files and secure storage methods.
 ---
-
 ### Abstract Audio
 
 **Description:**  
