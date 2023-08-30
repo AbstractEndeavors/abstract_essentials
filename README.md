@@ -1966,12 +1966,12 @@ print(elements)  # Output: List of HTML elements that match the provided filters
 ```
 
 #### Module Information
-**Author**: putkoff
-**Author Email**: partners@abstractendeavors.com
-**Github**: https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_webtools
-**PYPI**: https://pypi.org/project/abstract-webtools
-**Part of**: abstract_essentials
-**Date**: 08/29/2023
-**Version**: 0.1.2
+-**Author**: putkoff
+-**Author Email**: partners@abstractendeavors.com
+-**Github**: https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_webtools
+-**PYPI**: https://pypi.org/project/abstract-webtools
+-**Part of**: abstract_essentials
+-**Date**: 08/29/2023
+-**Version**: 0.1.2
 ---
 
