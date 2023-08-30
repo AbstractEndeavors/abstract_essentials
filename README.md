@@ -376,7 +376,7 @@ Certainly! Here's the provided content reformatted for consistency with the prev
 
 ---
 
-## Abstract GUI Module
+## Abstract GUI
 
 The `abstract_gui` module provides classes and functions to manage PySimpleGUI windows and events in a more abstract manner. It includes a class called `WindowGlobalBridge` to manage global variables shared between different scripts and a class called `WindowManager` to manage PySimpleGUI windows and their events.
 
