@@ -31,7 +31,7 @@
   * **__init__**
     ```python
     __init__(self)
-  ```
+    ```
     **Purpose:**
     Initializes the WindowGlobalBridge with an empty dictionary for global_vars.
 
