@@ -2,27 +2,33 @@
 
 ## Description
 
-## Use
-* Explanation of how to use the package.
+Explanation of the package.
 
+## Use
+
+* Explanation of how to use the package.
 
 ## Abstract GUI
 ### Description
-* Brief description of the module.
 
-## Features
+Brief description of the module.
+
+### Features
+
 * Feature 1
 * Feature 2
 * ... 
 
-## Dependencies
+### Dependencies
 
-### Dependency Name 1
-### Modules
+#### Dependency Name 1
 
-#### abstract_gui.py
-#### Functions
-####  Class Functions
+#### Modules
+
+
+##### abstract_gui.py
+##### Functions
+##### Class Functions
 ##### WindowGlobalBridge
 * **Attributes**
   * `global_vars (dict)`:  A dictionary to store global variables for each script.
@@ -1228,7 +1234,7 @@ title (str): The title of the GUI window. Defaults to 'Directory'.
   * tuple: A tuple containing the WindowManager, bridge, and script name.
 
 ---
-#### Usage
+### Usage
 
 * **Use:** Explanation of how to use the function/class.
 
@@ -1236,12 +1242,14 @@ title (str): The title of the GUI window. Defaults to 'Directory'.
 
 * **Info:** Additional information or context about the module component.
 
-### Usage
+## Usage for the Module
 
-#### Use
+### Explanation
+
 * Explanation of how to use the module.
 
-### Module Information
+## Module Information
 
-#### Info
+### Info
+
 * Additional information or context about the module.
