@@ -470,7 +470,7 @@ Provides utilities for inspecting and parsing web content, including React compo
   - `ssl_` from `urllib3.util`
   - `urlparse`, `urljoin` from `urllib.parse`
   - `BeautifulSoup` from `bs4`
-#### Usage
+- **Usage**:
 
 ##### Get Status Code
 
