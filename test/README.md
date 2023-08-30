@@ -627,10 +627,6 @@ def win_closed(self, window):
     window_info = self.all_windows[self.search_global_windows(window)]
     exit_events = []
     if "exit_events" in window_info:
-        exit_events = list(window_info['exit_events'])
-    if self.close_window_element() not in exit_events:
-        exit_events.append(self.close_window_element())
-    return any(event == obj for obj in exit_events)
     ```
     **Purpose:**
     Check if a window event calls to close the window.
@@ -640,120 +636,6 @@ def win_closed(self, window):
 
     **Returns:**
     * bool: True if the window is closed, False otherwise.
-
-  * **delete_from_list**
-    ```python
-    
-def delete_from_list(self, _list, var):
-    """
-    Remove a specific variable from a list.
-
-    Args:
-        _list (list): The list to remove the variable from.
-        var (any): The variable to remove from the list.
-
-    Returns:
-        list: A list with the specified variable removed.
-    """
-    return [each for each in _list if each != var]
-    ```
-    **Purpose:**
-    Remove a specific variable from a list.
-
-    **Arguments:**
-    * _list (list): The list to remove the variable from.
-    * var (any): The variable to remove from the list.
-
-    **Returns:**
-    * list: A list with the specified variable removed.
-
-  * **is_window_object**
-    ```python
-    
-def is_window_object(self, obj):
-    """
-    Check if an object is a PySimpleGUI window object.
-
-    Args:
-        obj (any): The object to check.
-
-    Returns:
-        bool: True if the object is a window object, False otherwise.
-    """
-    return isinstance(obj, type(get_window()))
-    ```
-    **Purpose:**
-    Check if an object is a PySimpleGUI window object.
-
-    **Arguments:**
-    * obj (any): The object to check.
-
-    **Returns:**
-    * bool: True if the object is a window object, False otherwise.
-
-  * **create_window_name**
-    ```python
-    
-def create_window_name(self):
-    """
-    Create a unique name for a window.
-
-    Returns:
-        str: A unique name for a window.
-    """
-    window_names = self.get_window_names()
-    i = 0
-    while 'win_' + str(i) in window_names:
-        i += 1
-    return 'win_' + str(i)
-    ```
-    **Purpose:**
-    Create a unique name for a window.
-
-  * **close_window_element**
-    ```python
-    
-def close_window_element(self):
-    """
-    Get the constant representing a closed window event in PySimpleGUI.
-
-    Returns:
-        any: The PySimpleGUI constant representing a window close event.
-    """
-    return sg.WIN_CLOSED
-    ```
-    **Purpose:**
-    Get the constant representing a closed window event in PySimpleGUI.
-
-  * **unregister_window**
-    ```python
-    
-def unregister_window(self, window):
-    """
-    Unregister a window from the WindowManager.
-
-    Args:
-        window (any): The window to unregister.
-    """
-    win = self.search_global_windows(window)
-    if win in self.get_window_names():
-        del self.all_windows[win]
-    elif self.is_window_object(win):
-        del self.all_windows[window]
-
-e functions are designed to simplify and streamline the process of creating and managing PySimpleGUI windows and their layouts. The utility functions allow for more concise code when setting up GUIs.
-*ensure_nested_list(obj)**
- This function checks if the passed `obj` is a list. If it's not, it wraps the `obj` in a list. If the `obj` is a list but contains at least one non-list element, it wraps the entire list in another list. 
-
-*create_row(*args)**
- Creates and returns a list out of the passed arguments.
-
-    ```
-    **Purpose:**
-    Unregister a window from the WindowManager.
-
-    **Arguments:**
-    * window (any): The window to unregister.
 
 ##### Stand Alone Functions
 * **create_row**
@@ -1404,4 +1286,3 @@ def create_window_manager(script_name='default_script_name',global_var=globals()
 
 #### Info
 * Additional information or context about the module.
-
