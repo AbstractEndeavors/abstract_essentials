@@ -449,7 +449,7 @@ A comprehensive suite for various tasks.
   - ...
 
 ---
-## Abstract WebTools
+### Abstract WebTools
 Provides utilities for inspecting and parsing web content, including React components and URL utilities, with enhanced capabilities for managing HTTP requests and TLS configurations.
 
 - **Features**:
@@ -459,21 +459,8 @@ Provides utilities for inspecting and parsing web content, including React compo
   - React Component Parsing: Extracts JavaScript and JSX source code from web pages.
   - Comprehensive Link Extraction: Collects all internal links from a specified website.
   - Web Content Analysis: Extracts and categorizes various web content components such as HTML elements, attribute values, attribute names, and class names.
-
-# Abstract WebTools
-Provides utilities for inspecting and parsing web content, including React components and URL utilities, with enhanced capabilities for managing HTTP requests and TLS configurations.
-
-- **Features**:
-  - URL Validation: Ensures URL correctness and attempts different URL variations.
-  - HTTP Request Manager: Custom HTTP request handling, including tailored user agents and improved TLS security through a custom adapter.
-  - Source Code Acquisition: Retrieves the source code of specified websites.
-  - React Component Parsing: Extracts JavaScript and JSX source code from web pages.
-  - Comprehensive Link Extraction: Collects all internal links from a specified website.
-  - Web Content Analysis: Extracts and categorizes various web content components such as HTML elements, attribute values, attribute names, and class names.
-
-### abstract_webtools.py
-**Description:**  
-Abstract WebTools offers a suite of utilities designed for web content inspection and parsing. One of its standout features is its ability to analyze URLs, ensuring their validity and automatically attempting different URL variations to obtain correct website access. It boasts a custom HTTP request management system that tailors user-agent strings and employs a specialized TLS adapter for heightened security. The toolkit also provides robust capabilities for extracting source code, including detecting React components on web pages. Additionally, it offers functionalities for extracting all internal website links and performing in-depth web content analysis. This makes Abstract WebTools an indispensable tool for web developers, cybersecurity professionals, and digital analysts.
+- **Description:**  
+  Abstract WebTools offers a suite of utilities designed for web content inspection and parsing. One of its standout features is its ability to analyze URLs, ensuring their validity and automatically attempting different URL variations to obtain correct website access. It boasts a custom HTTP request management system that tailors user-agent strings and employs a specialized TLS adapter for heightened security. The toolkit also provides robust capabilities for extracting source code, including detecting React components on web pages. Additionally, it offers functionalities for extracting all internal website links and performing in-depth web content analysis. This makes Abstract WebTools an indispensable tool for web developers, cybersecurity professionals, and digital analysts.
 
 - **Dependencies**:
   - `requests`
@@ -576,7 +563,7 @@ from abstract_webtools import extract_elements
 elements = extract_elements('https://www.example.com', element_type='div', attribute_name='class', class_name='container')
 print(elements)  # Output: List of HTML elements that match the provided filters
 ```
-
+---
 
 #### Module Information
 -**Author**: putkoff
