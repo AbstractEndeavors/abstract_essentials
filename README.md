@@ -35,7 +35,13 @@ pip install abstract_essentials
 
 ## Modules
 ---
+### Abstract Security
 
+Abstract Security offers a streamlined solution to managing and accessing environment variables within `.env` files. Its standout feature is the unparalleled ability to search through multiple directories, ensuring accurate and efficient retrieval of environment variables.
+
+- **Key Features**:
+  - Simplified access and management of environment variables from `.env` files.
+  - Unique search capability across multiple directories to locate and fetch the right environment variables.
 ### Abstract Security
 Manages and accesses environment variables in `.env` files, with a unique search capability across multiple directories.
 - **Features**:
@@ -44,6 +50,12 @@ Manages and accesses environment variables in `.env` files, with a unique search
 
 **Description:**  
 Abstract Security simplifies the management and access of environment variables stored in `.env` files. Its key feature is the ability to search multiple directories for these files, ensuring you always fetch the right environment variables with minimal hassle.
+
+## Installation
+
+```
+pip install abstract_security
+```
 
 - **Dependencies**:
  - `os`
@@ -87,14 +99,9 @@ Abstract Security simplifies the management and access of environment variables 
   - `file_name`: The name of the environment file. Defaults to '.env'.
   - `key`: The key to search for. Defaults to 'MY_PASSWORD'.
 - **Returns**: The value of the environment variable if found, otherwise None.
+---
 
-**Author**: putkoff
-**Part of**: abstract_audio
-**Date**: 05/31/2023
-**Version**: 0.0.1.0
-
-
-## Speech to Text
+### Abstract Audio
 
 **Description:**  
 The Speech to Text module enables the capture and manipulation of audio input from a microphone, converting it into text and saving it into a file. This module employs an abstract graphical user interface (GUI) to display the audio recording and playback status.
@@ -105,7 +112,19 @@ The Speech to Text module enables the capture and manipulation of audio input fr
 - `abstract_utilities` (specifically, functions from `read_write_utils`, `cmd_utils`, and `thread_utils`)
 - `abstract_gui`
 
-**Functions**:
+### Features
+
+- **Audio Conversion**: Seamlessly converts live audio input from a microphone into text, enhancing user accessibility and usability.
+- **Integrated GUI**: Provides an intuitive abstract graphical user interface that displays audio recording and playback status, enabling effortless user interaction.
+- **Microphone Management**: Comprehensive features to toggle, parse, and retrieve the current state of the microphone, ensuring optimal voice capture.
+- **Real-time GUI Updates**: Dynamically updates the GUI window based on recording status, parsed text, and other key events, ensuring immediate feedback to the user.
+- **Speech Recognition**: Employs sophisticated mechanisms such as adjusting for ambient noise and utilizes the Google Web Speech API for efficient and accurate voice-to-text conversion.
+- **Customizable GUI Layout**: Offers the ability to define the layout of the PySimpleGUI window, catering to diverse user interface preferences.
+- **Event-Driven Actions**: Effectively handles multiple GUI window events, performing corresponding actions and ensuring smooth user experience.
+- **Easy Execution**: Simple script execution opens up a GUI window with clear indicators and buttons, allowing users to quickly start and view audio recordings.
+
+
+### **Functions**:
 
 ### 1. `change_glob`
 - **Purpose**: Update a global variable with a given value.
@@ -195,17 +214,13 @@ The Speech to Text module enables the capture and manipulation of audio input fr
 - **Purpose**: Main function to setup global variables, initialize the SpeechRecognizer and Microphone objects, and start the GUI.
 - **Returns**: Result from the GUI initialization and loop.
 
----
-
-**Author**: putkoff
-**Part of**: abstract_audio
-**Date**: 05/31/2023
-**Version**: 0.0.1.0
-
 To use this script, execute it as a Python program. It will open a GUI window with a 'record' button. Clicking on the 'record' button will initiate audio recording, and the GUI screen will turn green to indicate recording. Once you stop speaking, the recorded audio will be processed using the Google Web Speech API, and the recognized text will be displayed in the GUI window.
 
 Note: Ensure that the required libraries are installed, including `abstract_utilities`, `abstract_gui`, and `speech_recognition`.
+hical user interface (GUI) to display the audio recording and playback status.
 
+
+---
 
 ## Abstract Modules
 
