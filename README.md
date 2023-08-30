@@ -406,10 +406,10 @@ The module serves as a bridge between your Python code and the OpenAI API, provi
 
 ## Installation
 
-To install abstract_modules, use pip:
+To install abstract_ai, use pip:
 
 ```
-pip install abstract-images
+pip install abstract-ai
 ```
 
 ### Key Features
@@ -601,11 +601,106 @@ For more detailed usage, including parameter information and return types, refer
 
 Thank you for considering `abstract_gui` for your PySimpleGUI applications!
 ---
-### Abstract Images
-Offers tools for image and PDF tasks.
-- **Features**:
-  - [Brief description of notable features.]
-  - ...
+---
+# Abstract Images
+
+`abstract_images` is part of the abstract_essentials package, provides a collection of utility functions for working with images and PDFs, including loading and saving images, extracting text from images, capturing screenshots, processing PDFs, and more.
+
+
+## Features
+- Read and manipulate PDF files.
+- Convert PDF pages to images.
+- Extract text from images.
+- Split PDF files into individual pages.
+- Merge multiple PDF files into a single PDF.
+- Get information about PDF files such as the number of pages.
+- Open PDF files using the default associated program.
+
+
+## Installation
+
+To install abstract_modules, use pip:
+
+```
+pip install abstract-images
+```
+
+## Description
+
+The "abstract_images" module provides a set of functions to work with PDF files, convert PDF pages to images, and extract text from images. It also offers functionalities to split PDF files into individual pages, merge multiple PDF files into a single PDF, and get information about PDF files. Additionally, the module includes an "image_utils.py" module that provides various utility functions for working with images, including resizing, format conversion, and pixel data extraction.
+
+## Dependencies
+
+The following dependencies are required for the proper functioning of `abstract_images`:
+
+**Dependencies:**
+- PyPDF2: A library for reading and manipulating PDF files.
+- pdf2image: A library for converting PDF pages to images.
+- OpenCV: A library for computer vision tasks.
+- pytesseract: A library for optical character recognition.
+- numpy: A library for numerical computations.
+- Pillow (PIL): A library for image processing.
+- pyscreenshot: A library for taking screenshots.
+- abstract_webtools: A module for web-related utility functions.
+- abstract_utilities: A library for basic tools needed in most any script.
+
+Make sure to have all these dependencies installed to avoid any runtime errors.
+
+**Example Usage:**
+
+```python
+from abstract_images import (
+    split_pdf, pdf_to_img_list, img_to_txt_list, open_pdf_file,
+    get_pdfs_in_directory, get_all_pdf_in_directory, collate_pdfs
+)
+
+# Split a PDF into separate pages
+pdf_path = "input.pdf"
+split_pdf(pdf_path, output_folder="output_folder")
+
+# Convert PDF pages to images
+pdf_list = ["page1.pdf", "page2.pdf"]
+pdf_to_img_list(pdf_list, output_folder="output_images")
+
+# Convert images to text
+img_list = ["image1.png", "image2.png"]
+img_to_txt_list(img_list, output_folder="output_texts")
+
+# Open a PDF file using the default program
+pdf_file_path = "document.pdf"
+open_pdf_file(pdf_file_path)
+
+# Get a list of PDF filenames in a directory
+pdf_directory = "pdfs_directory"
+pdf_filenames = get_pdfs_in_directory(pdf_directory)
+
+# Get a list of complete paths to PDF files in a directory
+pdf_paths = get_all_pdf_in_directory(pdf_directory)
+
+# Merge multiple PDF files into a single PDF
+pdfs_to_merge = ["file1.pdf", "file2.pdf"]
+merged_pdf_path = "merged.pdf"
+collate_pdfs(pdfs_to_merge, merged_pdf_path)
+
+# Resizing images
+image_path = "image.jpg"
+resized_data = resize_image(image_path, max_width=100, max_height=150)
+with open('resized_image.png', 'wb') as file:
+    file.write(resized_data)
+
+# Convert image to text using Tesseract OCR
+text = image_to_text("image.png")
+print(text)
+
+# Save an image in different format
+original_image = read_image("original.jpg")
+save_image(original_image, "converted.png", format="PNG")
+```
+
+For more detailed usage, including parameter information and return types, refer to the source code and individual method documentation.
+
+Thank you for considering `abstract_images` for your interest in Abstract Images!
+---
 
 ### Abstract Utilities
 A comprehensive suite for various tasks.
