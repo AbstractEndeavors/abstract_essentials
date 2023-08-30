@@ -448,122 +448,131 @@ A comprehensive suite for various tasks.
   - [Brief description of notable features.]
   - ...
 
----
-### Abstract WebTools
-Provides utilities for inspecting and parsing web content, including React components and URL utilities, with enhanced capabilities for managing HTTP requests and TLS configurations.
+# Abstract WebTools
 
-- **Features**:
-  - URL Validation: Ensures URL correctness and attempts different URL variations.
-  - HTTP Request Manager: Custom HTTP request handling, including tailored user agents and improved TLS security through a custom adapter.
-  - Source Code Acquisition: Retrieves the source code of specified websites.
-  - React Component Parsing: Extracts JavaScript and JSX source code from web pages.
-  - Comprehensive Link Extraction: Collects all internal links from a specified website.
-  - Web Content Analysis: Extracts and categorizes various web content components such as HTML elements, attribute values, attribute names, and class names.
-- **Description:**  
-  Abstract WebTools offers a suite of utilities designed for web content inspection and parsing. One of its standout features is its ability to analyze URLs, ensuring their validity and automatically attempting different URL variations to obtain correct website access. It boasts a custom HTTP request management system that tailors user-agent strings and employs a specialized TLS adapter for heightened security. The toolkit also provides robust capabilities for extracting source code, including detecting React components on web pages. Additionally, it offers functionalities for extracting all internal website links and performing in-depth web content analysis. This makes Abstract WebTools an indispensable tool for web developers, cybersecurity professionals, and digital analysts.
+Abstract WebTools is a comprehensive utility toolkit designed for parsing and inspecting web content. With enhanced capabilities, such as React component detection and URL utilities, it's a must-have for developers, analysts, and cybersecurity professionals.
 
-- **Dependencies**:
-  - `requests`
-  - `ssl`
-  - `HTTPAdapter` from `requests.adapters`
-  - `PoolManager` from `urllib3.poolmanager`
-  - `ssl_` from `urllib3.util`
-  - `urlparse`, `urljoin` from `urllib.parse`
-  - `BeautifulSoup` from `bs4`
-- **Usage**:
+## Features
 
-##### Get Status Code
+- **URL Validation**: Tackle issues with URL accuracy and automatically test multiple URL variations.
+- **HTTP Request Manager**: Advanced handling of HTTP requests, tailored user-agent strings, and optimized TLS security with a specialized adapter.
+- **Source Code Acquisition**: A simple way to access the source code of websites.
+- **React Component Parsing**: Identify and extract JavaScript and JSX source code from websites.
+- **Comprehensive Link Extraction**: Easily gather all internal links from a website.
+- **Web Content Analysis**: In-depth content analysis, including HTML elements, attributes, and class names.
 
-The `get_status` function fetches the status code of the URL.
+## Description
+
+Abstract WebTools provides an all-in-one solution for web content analysis. Its URL analyzer ensures that URLs are valid and even attempts different variations to achieve correct website access. The toolkit's unique HTTP request system allows for specific user-agent customization and introduces heightened security with its dedicated TLS adapter. Beyond these, Abstract WebTools is equipped to extract a plethora of information, ranging from source code to React components. With the ability to also pull all internal links from a website and a suite of tools for content analysis, this toolkit is a valuable asset for many professionals in the digital realm.
+
+## Dependencies
+
+To run Abstract WebTools smoothly, you will need the following packages:
+
+- `requests`
+- `ssl`
+- `HTTPAdapter` from `requests.adapters`
+- `PoolManager` from `urllib3.poolmanager`
+- `ssl_` from `urllib3.util`
+- `urlparse`, `urljoin` from `urllib.parse`
+- `BeautifulSoup` from `bs4`
+
+## Usage
+
+### Get Status Code
+
+Fetch the status code of a given URL with `get_status`.
 
 ```python
 from abstract_webtools import clean_url
 
 urls = clean_url('https://example.com')
-print(urls)  # Output: ['https://example.com', 'http://example.com']
-tps://example.com'
+print(urls)  # Outputs: ['https://example.com', 'http://example.com']
 ```
 
-##### Try Request
+### Try Request
 
-The `try_request` function makes HTTP requests to a URL and returns the response if successful.
+Make HTTP requests using `try_request` and receive responses.
 
 ```python
 from abstract_webtools import try_request
 
 response = try_request('https://www.example.com')
-print(response)  # Output: <Response [200]>
+print(response)  # Outputs: <Response [200]>
 ```
 
-##### Is Valid URL
+### Is Valid URL
 
-The `is_valid` function checks whether a given URL is valid.
+Check the validity of a URL with `is_valid`.
 
 ```python
 from abstract_webtools import is_valid
 
 valid = is_valid('https://www.example.com')
-print(valid)  # Output: True
+print(valid)  # Outputs: True
 ```
 
-##### Get Source Code
+### Get Source Code
 
-The `get_Source_code` function fetches the source code of a URL with a custom user-agent.
+Retrieve the source code of a given URL with `get_Source_code`.
 
 ```python
 from abstract_webtools import get_Source_code
 
 source_code = get_Source_code('https://www.example.com')
-print(source_code)  # Output: HTML source code of the URL
+print(source_code)  # Outputs: HTML source code of the URL
 ```
 
-##### Parse React Source
+### Parse React Source
 
-The `parse_react_source` function fetches the source code of a URL and extracts JavaScript and JSX source code (React components).
+Extract React components using `parse_react_source`.
 
 ```python
 from abstract_webtools import parse_react_source
 
 react_code = parse_react_source('https://www.example.com')
-print(react_code)  # Output: List of JavaScript and JSX source code found in <script> tags
+print(react_code)  # Outputs: List of JavaScript and JSX source code within <script> tags
 ```
 
-##### Get All Website Links
+### Get All Website Links
 
-The `get_all_website_links` function returns all URLs found on a specified URL that belong to the same website.
+Gather all internal links from a website with `get_all_website_links`.
 
 ```python
 from abstract_webtools import get_all_website_links
 
 links = get_all_website_links('https://www.example.com')
-print(links)  # Output: List of URLs belonging to the same website as the specified URL
+print(links)  # Outputs: List of URLs on the same website as the given URL
 ```
 
-##### Parse All
+### Parse All
 
-The `parse_all` function fetches the source code of a URL and extracts information about HTML elements, attribute values, attribute names, and class names.
+For an in-depth content analysis, use `parse_all`.
 
 ```python
 from abstract_webtools import parse_all
 
 HTML_components = parse_all('https://www.example.com')
-print(HTML_components["element_types"])       # Output: List of HTML element types
-print(HTML_components["attribute_values"])    # Output: List of attribute values
-print(HTML_components["attribute_names"])     # Output: List of attribute names
-print(HTML_components["class_names"])         # Output: List of class names
+print(HTML_components["element_types"])       # Outputs: List of HTML element types
+print(HTML_components["attribute_values"])    # Outputs: List of attribute values
+print(HTML_components["attribute_names"])     # Outputs: List of attribute names
+print(HTML_components["class_names"])         # Outputs: List of class names
 ```
 
-##### Extract Elements
+### Extract Elements
 
-The `extract_elements` function fetches the source code of a URL and extracts portions of the source code based on provided filters.
+Isolate specific HTML elements using `extract_elements`.
 
 ```python
 from abstract_webtools import extract_elements
 
 elements = extract_elements('https://www.example.com', element_type='div', attribute_name='class', class_name='container')
-print(elements)  # Output: List of HTML elements that match the provided filters
+print(elements)  # Outputs: List of HTML elements fitting the filters
 ```
+
 ---
+
+Harness the power of Abstract WebTools and streamline your web content analysis today!
 
 #### Module Information
 -**Author**: putkoff
