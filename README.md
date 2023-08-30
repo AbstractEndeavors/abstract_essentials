@@ -951,8 +951,8 @@ Harness the power of Abstract WebTools and streamline your web content analysis 
 #### Module Information
 - **Author**: putkoff
 - **Author Email**: partners@abstractendeavors.com
-- **Github**: https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_webtools
-- **PYPI**: https://pypi.org/project/abstract-webtools
+- **Github**: https://github.com/AbstractEndeavors/abstract_essentials
+- **PYPI**: [(https://pypi.org/user/putkoff/)](https://pypi.org/user/putkoff/)
 - **Part of**: abstract_essentials
 - **Date**: 08/29/2023
 - **Version**: 0.1.2
