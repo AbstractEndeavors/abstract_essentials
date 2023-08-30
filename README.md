@@ -30,35 +30,35 @@ Welcome to the `abstract_essentials` package! This package is an amalgamation of
 
 ### 1. **Abstract Security**
 
-**Description:** A streamlined solution for managing and accessing environment variables within .env files. Its primary feature is the ability to search through multiple directories, ensuring the efficient retrieval of environment variables.
+- A streamlined solution for managing and accessing environment variables within .env files. Its primary feature is the ability to search through multiple directories, ensuring the efficient retrieval of environment variables.
 
 ### 2. **Abstract Audio**
 
-**Description:** A Speech to Text module that captures and transforms audio input from a microphone into text, subsequently saving it to a file. It showcases an abstract GUI to visualize audio recording and playback statuses.
+- A Speech to Text module that captures and transforms audio input from a microphone into text, subsequently saving it to a file. It showcases an abstract GUI to visualize audio recording and playback statuses.
 
 ### 3. **Abstract Modules**
 
-**Description:** A utility set focusing on simplifying Python module management. This includes creating, packaging, and distributing modules. Notably, it offers functionalities to upload Python modules to PyPI and manage the module's version number.
+- A utility set focusing on simplifying Python module management. This includes creating, packaging, and distributing modules. Notably, it offers functionalities to upload Python modules to PyPI and manage the module's version number.
 
 ### 4. **Abstract Ai**
 
-**Description:** Serving as an interface between your Python code and the OpenAI API, this module streamlines the process of sending requests and handling responses. It's built to remove the intricacies of the interaction, letting developers concentrate on meaningful queries and the relevant results.
+- Serving as an interface between your Python code and the OpenAI API, this module streamlines the process of sending requests and handling responses. It's built to remove the intricacies of the interaction, letting developers concentrate on meaningful queries and the relevant results.
 
 ### 5. **Abstract GUI**
 
-**Description:** Aimed at simplifying the management of global variables and windows in PySimpleGUI applications, `abstract_gui.py` offers utility classes and functions that ease the creation and manipulation of PySimpleGUI windows.
+- Aimed at simplifying the management of global variables and windows in PySimpleGUI applications, `abstract_gui.py` offers utility classes and functions that ease the creation and manipulation of PySimpleGUI windows.
 
 ### 6. **Abstract Images**
 
-**Description:** A segment of the `abstract_essentials` package dedicated to image and PDF utilities. It comes packed with functions to load/save images, extract text from images, take screenshots, process PDFs, and more.
+- A segment of the `abstract_essentials` package dedicated to image and PDF utilities. It comes packed with functions to load/save images, extract text from images, take screenshots, process PDFs, and more.
 
 ### 7. **Abstract Utilities**
 
-**Description:** A collection of diverse utility modules designed to assist in various tasks. This encompasses data comparison, list manipulation, JSON operations, string tasks, mathematical calculations, and time operations. Each module is extensively documented to ensure clarity and ease of use.
+- A collection of diverse utility modules designed to assist in various tasks. This encompasses data comparison, list manipulation, JSON operations, string tasks, mathematical calculations, and time operations. Each module is extensively documented to ensure clarity and ease of use.
 
 ### 8. **Abstract WebTools**
 
-**Description:** A robust toolkit built for web content parsing and inspection. It boasts enhanced features like React component detection and URL utilities, making it indispensable for developers, analysts, and cybersecurity experts alike.
+- A robust toolkit built for web content parsing and inspection. It boasts enhanced features like React component detection and URL utilities, making it indispensable for developers, analysts, and cybersecurity experts alike.
 
 ---
 
