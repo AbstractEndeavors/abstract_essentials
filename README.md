@@ -74,18 +74,13 @@ pip install abstract_essentials
 
 ## Modules
 ---
-### Abstract Security
+## Abstract Security
 
 Abstract Security offers a streamlined solution to managing and accessing environment variables within `.env` files. Its standout feature is the unparalleled ability to search through multiple directories, ensuring accurate and efficient retrieval of environment variables.
 
 - **Key Features**:
   - Simplified access and management of environment variables from `.env` files.
   - Unique search capability across multiple directories to locate and fetch the right environment variables.
-### Abstract Security
-Manages and accesses environment variables in `.env` files, with a unique search capability across multiple directories.
-- **Features**:
-  - [Brief description of notable features.]
-  - ...
 
 **Description:**  
 Abstract Security simplifies the management and access of environment variables stored in `.env` files. Its key feature is the ability to search multiple directories for these files, ensuring you always fetch the right environment variables with minimal hassle.
