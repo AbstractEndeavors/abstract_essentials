@@ -947,14 +947,32 @@ print(elements)  # Outputs: List of HTML elements fitting the filters
 ---
 
 Harness the power of Abstract WebTools and streamline your web content analysis today!
+---
+### Contributions
+
+We welcome and appreciate contributions from the community! Whether it's improving documentation, adding new features, or fixing bugs, your input is highly valuable.
+
+**Steps to Contribute:**
+
+1. **Fork the Repository:** Start by forking the [official repository](https://github.com/AbstractEndeavors/abstract_essentials) on Github.
+2. **Clone Your Fork:** Clone the forked repository to your local machine.
+3. **Create a New Branch:** Always create a new branch for your changes to ensure the master branch remains stable.
+4. **Implement Your Changes:** Make your desired changes and improvements.
+5. **Push Changes:** Push your changes to your fork on GitHub.
+6. **Submit a Pull Request:** Create a pull request (PR) against the master branch of the official repository. Make sure to provide a detailed description of your changes.
+
+**Note:** Before submitting a PR, please ensure your code adheres to the repository's coding standards and guidelines.
+
+### License
+
+This project is licensed under the MIT License. By using, distributing, or contributing to this project, you agree to the terms and conditions of this license. You can view the complete license in the repository.
+
+---
 
 #### Module Information
 - **Author**: putkoff
 - **Author Email**: partners@abstractendeavors.com
-- **Github**: https://github.com/AbstractEndeavors/abstract_essentials
+- **Github**: [https://github.com/AbstractEndeavors/abstract_essentials](https://github.com/AbstractEndeavors/abstract_essentials)
 - **PYPI**: [https://pypi.org/user/putkoff/](https://pypi.org/user/putkoff/)
-- **Part of**: abstract_essentials
 - **Date**: 08/29/2023
-- **Version**: 0.1.2
----
-
+- **Version**: 0.0.1.1
