@@ -66,11 +66,7 @@ Thank you for exploring the `abstract_essentials` package. Dive into each module
 
 ## Installation
 
-[Instructions on how to install the package, perhaps with pip or another package manager.]
-
-```
-pip install abstract_essentials
-```
+for now, please download the modules individually as you see fit
 
 ## Modules
 ---
