@@ -29,7 +29,8 @@
 * **Methods**
   * **__init__**
     ```python
-    def __init__(self):
+    
+def __init__(self):
     """
     Initializes the WindowGlobalBridge with an empty dictionary for global_vars.
     """
@@ -40,7 +41,8 @@
 
   * **retrieve_global_variables**
     ```python
-    def retrieve_global_variables(self, script_name:str, global_variables:dict, tag_script_name:bool=False):
+    
+def retrieve_global_variables(self, script_name:str, global_variables:dict, tag_script_name:bool=False):
     """
     Stores the global variables of a script in the global_vars dictionary.
 
@@ -65,7 +67,8 @@
 
   * **return_global_variables**
     ```python
-    def return_global_variables(self, script_name=None):
+    
+def return_global_variables(self, script_name=None):
     """
     Returns the global variables of a script.
 
@@ -92,7 +95,8 @@
 
   * **change_globals**
     ```python
-    def change_globals(self, variable:str, value:any, script_name:str=None):
+    
+def change_globals(self, variable:str, value:any, script_name:str=None):
     """
     Modifies a global variable value for a specified script.
 
@@ -115,7 +119,8 @@
 
   * **search_globals_values**
     ```python
-    def search_globals_values(self, value:any, script_name:str=None):
+    
+def search_globals_values(self, value:any, script_name:str=None):
     """
     Searches for a specific value in the global variables of a script.
 
@@ -150,7 +155,8 @@
 * **Methods**
   * **__init__**
     ```python
-    def __init__(self, script_name, global_bridge):
+    
+def __init__(self, script_name, global_bridge):
     """
     Initialize a WindowManager instance.
 
@@ -175,7 +181,8 @@
 
   * **get_all_windows**
     ```python
-    def get_all_windows(self):
+    
+def get_all_windows(self):
     """
     Get all registered windows.
 
@@ -189,7 +196,8 @@
 
   * **get_window_names**
     ```python
-    def get_window_names(self):
+    
+def get_window_names(self):
     """
     Get the names of all registered windows.
 
@@ -203,7 +211,8 @@
 
   * **register_window**
     ```python
-    def register_window(self, window=None):
+    
+def register_window(self, window=None):
     """
     Register a window.
 
@@ -237,7 +246,8 @@
 
   * **get_new_window**
     ```python
-    def get_new_window(self, title:str=None, layout:list=None, args:dict=None, event_function:str=None,exit_events:(list or str)=None):
+    
+def get_new_window(self, title:str=None, layout:list=None, args:dict=None, event_function:str=None,exit_events:(list or str)=None):
     """
     Create a new window.
 
@@ -272,7 +282,8 @@
 
   * **search_global_windows**
     ```python
-    def search_global_windows(self, window):
+    
+def search_global_windows(self, window):
     """
     Search for a window in the global variables.
 
@@ -303,7 +314,8 @@
 
   * **verify_window**
     ```python
-    def verify_window(self, window=None) -> bool:
+    
+def verify_window(self, window=None) -> bool:
     """
     Verifies if the given object is a valid PySimpleGUI window.
 
@@ -326,7 +338,8 @@
 
   * **update_last_window**
     ```python
-    def update_last_window(self, window):
+    
+def update_last_window(self, window):
     """
     Update the last accessed window.
 
@@ -349,7 +362,8 @@
 
   * **send_to_bridge**
     ```python
-    def send_to_bridge(self):
+    
+def send_to_bridge(self):
     """
     Update the global bridge with the current state of the windows.
     """
@@ -361,7 +375,8 @@
 
   * **close_window**
     ```python
-    def close_window(self, window=None):
+    
+def close_window(self, window=None):
     """
     Closes the given PySimpleGUI window.
 
@@ -382,7 +397,8 @@
 
   * **read_window**
     ```python
-    def read_window(self, window):
+    
+def read_window(self, window):
     """
     Read the event and values from a window and update the WindowManager's state.
 
@@ -414,7 +430,8 @@
 
   * **get_last_window_info**
     ```python
-    def get_last_window_info(self):
+    
+def get_last_window_info(self):
     """
     Retrieve the details of the last accessed window.
 
@@ -430,7 +447,8 @@
 
   * **get_last_window_method**
     ```python
-    def get_last_window_method(self):
+    
+def get_last_window_method(self):
     """
     Get the method associated with the last accessed window.
 
@@ -448,7 +466,8 @@
 
   * **update_values**
     ```python
-    def update_values(self, window=None, key:str=None, value:any=None, values:any=None, args:dict=None):
+    
+def update_values(self, window=None, key:str=None, value:any=None, values:any=None, args:dict=None):
     """
     Update the values associated with a given window.
 
@@ -484,7 +503,8 @@
 
   * **get_event**
     ```python
-    def get_event(self, window=None):
+    
+def get_event(self, window=None):
     """
     Get the last event from a window.
 
@@ -512,7 +532,8 @@
 
   * **get_values**
     ```python
-    def get_values(self, window=None):
+    
+def get_values(self, window=None):
     """
     Get the values from a window.
 
@@ -540,7 +561,8 @@
 
   * **while_basic**
     ```python
-    def while_basic(self, window=None):
+    
+def while_basic(self, window=None):
     """
     Run an event loop for a window.
 
@@ -568,7 +590,8 @@
 
   * **get_window_name**
     ```python
-    def get_window_name(self, obj=None):
+    
+def get_window_name(self, obj=None):
     """
     Get the names of all registered windows.
 
@@ -589,7 +612,8 @@
 
   * **win_closed**
     ```python
-    def win_closed(self, window):
+    
+def win_closed(self, window):
     """
     Check if a window event calls to close the window.
 
@@ -619,7 +643,8 @@
 
   * **delete_from_list**
     ```python
-    def delete_from_list(self, _list, var):
+    
+def delete_from_list(self, _list, var):
     """
     Remove a specific variable from a list.
 
@@ -644,7 +669,8 @@
 
   * **is_window_object**
     ```python
-    def is_window_object(self, obj):
+    
+def is_window_object(self, obj):
     """
     Check if an object is a PySimpleGUI window object.
 
@@ -667,7 +693,8 @@
 
   * **create_window_name**
     ```python
-    def create_window_name(self):
+    
+def create_window_name(self):
     """
     Create a unique name for a window.
 
@@ -685,7 +712,8 @@
 
   * **close_window_element**
     ```python
-    def close_window_element(self):
+    
+def close_window_element(self):
     """
     Get the constant representing a closed window event in PySimpleGUI.
 
@@ -699,7 +727,8 @@
 
   * **unregister_window**
     ```python
-    def unregister_window(self, window):
+    
+def unregister_window(self, window):
     """
     Unregister a window from the WindowManager.
 
@@ -729,7 +758,8 @@ e functions are designed to simplify and streamline the process of creating and 
 ##### Stand Alone Functions
 * **create_row**
   ```python
-  def create_row(*args):
+  
+def create_row(*args):
     """
     Create a row layout containing the provided arguments.
 
@@ -753,7 +783,8 @@ e functions are designed to simplify and streamline the process of creating and 
 ---
 * **create_column**
   ```python
-  def create_column(*args):
+  
+def create_column(*args):
     """
     Create a column layout containing the provided arguments.
 
@@ -783,7 +814,8 @@ e functions are designed to simplify and streamline the process of creating and 
 ---
 * **concatenate_rows**
   ```python
-  def concatenate_rows(*args):
+  
+def concatenate_rows(*args):
     """
     Concatenate multiple row layouts into a single row layout.
 
@@ -810,7 +842,8 @@ e functions are designed to simplify and streamline the process of creating and 
 ---
 * **concatenate_layouts**
   ```python
-  def concatenate_layouts(*args):
+  
+def concatenate_layouts(*args):
     """
     Concatenate multiple layouts into a single layout.
 
@@ -834,7 +867,8 @@ e functions are designed to simplify and streamline the process of creating and 
 ---
 * **create_row_of_buttons**
   ```python
-  def create_row_of_buttons(*args):
+  
+def create_row_of_buttons(*args):
     """
     Create a row layout containing buttons generated from the provided arguments.
 
@@ -859,7 +893,8 @@ e functions are designed to simplify and streamline the process of creating and 
 ---
 * **get_buttons**
   ```python
-  def get_buttons(*args):
+  
+def get_buttons(*args):
     """
     Generate button elements based on the provided arguments.
 
@@ -926,7 +961,8 @@ e functions are designed to simplify and streamline the process of creating and 
 ---
 * **if_not_window_make_window**
   ```python
-  def if_not_window_make_window(window):
+  
+def if_not_window_make_window(window):
     """
     Checks if the provided object is a window and creates a new window if it isn't.
     
@@ -955,7 +991,8 @@ e functions are designed to simplify and streamline the process of creating and 
 ---
 * **while_quick**
   ```python
-  def while_quick(window,return_events:(list or str)=[],exit_events:(list or str)=[sg.WIN_CLOSED],event_return=False):
+  
+def while_quick(window,return_events:(list or str)=[],exit_events:(list or str)=[sg.WIN_CLOSED],event_return=False):
     """
     Reads events from the given window and handles them based on the provided conditions.
     
@@ -1000,7 +1037,8 @@ e functions are designed to simplify and streamline the process of creating and 
 ---
 * **verify_args**
   ```python
-  def verify_args(args:dict=None, layout:list=None, title:str=None, event_function:str=None,exit_events:(list or str)=None):
+  
+def verify_args(args:dict=None, layout:list=None, title:str=None, event_function:str=None,exit_events:(list or str)=None):
     """
     Verifies and/or sets default values for window arguments.
     
@@ -1040,7 +1078,8 @@ e functions are designed to simplify and streamline the process of creating and 
 ---
 * **get_window**
   ```python
-  def get_window(title=None, layout=None, args=None):
+  
+def get_window(title=None, layout=None, args=None):
     """
     Get a PySimpleGUI window.
 
@@ -1069,7 +1108,8 @@ e functions are designed to simplify and streamline the process of creating and 
 ---
 * **get_browser_layout**
   ```python
-  def get_browser_layout(title:str=None,type:str='Folder',args:dict={},initial_folder:str=get_current_path()):
+  
+def get_browser_layout(title:str=None,type:str='Folder',args:dict={},initial_folder:str=get_current_path()):
     """
     Function to get a browser GUI based on the type specified.
 
@@ -1102,7 +1142,8 @@ title (str): The title of the GUI window. Defaults to 'Directory'.
 ---
 * **get_yes_no_layout**
   ```python
-  def get_yes_no_layout(title:str="Answer Window",text:str="would you lie to proceed?",args:dict={}):
+  
+def get_yes_no_layout(title:str="Answer Window",text:str="would you lie to proceed?",args:dict={}):
     """
     Creates a layout for a Yes/No window.
     
@@ -1134,7 +1175,8 @@ title (str): The title of the GUI window. Defaults to 'Directory'.
 ---
 * **get_input_layout**
   ```python
-  def get_input_layout(title:str="Input Window",text:str="please enter your input",default:str=None,args:dict={}):
+  
+def get_input_layout(title:str="Input Window",text:str="please enter your input",default:str=None,args:dict={}):
     """
     Function to get a browser GUI based on the type specified.
 
@@ -1173,7 +1215,8 @@ title (str): The title of the GUI window. Defaults to 'Directory'.
 ---
 * **get_yes_no**
   ```python
-  def get_yes_no(title:str="Answer Window",text:str="would you lie to proceed?",args:dict={},exit_events:(str or list)=[],return_events:(str or list)=["Yes","No"],event_return=True):
+  
+def get_yes_no(title:str="Answer Window",text:str="would you lie to proceed?",args:dict={},exit_events:(str or list)=[],return_events:(str or list)=["Yes","No"],event_return=True):
     """
     Creates and displays a Yes/No window, then captures the user response.
     
@@ -1208,7 +1251,8 @@ title (str): The title of the GUI window. Defaults to 'Directory'.
 ---
 * **get_input**
   ```python
-  def get_input(title:str="Input Window",text:str="please enter your input",default:str=None,args:dict={},exit_events:(str or list)=['Cancel'],return_events:(str or list)=['OK']):
+  
+def get_input(title:str="Input Window",text:str="please enter your input",default:str=None,args:dict={},exit_events:(str or list)=['Cancel'],return_events:(str or list)=['OK']):
     """
     Creates and displays an input window, then captures the user input.
     
@@ -1244,7 +1288,8 @@ title (str): The title of the GUI window. Defaults to 'Directory'.
 ---
 * **get_browser**
   ```python
-  def get_browser(title:str=None,type:str='Folder',args:dict={},initial_folder:str=get_current_path(),exit_events:(str or list)=['Cancel'],return_events:(str or list)=['OK']):
+  
+def get_browser(title:str=None,type:str='Folder',args:dict={},initial_folder:str=get_current_path(),exit_events:(str or list)=['Cancel'],return_events:(str or list)=['OK']):
     """
     Creates and displays a browser window, then captures the user-selected path.
     
@@ -1285,7 +1330,8 @@ title (str): The title of the GUI window. Defaults to 'Directory'.
 ---
 * **get_gui_fun**
   ```python
-  def get_gui_fun(name: str = '', args: dict = {}):
+  
+def get_gui_fun(name: str = '', args: dict = {}):
     """
     Returns a callable object for a specific PySimpleGUI function with the provided arguments.
 
@@ -1311,7 +1357,8 @@ title (str): The title of the GUI window. Defaults to 'Directory'.
 ---
 * **create_window_manager**
   ```python
-  def create_window_manager(script_name='default_script_name',global_var=globals()):
+  
+def create_window_manager(script_name='default_script_name',global_var=globals()):
     """
     Initializes a window manager for a given script.
     
@@ -1357,3 +1404,4 @@ title (str): The title of the GUI window. Defaults to 'Directory'.
 
 #### Info
 * Additional information or context about the module.
+
