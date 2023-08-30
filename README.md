@@ -948,7 +948,7 @@ print(elements)  # Outputs: List of HTML elements fitting the filters
 
 Harness the power of Abstract WebTools and streamline your web content analysis today!
 ---
-### Contributions
+### Contribution
 
 We welcome and appreciate contributions from the community! Whether it's improving documentation, adding new features, or fixing bugs, your input is highly valuable.
 
