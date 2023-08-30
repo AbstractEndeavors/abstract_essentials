@@ -385,6 +385,7 @@ Enhances AI interactions with utilities for API handling, requests, tokenization
 - **Layout Utilities**: Easily create and concatenate layouts with functions like `create_row`, `create_column`, `concatenate_rows`, and more.
 - **Quick Window Generation**: Generate commonly used window layouts for browsers, Yes/No prompts, and input dialogs without the need for complex setup.
 - **Expandability**: Create expandable PySimpleGUI windows with ease using the `expandable` function.
+Sure, here's a "Description" section based on the docstrings you provided:
 
 ## Installation
 
@@ -393,6 +394,76 @@ To install abstract_gui, use pip:
 ```
 pip install abstract-gui
 ```
+
+## Description
+
+### WindowGlobalBridge
+
+The **WindowGlobalBridge** class serves as a centralized storage system for managing global variables that are shared across different scripts. This functionality ensures that there's a consistent state of variables even when shared between multiple scripts.
+
+- **Attributes**:
+  - `global_vars`: A dictionary where global variables for each script are stored.
+- **Key Methods**:
+  - `retrieve_global_variables`: Stores the global variables of a script in the global_vars dictionary.
+  - `return_global_variables`: Fetches the global variables of a specific script.
+  - `change_globals`: Alters a global variable value for a specified script.
+  - `return_global_value`: Fetches the value of a particular global variable in a script.
+
+### WindowManager
+
+The **WindowManager** class acts as a comprehensive manager for PySimpleGUI windows, ensuring that the creation, handling, and destruction of GUI windows are streamlined and simplified.
+
+- **Attributes**:
+  - `all_windows`: Dictionary storing registered windows and their details.
+  - `last_window`: Name of the last accessed window.
+  - `script_name`: Name of the script currently utilizing the WindowManager.
+  - `global_bridge`: Bridge for accessing shared variables across different scripts.
+  - `global_vars`: Dictionary containing global variables specific to this script.
+- **Key Methods**:
+  - `win_closed`: Determines if a particular event corresponds to the closure of a window.
+  - `verify_window`: Checks the validity of a PySimpleGUI window.
+  - `read_window`: Extracts event and value data from a given window and updates the manager's state.
+  - `get_all_windows`: Returns a dictionary of all registered windows.
+  - `create_window_name`: Generates unique names for new windows.
+  - `get_new_window`: Facilitates the creation of a new window with customizable features.
+
+### Utility Functions
+
+These utility functions are crafted to refine and simplify the process of establishing and overseeing PySimpleGUI windows and their layouts. Their primary aim is to allow for a more concise and readable codebase when setting up GUIs.
+
+- **`ensure_nested_list`**: Verifies and converts an object into a nested list if necessary.
+- **`create_row` & `create_column`**: Forms rows and columns from passed arguments respectively.
+- **`concatenate_rows` & `concatenate_layouts`**: Joins lists together.
+- **`get_buttons`**: Produces a list of button components based on varying input types.
+- **`while_quick`**: A utility to streamline the window event loop.
+- **`verify_args`**: Validates default values for various window arguments.
+- **`get_window` & `get_browser_layout`**: Retrieves and prepares layouts for specific window types.
+- **`out_of_bounds`**: Checks value boundaries.
+- **`det_bool_F` & `det_bool_T`**: Determines boolean representation of an object.
+- **`get_gui_fun`**: Fetches a PySimpleGUI function by its name and pre-configures it with given arguments.
+- **`create_window_manager`**: Constructs a window manager for PySimpleGUI windows oversight.
+
+These tools, combined, provide a robust framework for developing and managing GUIs, allowing developers to focus on their primary tasks without delving into the intricacies of window management.
+
+## Dependencies
+
+To ensure smooth functionality, the following modules and packages are required:
+
+- **PySimpleGUI**: A simple way to create GUIs.
+- **abstract_utilities**: A utility package containing various helpful modules:
+  - **thread_utils**: 
+    - `thread_alive`: Checks if a thread is alive.
+  - **class_utils**: 
+    - `get_fun`: Retrieves a specific function (or other callable) from a class.
+  - **path_utils**: 
+    - `get_current_path`: Obtains the current working directory or path of the script.
+  - **list_utils**: 
+    - `ensure_nested_list`: Ensures a list is nested.
+    - `make_list_add`: Adds elements to a list.
+  - **math_utils**: 
+    - `out_of_bounds`: Checks if a value is out of specified bounds.
+
+Make sure to have all these dependencies installed to avoid any runtime errors.
 
 ## Usage
 
@@ -417,25 +488,8 @@ window_mgr.while_basic(window)
 
 For more detailed usage, including parameter information and return types, refer to the source code and individual method documentation.
 
-## Contributing
-
-If you'd like to contribute to the development of abstract_gui, please fork the [repository](https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_gui) and submit a pull request.
-
-## Issues and Bug Reports
-
-If you encounter any issues or bugs, please report them on the [Github page](https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_gui). For direct inquiries, feel free to email the team at [partners@abstractendeavors.com](mailto:partners@abstractendeavors.com).
-
-## License
-
-This project is licensed under the MIT License. Refer to the [LICENSE](LICENSE) file for more details.
-
-## Credits
-
-- **Author**: putkoff
-- **Email**: partners@abstractendeavors.com
-
 Thank you for considering `abstract_gui` for your PySimpleGUI applications!
-
+---
 ### Abstract Images
 Offers tools for image and PDF tasks.
 - **Features**:
