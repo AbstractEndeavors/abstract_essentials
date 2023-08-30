@@ -106,6 +106,13 @@ pip install abstract_security
 **Description:**  
 The Speech to Text module enables the capture and manipulation of audio input from a microphone, converting it into text and saving it into a file. This module employs an abstract graphical user interface (GUI) to display the audio recording and playback status.
 
+
+## Installation
+
+```
+pip install abstract_audio
+```
+
 **Dependencies**:
 - `os`
 - `speech_recognition` (as `sr`)
@@ -227,6 +234,15 @@ hical user interface (GUI) to display the audio recording and playback status.
 This package provides a set of utilities to make Python module management easier, with a particular focus on the creation, packaging, and distribution of modules. Its key features include the upload of Python modules to PyPI and the management of the module's version number.
 
 Abstract Modules is composed of three components: upload_utils.py, module_utils.py, and create_module_folder.py
+
+
+
+## Installation
+
+```
+pip install abstract-modules
+```
+
 
 ### Upload Utils
 
