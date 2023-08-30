@@ -150,7 +150,7 @@
   * **search_global_windows**
     ```python
     search_global_windows(self, window)
-  ```
+    ```
     **Purpose:**
       Search for a window in the global variables.
 
