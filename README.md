@@ -396,13 +396,93 @@ For grasp of the flow and details of the generation process, explore the other f
 The script also provides flexibility by letting the user choose specific configuration options for the module. For instance, they specify the type of license the project will be using, and whether certain files need to be created. For a full rundown of functions and their usage, please refer to the code comments of the create_module_folder.py file.
 
 
-### Abstract AI
-Enhances AI interactions with utilities for API handling, requests, tokenization, and more.
-- **Developed By**: putkoff
-- **Features**:
-  - [Brief description of notable features.]
-  - ...
+## Abstract Ai
 
+The `abstract_ai` module is a key component of the `abstract_ai` submodule within the larger `abstract_essentials` package. Designed to streamline the process of making API calls to OpenAI, handling responses, and managing communication intricacies, this module offers a suite of functions that empower developers to interact with the OpenAI API efficiently and effectively.
+
+### Description
+
+The module serves as a bridge between your Python code and the OpenAI API, providing a structured interface for sending requests, managing responses, and handling various scenarios that might arise during the interaction. It abstracts away many of the technical complexities, enabling developers to focus on crafting meaningful requests and interpreting the corresponding responses.
+
+## Installation
+
+To install abstract_modules, use pip:
+
+```
+pip install abstract-images
+```
+
+### Key Features
+
+## Features
+
+- **API Key Management**: The module includes functions to fetch and load the OpenAI API key from environment variables, ensuring secure authentication for API interactions.
+- **Flexible Request Handling**: The `post_request()` function allows sending POST requests to a specified endpoint with customizable headers and prompt data, offering flexibility in crafting API requests.
+- **Structured Communication**: The module facilitates chunked data communication with the OpenAI API, enabling structured exchanges for complex tasks by breaking down data into manageable chunks.
+- **Response Handling**: The module provides functions to process and handle API responses, converting them into Python dictionaries for easier interpretation and manipulation.
+- **Safety Checks**: The `safe_send()` function offers a safe method to send API requests, adhering to token limitations and handling scenarios where responses may exceed token allowances.
+- **Convenient Prompt Creation**: Functions like `create_prompt_js()` allow for the creation of well-formatted prompt JSON objects, simplifying the construction of requests and improving readability.
+- **User-Friendly GUI**: The module integrates with a graphical user interface (GUI) to handle aborted requests, ensuring a smooth user experience and providing a clear interface for handling unexpected scenarios.
+- **Customizable Response Template**: The `default_instructions()` function generates a standardized response format template in JSON, allowing users to easily structure their responses with notes, suggestions, and more.
+- **Documentation and Source Link**: The module provides information about the version, author, and source code location. A link to the GitHub repository offers comprehensive documentation and source code for reference.
+- **Integration with Dependencies**: The module collaborates seamlessly with dependent modules such as `abstract_utilities`, `abstract_gui`, and others, streamlining the development process and enhancing functionality.
+
+These key features empower users to interact with the OpenAI API efficiently, handle diverse response scenarios, and manage complex communication processes through a well-structured and organized interface.
+
+### Dependencies
+
+To leverage the capabilities of the `abstract_ai` module, ensure that the required dependencies are installed. 
+- `requests` library for making HTTP requests
+- `openai` library for interacting with OpenAI's API
+- `abstract_utilities` for submodule integration
+- `abstract_gui` for additional utilities and GUI handling.
+
+Incorporating this module into your codebase can significantly simplify the process of interacting with the OpenAI API, allowing you to focus on the creative aspects of your project while the module takes care of the technical details.
+
+
+### Example Use
+
+The module's functions can be utilized for various tasks, such as sending different types of requests, handling complex queries, and managing responses. A typical use case might involve fetching data from an external source using the OpenAI API, processing the response, and presenting the results to the user.
+
+Here's an example of how you can use the functions provided by the `api_calls.py` module to interact with the OpenAI API and handle responses effectively:
+
+```python
+# Import necessary functions and modules from abstract_ai
+from abstract_ai.api_calls import safe_send, quick_request
+
+# Define your OpenAI API key or ensure it's set in the environment variables; the abstract_security module required for this module will automatically search for the .env in the current directory, and home/envy_all diretory
+
+# send a prompt to gpt-4
+request = "please convert the prompt data to chinese"
+prompt_data = "hi welcome to abstract ai"
+model="gpt-4"
+output = safe_send(prompt_data=prompt_data,request=request,model=model,title="test_prompt",completion_percentage=40)
+print(output[0]["response"])
+
+#example with no inputs at all
+response = safe_send()
+print("API Response:", response)
+# query sent to the module: {'prompt': {'available': 0, 'used': 210, 'desired': 4916}, 'completion': {'available': 3276, 'used': 0, 'desired': 3276}, 'chunks': {'total': 1, 'length_per': 4706, 'data': ["I have not sent anything . How 's your day though?"]}}
+#response= [{'abort': 'False', 'additional_response': 'False', 'suggestions': 'This is a conversational prompt instead of a task-based one. It might be useful to keep the conversation going or redirect the user to how you can assist them.', 'notation': 'The user has not made a request but initiated a conversation instead.', 'response': "I'm an AI and don't experience days, but thank you for asking! How can I assist you today?"}]
+
+# Example API call using post_request function
+endpoint_url = "https://api.openai.com/v1/your-endpoint"
+prompt_data = "Translate the following English text to French: 'Hello, world!'"
+response = post_request(endpoint=endpoint_url, prompt=prompt_data)
+print("API Response:", response)
+
+# Example of sending a quick request
+quick_request(prompt="Sum the numbers: 5, 10, 15")
+# This function will quickly send the request and print the API response
+
+# Example of using safe_send function
+complex_prompt = "Perform a sentiment analysis on the following paragraph: 'The product is great, but the customer service needs improvement.'"
+response_list = safe_send(prompt_data=complex_prompt, max_tokens=50)
+for idx, resp in enumerate(response_list, start=1):
+    print(f"Response {idx}:", resp["response"])
+```
+
+In this example, you can see how to make API calls, handle responses, and utilize different functions provided by the `abstract_ai` module. You can adapt these functions to your specific use case, allowing you to interact with the OpenAI API efficiently and manage responses in a structured manner. Remember to replace placeholders like `your-endpoint` and actual API keys with appropriate values before executing the code.
 ---
 
 # Abstract GUI
