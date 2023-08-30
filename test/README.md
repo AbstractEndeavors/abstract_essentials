@@ -8,22 +8,40 @@ Explanation of the package.
 
 * Explanation of how to use the package.
 
-## Abstract GUI
-### Description
+## Abstract GUI Module
 
-Brief description of the module.
+The `abstract_gui` module provides classes and functions to manage PySimpleGUI windows and events in a more abstract manner. It includes a class called `WindowGlobalBridge` to manage global variables shared between different scripts and a class called `WindowManager` to manage PySimpleGUI windows and their events.
 
+## Installation
+
+You can install the `abstract_gui` module using `pip`:
+
+```
+pip install abstract_gui
+```
 ### Features
 
 * Feature 1
 * Feature 2
 * ... 
 
-### Dependencies
+Certainly! Here's the "Dependencies" section formatted similarly to the previous sections:
 
-#### Dependency Name 1
+### **Dependencies**:
 
-#### Modules
+- #### `import PySimpleGUI as sg`
+    - **Purpose**: PySimpleGUI offers a simpler way to create desktop applications.
+
+- #### `from abstract_utilities.thread_utils import thread_alive`
+    - **Purpose**: Imports the `thread_alive` function from the `thread_utils` module of the `abstract_utilities` package. This function is likely used to check if a particular thread is still running.
+
+- #### `from abstract_utilities.class_utils import get_fun`
+    - **Purpose**: Imports the `get_fun` function from the `class_utils` module of the `abstract_utilities` package. The function might retrieve a specific function or method from a class or module.
+
+- #### `from abstract_utilities.path_utils import get_current_path`
+    - **Purpose**: Imports the `get_current_path` function from the `path_utils` module of the `abstract_utilities` package. This function is probably used to retrieve the current working directory or path.
+
+### Components
 
 
 ##### abstract_gui.py
@@ -1234,22 +1252,92 @@ title (str): The title of the GUI window. Defaults to 'Directory'.
   * tuple: A tuple containing the WindowManager, bridge, and script name.
 
 ---
-### Usage
 
-* **Use:** Explanation of how to use the function/class.
+For detailed usage, parameter information, and return types, please refer to the individual method documentation.
 
-### Module Information
+## Bug Reports & Contact
+For any bugs or issues, please report on the [Github page](https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_gui). For direct queries, you can email the team at [partners@abstractendeavors.com](mailto:partners@abstractendeavors.com).
 
-* **Info:** Additional information or context about the module component.
+---
 
-## Usage for the Module
+## Example Usage
 
-### Explanation
+```python
+# Import the module
+import abstract_gui
 
-* Explanation of how to use the module.
+# Create a global bridge instance
+global_bridge = abstract_gui.WindowGlobalBridge()
 
-## Module Information
+# Create a window manager instance for a script named "example_script"; interacts with the global bridge for modular event handling for script specific functions
+window_manager = abstract_gui.WindowManager("example_script", global_bridge)
 
-### Info
+#or use the window_manager initialization function
+window_mgr,bridge,script_name = abstract_gui.create_window_manager(script_name="example_script",global_var=globals())
 
-* Additional information or context about the module.
+#Create components for a layout
+#input args, a dictionary with window parameters for any and all parameter inputs. an incompatible parameter will not be applied, error free component utilization
+layout = abstract_gui.get_gui_fun('Text', args={"text": "Hello, PySimpleGUI!"})
+
+#make component expandable (it will not error out if arguments are incompatible); with customizable legacy inputs
+#Returns a dictionary with window parameters for creating an expandable PySimpleGUI window.
+expand = abstract_gui.expandable()
+
+# Create a new PySimpleGUI window using the window manager, add the stringified function name as event_function for binded event handling
+#get_new_window(self, title=None, layout=None, args=None, event_function=None, exit_events:list=["exit", "Exit", "EXIT"])
+window = window_manager.get_new_window(title="Example Window", args={"layout":[[layout]],**expand})
+
+# Run the event loop for the window
+window_manager.while_basic(window)
+
+# Retrieve all registered windows and their details
+all_windows = window_manager.get_all_windows()
+```
+
+```python
+import PySimpleGUI as sg
+# ... [Other necessary imports and your provided functions and class]
+
+# Initialize the window manager
+window_manager, _, script_name = create_window_manager(script_name="MyScript")
+
+layout = [
+    [sg.Text("Hello from PySimpleGUI!")],
+    [sg.Button("Exit")]
+]
+
+window = sg.Window("My Window", layout, **expandable())
+
+while True:
+    event, values = window.read()
+
+    if event == sg.WIN_CLOSED or event == "Exit":
+        break
+
+window.close()
+```
+Please refer to the source code for the complete list of classes and functions provided by the module, as well as their detailed documentation.
+
+## Contributing
+
+Contributions are welcome! Please fork this repository and open a pull request to add snippets, make grammar tweaks, etc.
+
+## Contact
+
+If you have any questions, feel free to reach out to us at partners@abstractendeavors.com.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Authors
+
+* putkoff - main developer
+
+
+For detailed usage, parameter information, and return types, please refer to the individual method documentation.
+
+## Bug Reports & Contact
+For any bugs or issues, please report on the [Github page](https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_gui). For direct queries, you can email the team at [partners@abstractendeavors.com](mailto:partners@abstractendeavors.com).
+
+---
