@@ -639,7 +639,7 @@ def win_closed(self, window):
 
 ##### Stand Alone Functions
 * **create_row**
-  ```python
+```python
   
 def create_row(*args):
     """
@@ -652,7 +652,7 @@ def create_row(*args):
         list: A row layout containing the provided elements.
     """
     return [arg for arg in args]
-  ```
+```
   **Purpose:**
   Create a row layout containing the provided arguments.
 
@@ -664,7 +664,7 @@ def create_row(*args):
 
 ---
 * **create_column**
-  ```python
+```python
   
 def create_column(*args):
     """
@@ -683,7 +683,7 @@ def create_column(*args):
         else:
             elements.append(arg)
     return [[element] for element in elements]
-  ```
+```
   **Purpose:**
   Create a column layout containing the provided arguments.
 
@@ -695,7 +695,7 @@ def create_column(*args):
 
 ---
 * **concatenate_rows**
-  ```python
+```python
   
 def concatenate_rows(*args):
     """
@@ -711,7 +711,7 @@ def concatenate_rows(*args):
     for arg in args:
         result += arg
     return result
-  ```
+```
   **Purpose:**
   Concatenate multiple row layouts into a single row layout.
 
@@ -723,7 +723,7 @@ def concatenate_rows(*args):
 
 ---
 * **concatenate_layouts**
-  ```python
+```python
   
 def concatenate_layouts(*args):
     """
@@ -736,7 +736,7 @@ def concatenate_layouts(*args):
         list: A layout containing concatenated elements from input layouts.
     """
     return concatenate_lists(args)
-  ```
+```
   **Purpose:**
   Concatenate multiple layouts into a single layout.
 
@@ -748,7 +748,7 @@ def concatenate_layouts(*args):
 
 ---
 * **create_row_of_buttons**
-  ```python
+```python
   
 def create_row_of_buttons(*args):
     """
@@ -762,7 +762,7 @@ def create_row_of_buttons(*args):
     """
     return [button for arg in args for button in get_buttons(arg)]
 
-  ```
+```
   **Purpose:**
   Create a row layout containing buttons generated from the provided arguments.
 
@@ -774,7 +774,7 @@ def create_row_of_buttons(*args):
 
 ---
 * **get_buttons**
-  ```python
+```python
   
 def get_buttons(*args):
     """
@@ -830,7 +830,7 @@ def get_buttons(*args):
     else:
         raise ValueError("Unsupported argument type: {}".format(arg_type))
 
-  ```
+```
   **Purpose:**
   Generate button elements based on the provided arguments.
 
@@ -842,7 +842,7 @@ def get_buttons(*args):
 
 ---
 * **if_not_window_make_window**
-  ```python
+```python
   
 def if_not_window_make_window(window):
     """
@@ -860,7 +860,7 @@ def if_not_window_make_window(window):
                 window["layout"]=ensure_nested_list(window["layout"])
         window=get_window(args=window)
     return window
-  ```
+```
   **Purpose:**
   Checks if the provided object is a window and creates a new window if it isn't.
 
@@ -872,7 +872,7 @@ def if_not_window_make_window(window):
 
 ---
 * **while_quick**
-  ```python
+```python
   
 def while_quick(window,return_events:(list or str)=[],exit_events:(list or str)=[sg.WIN_CLOSED],event_return=False):
     """
@@ -903,7 +903,7 @@ def while_quick(window,return_events:(list or str)=[],exit_events:(list or str)=
         return event
     return values  
       
-  ```
+```
   **Purpose:**
   Reads events from the given window and handles them based on the provided conditions.
 
@@ -918,7 +918,7 @@ def while_quick(window,return_events:(list or str)=[],exit_events:(list or str)=
 
 ---
 * **verify_args**
-  ```python
+```python
   
 def verify_args(args:dict=None, layout:list=None, title:str=None, event_function:str=None,exit_events:(list or str)=None):
     """
@@ -943,7 +943,7 @@ def verify_args(args:dict=None, layout:list=None, title:str=None, event_function
     args.setdefault("event_function", event_function)
     args.setdefault("exit_events", list(exit_events))
     return args
-  ```
+```
   **Purpose:**
   Verifies and/or sets default values for window arguments.
 
@@ -959,7 +959,7 @@ def verify_args(args:dict=None, layout:list=None, title:str=None, event_function
 
 ---
 * **get_window**
-  ```python
+```python
   
 def get_window(title=None, layout=None, args=None):
     """
@@ -975,7 +975,7 @@ def get_window(title=None, layout=None, args=None):
     """
     args = verify_args(args=args, layout=layout, title=title)
     return get_gui_fun('Window', {**args})
-  ```
+```
   **Purpose:**
   Get a PySimpleGUI window.
 
@@ -989,7 +989,7 @@ def get_window(title=None, layout=None, args=None):
 
 ---
 * **get_browser_layout**
-  ```python
+```python
   
 def get_browser_layout(title:str=None,type:str='Folder',args:dict={},initial_folder:str=get_current_path()):
     """
@@ -1014,7 +1014,7 @@ def get_browser_layout(title:str=None,type:str='Folder',args:dict={},initial_fol
         [get_gui_fun('OK'), get_gui_fun('Cancel')]
     ]
     return {"title": f'{type} Explorer', "layout": layout}
-  ```
+```
   **Purpose:**
   Function to get a browser GUI based on the type specified.
 Parameters:
@@ -1023,7 +1023,7 @@ title (str): The title of the GUI window. Defaults to 'Directory'.
 
 ---
 * **get_yes_no_layout**
-  ```python
+```python
   
 def get_yes_no_layout(title:str="Answer Window",text:str="would you lie to proceed?",args:dict={}):
     """
@@ -1042,7 +1042,7 @@ def get_yes_no_layout(title:str="Answer Window",text:str="would you lie to proce
         [sg.Button('Yes'), sg.Button('No')]
     ]
     return {"title":title, "layout": layout,**args}
-  ```
+```
   **Purpose:**
   Creates a layout for a Yes/No window.
 
@@ -1056,7 +1056,7 @@ def get_yes_no_layout(title:str="Answer Window",text:str="would you lie to proce
 
 ---
 * **get_input_layout**
-  ```python
+```python
   
 def get_input_layout(title:str="Input Window",text:str="please enter your input",default:str=None,args:dict={}):
     """
@@ -1087,7 +1087,7 @@ def get_input_layout(title:str="Input Window",text:str="please enter your input"
         [get_gui_fun('OK'), get_gui_fun('Cancel')]
     ]
     return {"title":title, "layout": layout}
-  ```
+```
   **Purpose:**
   Function to get a browser GUI based on the type specified.
 Parameters:
@@ -1096,7 +1096,7 @@ title (str): The title of the GUI window. Defaults to 'Directory'.
 
 ---
 * **get_yes_no**
-  ```python
+```python
   
 def get_yes_no(title:str="Answer Window",text:str="would you lie to proceed?",args:dict={},exit_events:(str or list)=[],return_events:(str or list)=["Yes","No"],event_return=True):
     """
@@ -1115,7 +1115,7 @@ def get_yes_no(title:str="Answer Window",text:str="would you lie to proceed?",ar
     """
     window = get_window(args=get_yes_no_layout(title=title,text=text))
     return while_quick(window=window,exit_events=exit_events,return_events=return_events,event_return=event_return)
-  ```
+```
   **Purpose:**
   Creates and displays a Yes/No window, then captures the user response.
 
@@ -1132,7 +1132,7 @@ def get_yes_no(title:str="Answer Window",text:str="would you lie to proceed?",ar
 
 ---
 * **get_input**
-  ```python
+```python
   
 def get_input(title:str="Input Window",text:str="please enter your input",default:str=None,args:dict={},exit_events:(str or list)=['Cancel'],return_events:(str or list)=['OK']):
     """
@@ -1152,7 +1152,7 @@ def get_input(title:str="Input Window",text:str="please enter your input",defaul
     window = get_window(args=get_input_layout(title=title,text=text,args=args,default=default,initial_folder=initial_folder))
     return while_quick(window=window,exit_events=exit_events,return_events=return_events)
     
-  ```
+```
   **Purpose:**
   Creates and displays an input window, then captures the user input.
 
@@ -1169,7 +1169,7 @@ def get_input(title:str="Input Window",text:str="please enter your input",defaul
 
 ---
 * **get_browser**
-  ```python
+```python
   
 def get_browser(title:str=None,type:str='Folder',args:dict={},initial_folder:str=get_current_path(),exit_events:(str or list)=['Cancel'],return_events:(str or list)=['OK']):
     """
@@ -1194,7 +1194,7 @@ def get_browser(title:str=None,type:str='Folder',args:dict={},initial_folder:str
     if results == None:
         results={'output':initial_folder}
     return results['output']
-  ```
+```
   **Purpose:**
   Creates and displays a browser window, then captures the user-selected path.
 
@@ -1211,7 +1211,7 @@ def get_browser(title:str=None,type:str='Folder',args:dict={},initial_folder:str
 
 ---
 * **get_gui_fun**
-  ```python
+```python
   
 def get_gui_fun(name: str = '', args: dict = {}):
     """
@@ -1225,7 +1225,7 @@ def get_gui_fun(name: str = '', args: dict = {}):
         callable: A callable object that invokes the PySimpleGUI function with the specified arguments when called.
     """
     return get_fun({"instance": sg, "name": name, "args": args})
-  ```
+```
   **Purpose:**
   Returns a callable object for a specific PySimpleGUI function with the provided arguments.
 
@@ -1238,7 +1238,7 @@ def get_gui_fun(name: str = '', args: dict = {}):
 
 ---
 * **create_window_manager**
-  ```python
+```python
   
 def create_window_manager(script_name='default_script_name',global_var=globals()):
     """
@@ -1257,7 +1257,7 @@ def create_window_manager(script_name='default_script_name',global_var=globals()
     js_bridge = bridge.retrieve_global_variables(script_name, global_var)
     return WindowManager(script_name, bridge),bridge,script_name
 
-  ```
+```
   **Purpose:**
   Initializes a window manager for a given script.
 
@@ -1286,4 +1286,3 @@ def create_window_manager(script_name='default_script_name',global_var=globals()
 
 #### Info
 * Additional information or context about the module.
-
