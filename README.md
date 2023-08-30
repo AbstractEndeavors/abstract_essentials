@@ -92,9 +92,7 @@ Abstract Security simplifies the management and access of environment variables 
 
 ## Installation
 
-```
-pip install abstract_security
-```
+for now, please install the individual modules seperately.
 
 - **Dependencies**:
  - `os`
