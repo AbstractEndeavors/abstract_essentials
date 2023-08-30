@@ -30,14 +30,14 @@
   * **__init__**
     ```python
     __init__(self)
-  ```
+    ```
     **Purpose:**
       Initializes the WindowGlobalBridge with an empty dictionary for global_vars.
 
   * **retrieve_global_variables**
     ```python
     retrieve_global_variables(self, script_name:str, global_variables:dict, tag_script_name:bool=False)
-  ```
+    ```
     **Purpose:**
       Stores the global variables of a script in the global_vars dictionary.
 
@@ -49,7 +49,7 @@
   * **return_global_variables**
     ```python
     return_global_variables(self, script_name=None)
-  ```
+    ```
     **Purpose:**
       Returns the global variables of a script.
 
