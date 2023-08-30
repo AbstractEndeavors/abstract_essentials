@@ -26,8 +26,7 @@
 
 ---
 * **create_window_manager**
-  ```python
-  create_window_manager(script_name='default_script_name',global_var=globals())
+  ```python  create_window_manager(script_name='default_script_name',global_var=globals())
   ```
   **Purpose:**
   Initializes a window manager for a given script.
