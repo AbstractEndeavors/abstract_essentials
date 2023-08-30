@@ -949,12 +949,12 @@ print(elements)  # Outputs: List of HTML elements fitting the filters
 Harness the power of Abstract WebTools and streamline your web content analysis today!
 
 #### Module Information
--**Author**: putkoff
--**Author Email**: partners@abstractendeavors.com
--**Github**: https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_webtools
--**PYPI**: https://pypi.org/project/abstract-webtools
--**Part of**: abstract_essentials
--**Date**: 08/29/2023
--**Version**: 0.1.2
+- **Author**: putkoff
+- **Author Email**: partners@abstractendeavors.com
+- **Github**: https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_webtools
+- **PYPI**: https://pypi.org/project/abstract-webtools
+- **Part of**: abstract_essentials
+- **Date**: 08/29/2023
+- **Version**: 0.1.2
 ---
 
