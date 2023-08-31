@@ -1,0 +1,1 @@
+rpcVal = {"netName": "Ethereum", "nativeCurrency": "ETH", "network": "Mainnet", "RPC": "https://rpc.ankr.com/eth", "chainId": "0x1", "blockExplorer": "https://etherscan.io"}

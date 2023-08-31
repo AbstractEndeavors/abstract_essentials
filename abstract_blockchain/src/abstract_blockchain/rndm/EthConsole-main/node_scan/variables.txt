@@ -1,0 +1,1 @@
+{'net': 'ftmscan.com', 'add': '0x131c7afb4E5f5c94A27611f7210dfEc2215E85Ae', 'node_add': '0xf9f64b2c62210e6acc266169da7026f209cecd52', 'node_#': '50', 'name': 'Power', 'symbol': 'POWER', 'fold': 'Power'}
