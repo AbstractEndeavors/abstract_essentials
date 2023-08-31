@@ -13,7 +13,7 @@ pip install abstract_audio
 ```
 
 ## Usage
-![image](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/c141175e-1ed5-4d1e-a7c4-005da30b020a)
+
 
 ### Speech-to-Text Application
 
@@ -24,6 +24,7 @@ To use the speech-to-text application, run the following command:
 ```bash
 python speech_to_text_gui.py
 ```
+![image](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/c141175e-1ed5-4d1e-a7c4-005da30b020a)
 
 The GUI window will open, displaying a 'record' button. Click on the 'record' button to start recording your voice. The GUI screen will turn green to indicate that it is recording. Once you stop speaking, the recorded audio will be processed using the Google Web Speech API, and the recognized text will be displayed in the GUI window.
 
