@@ -36,6 +36,7 @@ The `image_utils.py` module contains functions for image-related operations.
 - **show_image(image: Union[Image.Image, ndarray])**: Display an image.
 
 ### PDF Utilities - `pdf_utils.py`
+![image](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/2cc6874f-b22a-4a3c-82da-0ebb8ee739cd)
 
 The `pdf_utils.py` module provides functions for PDF processing.
 
