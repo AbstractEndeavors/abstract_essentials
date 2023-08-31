@@ -12,6 +12,7 @@ Provides utilities for inspecting and parsing web content, including React compo
 ### abstract_webtools.py
 **Description:**  
 Abstract WebTools offers a suite of utilities designed for web content inspection and parsing. One of its standout features is its ability to analyze URLs, ensuring their validity and automatically attempting different URL variations to obtain correct website access. It boasts a custom HTTP request management system that tailors user-agent strings and employs a specialized TLS adapter for heightened security. The toolkit also provides robust capabilities for extracting source code, including detecting React components on web pages. Additionally, it offers functionalities for extracting all internal website links and performing in-depth web content analysis. This makes Abstract WebTools an indispensable tool for web developers, cybersecurity professionals, and digital analysts.
+![image](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/0451d8ea-996f-4de5-9e6c-92a606aae4ef)
 
 - **Dependencies**:
   - `requests`
