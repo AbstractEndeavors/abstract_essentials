@@ -33,14 +33,27 @@ python3 upload_to_pypi.py
 The script will guide you through the following steps:
 
 1. **Selecting Module Directory**: You will be prompted to pick the module directory using a GUI window. This directory should contain the necessary files, including the `setup.py` file.
+![Screenshot from 2023-08-31 02-37-23](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/beaf5c3f-54d3-4565-a562-c209ee7db96a)
+
 
 2. **Updating Version Number**: If the version number in the `setup.py` file matches an existing version in the `dist` directory, you will be asked to enter a new version number.
+![Screenshot from 2023-08-31 02-38-10](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/292e7977-c177-4c87-9448-ede4d041ba84)
+
 
 3. **Building the Module**: The script will build your module using the `setup.py` script. The distribution files (wheels) will be placed in the `dist` directory.
+![Screenshot from 2023-08-31 02-38-22](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/33a5b335-cb62-4cac-8ea1-187150db682c)
+
+
 
 4. **Uploading to PyPI**: The script will prompt you to enter your PyPI username and password securely. It will then upload the module to PyPI using Twine.
 
+![image](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/b98c1288-0a09-4451-9d73-f8828a20e55e)
+
+
 5. **Installing the Module**: After successful upload, you will have the option to install the module using pip for testing purposes.
+![Screenshot from 2023-08-31 02-38-55](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/d48027cf-61ba-496e-9b02-8e50db60021c)
+
+
 
 ## Example
 
