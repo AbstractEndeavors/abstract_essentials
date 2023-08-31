@@ -47,9 +47,6 @@ The script will guide you through the following steps:
 
 4. **Uploading to PyPI**: The script will prompt you to enter your PyPI username and password securely. It will then upload the module to PyPI using Twine.
 
-![image](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/b98c1288-0a09-4451-9d73-f8828a20e55e)
-
-
 5. **Installing the Module**: After successful upload, you will have the option to install the module using pip for testing purposes.
 ![Screenshot from 2023-08-31 02-38-55](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/d48027cf-61ba-496e-9b02-8e50db60021c)
 
