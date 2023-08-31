@@ -43,6 +43,7 @@ The script will guide you through the following steps:
 3. **Building the Module**: The script will build your module using the `setup.py` script. The distribution files (wheels) will be placed in the `dist` directory.
 ![Screenshot from 2023-08-31 02-38-22](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/33a5b335-cb62-4cac-8ea1-187150db682c)
 
+![image](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/296bbc62-16ed-41d4-81d6-d5023355ca68)
 
 
 4. **Uploading to PyPI**: The script will prompt you to enter your PyPI username and password securely. It will then upload the module to PyPI using Twine.
