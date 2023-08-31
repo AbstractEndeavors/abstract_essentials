@@ -14,24 +14,53 @@
 
 The module is particularly focused on the OpenAI API and makes use of its functionalities, yet it is designed to be easily extended to other APIs as well.
 
-## Installation
+---
 
-Installation of `abstract_ai` is easy and straightforward. You just need to clone the repository and run the setup file:
+## Installation of `abstract_ai`
 
-1. Clone the repository:
+To install `abstract_ai`, you can either use pip or manually set it up by cloning the repository:
+
+### Using pip:
+
 ```sh
-git clone https://github.com/AbstractEndeavors/abstract_essentials/abstract_ai
+pip install abstract-ai
 ```
-2. Navigate to the cloned directory:
+
+### Manual Installation:
+
+1. Clone the specific `abstract_ai` directory from the repository:
+    - Using the `svn` command:
+      ```sh
+      svn checkout https://github.com/AbstractEndeavors/abstract_essentials/trunk/abstract_ai
+      ```
+      (For Ubuntu users, install `svn` with: `sudo apt-get install subversion`)
+
+    - OR using sparse checkout with git:
+      ```sh
+      git clone https://github.com/AbstractEndeavors/abstract_essentials.git
+      cd abstract_essentials
+      git config core.sparseCheckout true
+      echo "abstract_ai/*" > .git/info/sparse-checkout
+      git checkout main
+      ```
+
+    - OR use third-party tools like [DownGit](https://minhaskamal.github.io/DownGit/#/home) to download the directory.
+
+    - OR manually navigate to each file in the directory via GitHub's web interface and click the "Download" button.
+
+2. Navigate to the cloned/downloaded directory:
 ```sh
 cd abstract_ai
 ```
+
 3. Run the setup file:
 ```sh
 python setup.py install
 ```
 
-Please note that `abstract_ai` requires Python 3.6 or later.
+**Note**: `abstract_ai` requires Python 3.6 or later. Ensure you meet this requirement before proceeding with the installation.
+
+---
 
 ## Getting Started
 
