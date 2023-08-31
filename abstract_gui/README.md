@@ -15,7 +15,7 @@ pip install abstract_gui
 
 ![Screenshot from 2023-08-31 01-13-45](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/b38233cf-ed4b-485f-b6c3-e31865758c5b)
 
-`scan_browser`
+`scan_browser()`
 ![Screenshot from 2023-08-31 01-19-42](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/b22214fa-cd5a-40c4-904b-be9c4136ac0a)
 
 * Feature 1
