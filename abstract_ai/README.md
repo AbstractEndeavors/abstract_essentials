@@ -14,6 +14,11 @@
 
 The module is particularly focused on the OpenAI API and makes use of its functionalities, yet it is designed to be easily extended to other APIs as well.
 
+![Screenshot from 2023-08-31 02-52-21](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/382ca375-3987-4c2b-b5a9-dde0f7102d15)
+
+
+![image](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/1975b7f0-f4de-4a8c-8a41-f6a0fded55da)
+
 ---
 
 ## Installation of `abstract_ai`
