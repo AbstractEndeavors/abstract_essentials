@@ -13,6 +13,7 @@ pip install abstract_audio
 ```
 
 ## Usage
+![image](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/c141175e-1ed5-4d1e-a7c4-005da30b020a)
 
 ### Speech-to-Text Application
 
