@@ -70,6 +70,7 @@ for now, please download the modules individually as you see fit
 
 ## Installation of modules
 using `abstract_ai` as an example:
+
 To install `abstract_ai`, you can either use pip or manually set it up by cloning the repository:
 
 ### Using pip:
