@@ -68,6 +68,51 @@ Thank you for exploring the `abstract_essentials` package. Dive into each module
 
 for now, please download the modules individually as you see fit
 
+## Installation of modules
+using `abstract_ai` as an example:
+To install `abstract_ai`, you can either use pip or manually set it up by cloning the repository:
+
+### Using pip:
+
+```sh
+pip install abstract-ai
+```
+
+### Manual Installation:
+
+1. Clone the specific `abstract_ai` directory from the repository:
+    - Using the `svn` command:
+      ```sh
+      svn checkout https://github.com/AbstractEndeavors/abstract_essentials/trunk/abstract_ai
+      ```
+      (For Ubuntu users, install `svn` with: `sudo apt-get install subversion`)
+
+    - OR using sparse checkout with git:
+      ```sh
+      git clone https://github.com/AbstractEndeavors/abstract_essentials.git
+      cd abstract_essentials
+      git config core.sparseCheckout true
+      echo "abstract_ai/*" > .git/info/sparse-checkout
+      git checkout main
+      ```
+
+    - OR use third-party tools like [DownGit](https://minhaskamal.github.io/DownGit/#/home) to download the directory.
+
+    - OR manually navigate to each file in the directory via GitHub's web interface and click the "Download" button.
+
+2. Navigate to the cloned/downloaded directory:
+```sh
+cd abstract_ai
+```
+
+3. Run the setup file:
+```sh
+python setup.py install
+```
+
+**Note**: `abstract_ai` requires Python 3.6 or later. Ensure you meet this requirement before proceeding with the installation.
+
+---
 ## Modules
 ---
 # Abstract Security
