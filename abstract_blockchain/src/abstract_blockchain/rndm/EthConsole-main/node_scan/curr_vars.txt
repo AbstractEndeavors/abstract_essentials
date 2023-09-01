@@ -1,1 +1,0 @@
-{'net': 'snowtrace.io', 'add': '0x1aea17a08ede10d158baac969f809e6747cb2b22', 'node_add': '0x1aea17a08ede10d158baac969f809e6747cb2b22', 'node_#': '10', 'name': 'NebulaNodes', 'symbol': 'NeBu', 'fold': '\\NebulaNodes'}

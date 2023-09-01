@@ -1,1 +1,0 @@
-{'scans': ['etherscan.io', 'ftmscan.com', 'cronoscan.com', 'snowtrace.io', 'bscscan.com', 'moonbeam.moonscan.io', 'polygonscan.com']}

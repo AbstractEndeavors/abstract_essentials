@@ -1,1 +1,0 @@
-{'net': 'moonbeam.moonscan.io', 'add': '0x818ec0a7fe18ff94269904fced6ae3dae6d6dc0b', 'cont': '0x818ec0a7fe18ff94269904fced6ae3dae6d6dc0b', 'name': 'USD Coin', 'symbol': 'USDC', 'fold': 'USD Coin'}
