@@ -1,10 +1,7 @@
 from web3 import Web3
 import sys
 import os
-home = os.getcwd()
 import json
-sys.path.insert(0, "/home/bigrugz/Desktop/allScripts/scripts/abiGetsNewn/walls")
-import priv_key as priv
 import PySimpleGUI as sg
 import codecs
 import requests
