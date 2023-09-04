@@ -1,0 +1,43 @@
+Here's the information for each function formatted as per your example:
+
+### 1. `get_status`
+- **Purpose**: Gets the HTTP status code of the given URL.
+- **Arguments**:
+  - `url`: The URL to check the status of.
+- **Returns**: The HTTP status code of the URL, or None if the request fails.
+
+### 2. `clean_url`
+- **Purpose**: Cleans the given URL and returns a list of possible variations.
+- **Arguments**:
+  - `url`: The URL to clean.
+- **Returns**: A list of possible URL variations, including 'http://' and 'https://' prefixes.
+
+### 3. `get_correct_url`
+- **Purpose**: Gets the correct URL from the possible variations by trying each one with an HTTP request.
+- **Arguments**:
+  - `url`: The URL to find the correct version of.
+  - `session`: The requests session to use for making HTTP requests. Defaults to requests.
+- **Returns**: The correct version of the URL if found, or None if none of the variations are valid.
+
+### 4. `try_request`
+- **Purpose**: Tries to make an HTTP request to the given URL using the provided session.
+- **Arguments**:
+  - `url`: The URL to make the request to.
+  - `session`: The requests session to use for making HTTP requests. Defaults to requests.
+- **Returns**: The response object if the request is successful, or None if the request fails.
+
+### 5. `is_valid`
+- **Purpose**: Checks whether `url` is a valid URL.
+- **Arguments**:
+  - `url`: The URL to check.
+- **Returns**: True if the URL is valid, False otherwise.
+
+### 6. `desktop_user_agents`
+- **Purpose**: Returns a list of popular desktop user-agent strings for various browsers.
+- **Returns**: A list of desktop user-agent strings.
+
+### 7. `get_user_agent`
+- **Purpose**: Returns the user-agent header dictionary with the specified user-agent.
+- **Arguments**:
+  - `user_agent`: The user-agent string to be used. Defaults to the first user-agent in the list.
+- **Returns**: A dictionary containing the 'user-agent' header.
