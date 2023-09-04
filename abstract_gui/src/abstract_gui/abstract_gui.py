@@ -1,7 +1,41 @@
+"""
+abstract_gui.py
+==========================================
+
+This module provides classes and functions for managing global variables and windows in PySimpleGUI applications.
+
+Classes:
+- WindowGlobalBridge: A class for managing global variables shared between different scripts.
+- WindowManager: A class for managing PySimpleGUI windows and their interactions.
+
+Functions:
+- create_row(*args): Create a row layout containing the provided elements.
+- create_column(*args): Create a column layout containing the provided elements.
+- concatenate_rows(*args): Concatenate multiple row layouts into a single row layout.
+- concatenate_layouts(*args): Concatenate multiple layouts into a single layout.
+- create_row_of_buttons(*args): Create a row layout containing buttons generated from the provided arguments.
+- get_buttons(*args): Generate button elements based on the provided arguments.
+- if_not_window_make_window(window): Check if the provided object is a window and create a new window if it isn't.
+- while_quick(window, return_events=[], exit_events=['Exit'], event_return=False): Read events from the given window and handle them based on conditions.
+- verify_args(args=None, layout=None, title=None, event_function=None, exit_events=None): Verify and/or set default values for window arguments.
+- get_window(title=None, layout=None, args=None): Get a PySimpleGUI window.
+- get_browser_layout(title=None, type='Folder', args={}, initial_folder=get_current_path()): Get a browser GUI layout based on the specified type.
+- get_yes_no_layout(title="Answer Window", text="Would you like to proceed?", args={}): Create a layout for a Yes/No window.
+- get_input_layout(title="Input Window", text="Please enter your input", default=None, args={}): Create a layout for an input window.
+- get_yes_no(title="Answer Window", text="Would you like to proceed?", args={}, exit_events=['Cancel'], return_events=['Yes', 'No'], event_return=True): Display a Yes/No window and capture user response.
+- get_input(title="Input Window", text="Please enter your input", default=None, args={}, exit_events=['Cancel'], return_events=['OK']): Display an input window and capture user input.
+- get_browser(title=None, type='Folder', args={}, initial_folder=get_current_path(), exit_events=['Cancel'], return_events=['OK']): Display a browser window and capture user-selected path.
+- get_gui_fun(name='', args={}): Return a callable object for a specific PySimpleGUI function with provided arguments.
+- expandable(size=(None, None), resizable=True, scrollable=True, auto_size_text=True, expand_x=True, expand_y=True): Return a dictionary with window parameters for creating an expandable PySimpleGUI window.
+- create_window_manager(script_name='default_script_name', global_var=globals()): Initialize a window manager for a given script.
+
+"""
 import PySimpleGUI as sg
 from abstract_utilities.thread_utils import thread_alive
 from abstract_utilities.class_utils import get_fun
 from abstract_utilities.path_utils import get_current_path
+from abstract_utilities.list_utils import ensure_nested_list,make_list_add
+from abstract_utilities.math_utils import out_of_bounds
 class WindowGlobalBridge:
     """
     A class to manage the global variables shared between different scripts.
@@ -302,12 +336,13 @@ class WindowManager:
                 name = self.register_window(window)
         if name in self.get_window_names():
             self.all_windows['last_window'] = name
-     def send_to_bridge(self):
+    def send_to_bridge(self):
         """
         Update the global bridge with the current state of the windows.
         """
         self.global_vars["all_windows"] = self.all_windows
-        self.global_bridge.retrieve_global_variables(self.script_name, self.global_vars)    def close_window(self, window=None):
+        self.global_bridge.retrieve_global_variables(self.script_name, self.global_vars)
+    def close_window(self, window=None):
         """
         Closes the given PySimpleGUI window.
 
@@ -319,6 +354,7 @@ class WindowManager:
             self.all_windows[self.search_global_windows(window)]["closed"] = True
             self.send_to_bridge()
             window.close()
+            return self.all_windows[self.search_global_windows(window)]["values"]
     def read_window(self, window):
         """
         Read the event and values from a window and update the WindowManager's state.
@@ -387,6 +423,16 @@ class WindowManager:
                     args["value"]=value
                 if args != {}:
                     window[key].update(**args)
+    def get_window_info(self,window=None,string:str="values"):
+        if window is None:
+            if self.all_windows['last_window'] != None:
+                return self.all_windows[self.all_windows['last_window']][string]
+            if string == "values":
+                return {}
+            return ""
+        name = self.search_global_windows(window)
+        if name is not False:
+            return self.all_windows[self.search_global_windows(window)][string]
     def get_event(self, window=None):
         """
         Get the last event from a window.
@@ -397,11 +443,7 @@ class WindowManager:
         Returns:
             any: The last event from the window.
         """
-        if window is None:
-            return self.all_windows[self.all_windows['last_window']]['event']
-        name = self.search_global_windows(window)
-        if name is not False:
-            return self.all_windows[self.search_global_windows(window)]['event']
+        return self.get_window_info(window=window,string="event")
 
     def get_values(self, window=None):
         """
@@ -413,12 +455,7 @@ class WindowManager:
         Returns:
             dict: The values from the window.
         """
-        if window is None:
-            return self.all_windows[self.all_windows['last_window']]['values']
-        name = self.search_global_windows(window)
-        if name is not False:
-            return self.all_windows[self.search_global_windows(window)]['values']
-
+        return self.get_window_info(window=window,string="values")
     def while_basic(self, window=None):
         """
         Run an event loop for a window.
@@ -432,10 +469,17 @@ class WindowManager:
             if self.win_closed(window):
                 self.close_window(window)
                 return self.all_windows[self.search_global_windows(window)]["values"]  # Return the stored data instead of all_windows
+            
             event_function = self.all_windows[self.search_global_windows(window)]["event_function"]
-
             if event_function is not None:
-                self.global_vars[event_function](self.get_event(window))
+                # Capture return value from event_function
+                result = self.global_vars[event_function](self.get_event(window))
+                # Store the result in the all_windows dictionary
+                self.all_windows[self.search_global_windows(window)]["event_function_return"] = result
+                if result in self.all_windows[self.search_global_windows(window)]["exit_events"]:
+                    self.read_window(window)
+                    self.close_window(window)
+                    return self.all_windows[self.search_global_windows(window)]["values"]  # Return the stored data instead of all_windows    
         self.close_window(window)
         return self.all_windows  # Return the stored data instead of all_windows
     def get_window_name(self, obj=None):
@@ -581,51 +625,19 @@ These functions are designed to simplify and streamline the process of creating 
 
 18. **get_browser(title, type, args, initial_folder, exit_events, return_events)**
     - Displays a browser window and returns the result.
-
-19. **out_of_bounds(upper, lower, obj)**
-    - Checks if the given value is out of specified bounds.
-
-20. **det_bool_F(obj)**
-    - Determines if the given object represents a `False` boolean.
-
-21. **det_bool_T(obj)**
-    - Determines if the given object represents a `True` boolean.
-
-22. **T_or_F_obj_eq(event, obj)**
-    - Compares two objects and returns True if they are equal, otherwise False.
-
-23. **get_gui_fun(name, args)**
+    
+19. **get_gui_fun(name, args)**
     - Retrieves a PySimpleGUI function by its name and prepares it with the given arguments.
 
-24. **expandable(size, resizable, scrollable, auto_size_text, expand_x, expand_y)**
+20. **expandable(size, resizable, scrollable, auto_size_text, expand_x, expand_y)**
     - Returns a dictionary of parameters suitable for creating an expandable PySimpleGUI window.
 
-25. **create_window_manager(script_name, global_var)**
+21. **create_window_manager(script_name, global_var)**
     - Creates and returns a window manager for managing PySimpleGUI windows.
 
 These functions are designed to simplify and streamline the process of creating and managing PySimpleGUI windows and their layouts. The utility functions allow for more concise code when setting up GUIs.
 """
-def ensure_nested_list(obj):
-    """
-    Ensure that the input object is a nested list.
 
-    Args:
-        obj (any): The object to ensure as a nested list.
-
-    Returns:
-        list: A nested list containing the object or the original list if it's already nested.
-    """
-    # Check if the input object is a list
-    if not isinstance(obj, list):
-        # If it's not a list, create a new nested list containing the object
-        return [obj]
-    # If it is a list, check if any of its elements are non-list objects
-    for element in obj:
-        if not isinstance(element, list):
-            # If at least one element is not a list, wrap the original list in a new list
-            return [obj]
-    # If all elements are lists, return the original list
-    return obj
 def create_row(*args):
     """
     Create a row layout containing the provided arguments.
@@ -654,6 +666,7 @@ def create_column(*args):
         else:
             elements.append(arg)
     return [[element] for element in elements]
+
 def concatenate_rows(*args):
     """
     Concatenate multiple row layouts into a single row layout.
@@ -678,10 +691,7 @@ def concatenate_layouts(*args):
     Returns:
         list: A layout containing concatenated elements from input layouts.
     """
-    layout = []
-    for arg in args:
-        layout.append(arg)
-    return layout
+    return concatenate_lists(args)
 def create_row_of_buttons(*args):
     """
     Create a row layout containing buttons generated from the provided arguments.
@@ -693,6 +703,7 @@ def create_row_of_buttons(*args):
         list: A row layout containing buttons created from the provided arguments.
     """
     return [button for arg in args for button in get_buttons(arg)]
+
 def get_buttons(*args):
     """
     Generate button elements based on the provided arguments.
@@ -746,21 +757,7 @@ def get_buttons(*args):
         return buttons
     else:
         raise ValueError("Unsupported argument type: {}".format(arg_type))
-def make_list_add(obj,values):
-    """
-    Add multiple values to a list and return the resulting list.
 
-    Args:
-        obj (list): The original list.
-        values (iterable): Values to be added to the list.
-
-    Returns:
-        list: The modified list containing the original elements and the added values.
-    """
-    obj = list(obj)
-    for each in list(values):
-        obj.append(each)
-    return obj
 def if_not_window_make_window(window):
     """
     Checks if the provided object is a window and creates a new window if it isn't.
@@ -820,29 +817,29 @@ def verify_args(args:dict=None, layout:list=None, title:str=None, event_function
     Returns:
         dict: The verified/updated window arguments.
     """
-        args = args or {}
-        layout = layout or [[]]
-        title = title or 'window'
-        exit_events = exit_events or ["exit", "Exit", "EXIT"]
-        args.setdefault("title", title)
-        args.setdefault("layout", ensure_nested_list(layout))
-        args.setdefault("event_function", event_function)
-        args.setdefault("exit_events", list(exit_events))
-        return args
+    args = args or {}
+    layout = layout or [[]]
+    title = title or 'window'
+    exit_events = exit_events or ["exit", "Exit", "EXIT"]
+    args.setdefault("title", title)
+    args.setdefault("layout", ensure_nested_list(layout))
+    args.setdefault("event_function", event_function)
+    args.setdefault("exit_events", list(exit_events))
+    return args
 def get_window(title=None, layout=None, args=None):
-        """
-        Get a PySimpleGUI window.
+    """
+    Get a PySimpleGUI window.
 
-        Args:
-            win_name (str, optional): The name of the window. If not provided, a unique name is generated.
-            layout (list, optional): The layout of the window. If not provided, an empty layout is used.
-            args (dict, optional): Additional arguments for the window.
+    Args:
+        win_name (str, optional): The name of the window. If not provided, a unique name is generated.
+        layout (list, optional): The layout of the window. If not provided, an empty layout is used.
+        args (dict, optional): Additional arguments for the window.
 
-        Returns:
-            any: A PySimpleGUI window.
-        """
-        args = verify_args(args=args, layout=ensure_nested_list(layout), title=title)
-        return get_gui_fun('Window', {**args})
+    Returns:
+        any: A PySimpleGUI window.
+    """
+    args = verify_args(args=args, layout=layout, title=title)
+    return get_gui_fun('Window', {**args})
 def get_browser_layout(title:str=None,type:str='Folder',args:dict={},initial_folder:str=get_current_path()):
     """
     Function to get a browser GUI based on the type specified.
@@ -946,6 +943,7 @@ def get_input(title:str="Input Window",text:str="please enter your input",defaul
     """
     window = get_window(args=get_input_layout(title=title,text=text,args=args,default=default,initial_folder=initial_folder))
     return while_quick(window=window,exit_events=exit_events,return_events=return_events)
+    
 def get_browser(title:str=None,type:str='Folder',args:dict={},initial_folder:str=get_current_path(),exit_events:(str or list)=['Cancel'],return_events:(str or list)=['OK']):
     """
     Creates and displays a browser window, then captures the user-selected path.
@@ -969,56 +967,6 @@ def get_browser(title:str=None,type:str='Folder',args:dict={},initial_folder:str
     if results == None:
         results={'output':initial_folder}
     return results['output']
-def out_of_bounds(upper: (int or float) = 100, lower: (int or float) = 0, obj: (int or float) = -1):
-    """
-    Checks if the given object is out of the specified upper and lower bounds.
-
-    Args:
-        upper (int or float): The upper bound.
-        lower (int or float): The lower bound.
-        obj (int or float): The object to check.
-
-        bool: True if the object is out of bounds, False otherwise.
-    """
-    return det_bool_T(obj > 100 or obj < 0)
-def det_bool_F(obj: (tuple or list or bool) = False):
-    """
-    Determines if the given object is a boolean False value.
-
-    Args:
-        obj (tuple or list or bool): The object to determine the boolean False value.
-
-    Returns:
-        bool: True if the object is a boolean False value, False otherwise.
-    """
-    if isinstance(obj, bool):
-        return obj
-    return all(obj)
-def det_bool_T(obj: (tuple or list or bool) = False):
-    """
-    Determines if the given object is a boolean True value.
-
-    Args:
-        obj (tuple or list or bool): The object to determine the boolean True value.
-
-    Returns:
-        bool: True if the object is a boolean True value, False otherwise.
-    """
-    if isinstance(obj, bool):
-        return obj 
-    return any(obj)
-def T_or_F_obj_eq(event: any = '', obj: any = ''):
-    """
-    Compares two objects and returns True if they are equal, False otherwise.
-
-    Args:
-        event (any): The first object to compare.
-        obj (any): The second object to compare.
-
-    Returns:
-        bool: True if the objects are equal, False otherwise.
-    """
-    return True if event == obj else False
 def get_gui_fun(name: str = '', args: dict = {}):
     """
     Returns a callable object for a specific PySimpleGUI function with the provided arguments.
@@ -1031,6 +979,17 @@ def get_gui_fun(name: str = '', args: dict = {}):
         callable: A callable object that invokes the PySimpleGUI function with the specified arguments when called.
     """
     return get_fun({"instance": sg, "name": name, "args": args})
+def get_menu(menu_definition:list=[['File',  'Save', 'Exit',],['Edit', ['Paste', ['Special', 'Normal',], 'Undo'],],['Help', 'About...'],],args:dict={}):
+    args["menu_definition"]=ensure_nested_list(menu_definition)
+    return get_gui_fun("Menu",args=args)
+def get_push()-> get_gui_fun("Push"):
+    """
+    Fetches the "Push" function from the GUI module.
+    
+    Returns:
+    - function: The "Push" GUI function.
+    """
+    return get_gui_fun("Push")
 def expandable(size: tuple = (None, None),resizable:bool=True,scrollable:bool=True,auto_size_text:bool=True,expand_x:bool=True,expand_y:bool=True):
     """Returns a dictionary with window parameters for creating an expandable PySimpleGUI window."""
     return {"size": size, "resizable": resizable, "scrollable": scrollable, "auto_size_text": auto_size_text, "expand_x": expand_x, "expand_y": expand_y}
@@ -1048,5 +1007,40 @@ def create_window_manager(script_name='default_script_name',global_var=globals()
     bridge = WindowGlobalBridge()
     script_name = bridge.create_script_name(script_name)
     global_var[script_name] = script_name
-    bridge.retrieve_global_variables(script_name, global_var)
+    js_bridge = bridge.retrieve_global_variables(script_name, global_var)
     return WindowManager(script_name, bridge),bridge,script_name
+def Choose_RPC_Parameters_GUI(RPC_list:list=None) -> dict or None:
+    """
+    Creates and launches the GUI window for selecting RPC parameters.
+    
+    Parameters:
+    - RPC_list (list, optional): The list of RPC parameters. If not provided, it will fetch the default list.
+    
+    Returns:
+    - dict: A dictionary containing the selected RPC parameters.
+    """
+    if RPC_list == None:
+        RPC_list = get_rpc_list()
+    elif os.path.isfile(RPC_list):
+        RPC_list = get_rpc_list(file_path)
+    rpc_add_global_bridge["get_rpc_list"]=[]
+    for each in RPC_list:
+        rpc_add_global_bridge["get_rpc_list"].append(RPCData(each).return_rpc_js())
+    save_rpc_list(json_data = rpc_add_global_bridge["get_rpc_list"])
+    rpc_add_global_bridge["total_bool_list"] = []
+    rpc_add_global_bridge["recursed_rpc_js_list"]=rpc_add_global_bridge["get_rpc_list"] 
+    rpc_add_global_bridge["check_list"]={}
+    for each in list(get_js().values()):
+        rpc_add_global_bridge["check_list"][each] = ''
+    keyed_rpc_lists()
+    rpc_add_global_bridge["Network_Names"]=rpc_add_global_bridge["keyed_lists"]["Network_Name"]
+    layout = []
+    for key,value in get_js().items():
+        layout.append([
+            get_gui_fun("Text",args={"text":key.replace('_',' ')}),
+            get_gui_fun("Combo",args={"values":rpc_add_global_bridge["keyed_lists"][key],"default_text":rpc_add_global_bridge["keyed_lists"][key][0],"key":f"{value}","enable_events":True}),
+            get_gui_fun("Checkbox",args={"text":"","default":(key=="Network_Name"),"key":f"{value[:-1]}_CHECK-","enable_events":True}),
+            get_push()])
+    layout = [[get_menu()],layout,[create_row_of_buttons("OK","Show","reset","Exit"),]]
+    window = window_mgr.get_new_window(args={"title":'ADD RPC',"layout":layout,"exit_events":["OK","Exit"],"event_function":"win_while","suppress_raise_key_errors":False, "suppress_error_popups":False, "suppress_key_guessing":False,"finalize":True})
+    values = window_mgr.while_basic(window=window)
