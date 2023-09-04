@@ -22,8 +22,49 @@ Author: putkoff
 Date: 05/31/2023
 Version: 0.1.2
 """
-from pathlib import Path
 import os
+import platform
+from pathlib import Path
+def get_os_info():
+    """
+    Get Operating System Information
+
+    This function retrieves information about the current operating system, including its name and bit size.
+
+    Returns:
+    - os_info (dict): A dictionary containing the operating system information.
+                      Keys:
+                      - "operating_system" (str): The name of the operating system (e.g., "Windows", "Linux", "Darwin").
+                      - "bit_size" (str): The bit size of the operating system (e.g., "32bit", "64bit").
+
+    Example:
+    os_info = get_os_info()
+    print("Operating System:", os_info["operating_system"])
+    print("Bit Size:", os_info["bit_size"])
+    """
+    os_name = platform.system()
+    bit_size = platform.architecture()[0]
+    return {"operating_system": os_name, "bit_size": bit_size}
+def get_dirs(path):
+    """
+    Get List of Immediate Subdirectories in a Path
+
+    This function uses the os.walk method to traverse through a directory tree and returns a list of immediate subdirectories
+    within the specified path.
+
+    Parameters:
+    - path (str): The path for which subdirectories need to be retrieved.
+
+    Returns:
+    - subdirectories (list): A list of immediate subdirectories within the specified path.
+
+    Example:
+    subdirs = get_dirs("/path/to/directory")
+    print("Immediate Subdirectories:", subdirs)
+    """
+    from os import walk
+    for (dirpath, dirnames, filenames) in walk(path):
+        return dirnames
 def sanitize_filename(name: str):
     """
     Sanitize a filename by removing invalid characters.

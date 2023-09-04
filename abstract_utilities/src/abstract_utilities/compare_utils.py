@@ -8,6 +8,7 @@ Author: putkoff
 Date: 05/31/2023
 Version: 0.1.2
 """
+import string
 def get_comp(string:str, string_2:str):
     """
     Calculates the similarity between two strings.
@@ -31,6 +32,8 @@ def get_comp(string:str, string_2:str):
     for k in range(len(ls)):
         ls[k] = len(ls[k])
     ls.sort()
+    if float(0) in [float(ls[0]),float(len(string_2))]:
+        return float(0)
     return float(ls[0] / len(string_2))
 
 def get_lower(obj, obj2):
@@ -101,3 +104,56 @@ def line_contains(string: str = None, compare: str = None, start: int = 0, lengt
     if string[:safe_len(compare)]==compare:
         return True
     return False
+
+def count_slashes(url: str) -> int:
+    """
+    Count the number of slashes in a given URL.
+
+    Parameters:
+    url (str): The URL string in which slashes will be counted.
+
+    Returns:
+    int: The count of slashes in the URL.
+    """
+    return url.count('/')
+def get_letters() -> list:
+    """
+    Get a list of lowercase letters from 'a' to 'z'.
+
+    Returns:
+    list: A list of lowercase letters.
+    """
+
+    return 'a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z'.split(',')
+def get_numbers() -> list:
+    """
+    Get a list of numeric digits from 0 to 9.
+
+    Returns:
+    list: A list of numeric digits.
+    """
+    return '0,1,2,3,4,5,6,7,8,9'.split(',')
+
+def percent_integer_of_string(obj: str, object_compare: str = "numbers") -> float:
+    """
+    Calculate the percentage of characters in a string that are either letters or numbers.
+
+    Parameters:
+    obj (str): The input string to analyze.
+    object_compare (str, optional): The type of characters to compare against ('letters' or 'numbers').
+                                    Defaults to 'numbers' if not specified.
+
+    Returns:
+    float: The percentage of characters in the string that match the specified character type.
+    """
+    if len(obj) == 0:
+        return 0
+    if object_compare.lower() not in ["number","numbers"]:
+        object_compare = get_letters()
+    else:
+        object_compare = get_numbers()
+    count = sum(1 for char in obj if char in object_compare)
+    if float(0) in [float(count),float(len(obj))]:
+        return 0
+    return float(count) / len(obj)
+

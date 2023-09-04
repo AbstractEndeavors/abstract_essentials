@@ -159,7 +159,7 @@ def cmd_run_sudo(cmd: str, password: str = None, key: str = None, output_text: s
         cmd_run(f'echo "{get_env_value(key)}" | sudo -S -k {cmd}',output_text)
     else:
         cmd_run(f'echo "{get_sudo_password()}" | sudo -S -k {cmd}',output_text)
-def cmd_run(cmd: str, output_text: str = None) -> None:
+def cmd_run(cmd: str, output_text: str = None,print_output:bool=False) -> None:
     """
     Execute a command and store its output in the specified file.
 
@@ -173,7 +173,8 @@ def cmd_run(cmd: str, output_text: str = None) -> None:
     with open(get_output_text(), 'w') as f:
         pass
     cmd += f' >> '+output_text+'; echo END_OF_CMD >> '+output_text  # Add the delimiter at the end of cmd
-    print(cmd)
+    if print_output:
+        print(cmd)
     output = subprocess.call(f'gnome-terminal -- bash -c "{cmd}"', shell=True)
     # Wait until the delimiter appears in the output file
     while True:
@@ -185,14 +186,15 @@ def cmd_run(cmd: str, output_text: str = None) -> None:
                 if last_line == 'END_OF_CMD':
                     break  # Break the loop if the delimiter is found
     # Print the command and its output
-    with open(output_text, 'r') as f:
-        output = f.read().strip()  # Read the entire output
-    print_cmd(cmd, output)
-    print(output)
+    if print_output:
+        with open(output_text, 'r') as f:
+            output = f.read().strip()  # Read the entire output
+        print_cmd(cmd, output)
+        
     # Delete the output file and the bash script
     os.remove(get_output_text())
 
-def pexpect_cmd_with_args(command: str, child_runs: list, output_text: str = os.getcwd()) -> int:
+def pexpect_cmd_with_args(command: str, child_runs: list, output_text: str = os.getcwd(),print_output:bool=False) -> int:
     """
     Run a command using pexpect and handle its prompts with specified responses.
 
@@ -225,9 +227,9 @@ def pexpect_cmd_with_args(command: str, child_runs: list, output_text: str = os.
             pass_phrase = get_env_value(**args)
 
         child.sendline(pass_phrase)
-
-        print("Output after handling prompt:")
-        print(each["prompt"])
+        if print_output:
+            print("Output after handling prompt:")
+            print(each["prompt"])
 
     # Wait for the process to finish
     child.expect(pexpect.EOF)
@@ -236,7 +238,7 @@ def pexpect_cmd_with_args(command: str, child_runs: list, output_text: str = os.
     # Write output to the output file
     with open(get_output_text(), "w") as f:
         f.write(output)
-
-    print_cmd(command, output)
+    if print_output:
+        print_cmd(command, output)
 
     return child.exitstatus

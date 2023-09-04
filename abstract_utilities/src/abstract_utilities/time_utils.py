@@ -30,6 +30,27 @@ Version: 0.1.2
 import time
 from typing import Union
 from datetime import datetime
+def sleep_count_down(sleep_time):
+    while sleep_time>float(0):
+        sleep_time -= float(1)
+        print(str(sleep_time)+" seconds till start")
+        get_sleep(1)
+def sleep_timer(last_time: Union[str, float], wait_limit: Union[float, int] = 0) -> None:
+    """
+    Pause execution for a specified amount of time, calculated based on time differences.
+
+    Parameters:
+    last_time (str or float): The reference time or timestamp.
+    wait_limit (float or int, optional): The maximum wait time in seconds. Defaults to 0.
+
+    Returns:
+    None
+    """
+    curr_time = get_time_stamp()
+    time_difference = curr_time - float(last_time)
+    if time_difference < wait_limit:
+        sleep_length = float(wait_limit - time_difference)
+        get_sleep(sleep_timer=sleep_length)
 def get_sleep(sleep_timer: Union[int, float] = 0):
     """
     Pause the execution of the program for a specified duration.
@@ -59,9 +80,19 @@ def get_time_stamp() -> float:
     return datetime.now().timestamp()
 def get_date_time_str(date_str,military_time_str):
     return f"{date_str} {military_time_str}"
-# ... rest of the functions with docstrings
 def get_time_obj(date_time_str):
     return datetime.strptime(date_time_str, '%Y-%m-%d %H:%M')
+def get_current_year() -> int:
+    """
+    Get the current year.
+
+    Returns:
+        int: The current year as an integer.
+    """
+    now = datetime.now()
+    current_year = now.year
+    return current_year
+
 def get_24_hr_start(now=get_time_stamp()) -> int:
     """
     Returns the timestamp for the start of the current day.

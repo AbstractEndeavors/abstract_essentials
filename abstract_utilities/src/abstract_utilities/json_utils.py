@@ -21,9 +21,10 @@ Author: putkoff
 Date: 05/31/2023
 Version: 0.1.2
 """
-from typing import Union
+from typing import Union, List, Any, Dict
 import json
 import re
+import os
 def convert_to_dict(obj: Union[str, dict]) -> Union[dict, any]:
     """
     Convert a string representation of a dictionary to a dictionary.
@@ -39,7 +40,7 @@ def convert_to_dict(obj: Union[str, dict]) -> Union[dict, any]:
         return obj
     return json.loads(obj.replace("'",'"'))
 
-def merge_dicts(json_data: Dict, json_data_2: dict) -> dict:
+def merge_dicts(json_data: dict, json_data_2: dict) -> dict:
     """
     Merge two dictionaries into one. If there are overlapping keys,
     the values from the second dictionary are used.
@@ -495,3 +496,14 @@ def create_and_read_json(file_path: str, json_data: dict = {}) -> dict:
     if not os.path.isfile(file_path):
         dump_to_file(file_path, json_data)
     return load_from_file(file_path)
+def safe_json_loads(data):
+    try:
+        return json.loads(data)
+    except json.JSONDecodeError:
+        return None
+def convert_to_json(obj):
+    if isinstance(obj, dict):
+        return obj
+    if isinstance(obj, str):
+        return safe_json_loads(obj)
+    return None
