@@ -55,11 +55,21 @@ from abstract_utilities.string_clean import eatAll,eatOuter
 from abstract_utilities.type_utils import make_bool
 from abstract_gui import get_gui_fun,create_window_manager
 from abstract_security.envy_it import get_env_value
-from .response_handling import save_response
-from .tokenization import count_tokens,calculate_token_distribution
-from .prompts import default_prompt,create_prompt
-from .endpoints import default_model,default_endpoint,default_tokens
-def get_openai_key(key:str='OPENAI_API_KEY'):
+from abstract_ai.response_handling import save_response
+from abstract_ai.tokenization import count_tokens,calculate_token_distribution
+from abstract_ai.prompts import default_prompt,create_prompt
+from abstract_ai.endpoints import default_model,default_endpoint,default_tokens
+window_mgr,bridge,script_name=create_window_manager(script_name="open_ai_api_call",global_var=globals())
+def get_openai_key_args(api_key:str='OPENAI_API_KEY',env_path:str=None,env_file_name:str=None):
+    args = {}
+    if env_file_name != None:
+        args["file_name"] = env_file_name
+    if env_path != None:
+        if os.path.exists(env_path):
+            args["start_path"] = env_path
+    args["key"] = api_key
+    return args
+def get_openai_key(api_key:str='OPENAI_API_KEY',env_path:str=None,env_file_name:str=None):
     """
     Retrieves the OpenAI API key from the environment variables.
 
@@ -70,14 +80,12 @@ def get_openai_key(key:str='OPENAI_API_KEY'):
     Returns:
         str: The OpenAI API key.
     """
-    return get_env_value(key=key)
-
-def load_openai_key():
+    return get_env_value(**get_openai_key_args(api_key=api_key,env_path=env_path,env_file_name=env_file_name))
+def load_openai_key(key:str='OPENAI_API_KEY',env_path:str=None,file_name:str=None):
     """
     Loads the OpenAI API key for authentication.
     """
-    openai.api_key = get_openai_key()
-
+    openai.api_key = get_openai_key(**get_openai_key_args(api_key=api_key,env_path=env_path,env_file_name=env_file_name))
 def headers(content_type:str='application/json',api_key:str=get_openai_key()):
     """
     Generates request headers for API call.
@@ -90,7 +98,6 @@ def headers(content_type:str='application/json',api_key:str=get_openai_key()):
         dict: Dictionary containing the 'Content-Type' and 'Authorization' headers.
     """
     return {'Content-Type': content_type, 'Authorization': f'Bearer {api_key}'}
-
 def post_request(endpoint:str=default_endpoint(), prompt:(str or dict)=create_prompt(),content_type:str='application/json',api_key:str=get_openai_key(),header:dict=None):
     """
     Sends a POST request to the specified endpoint with the provided prompt and headers.
@@ -105,7 +112,7 @@ def post_request(endpoint:str=default_endpoint(), prompt:(str or dict)=create_pr
     Returns:
         dict: Response received from the server.
     """
-    window_mgr,bridge,script_name=create_window_manager(script_name="open_ai_api_call",global_var=globals())
+    
     if header == None or header is not dict:
         header=headers(content_type,api_key)
     response = requests.post(url=endpoint,json=prompt,headers=header)
@@ -115,7 +122,7 @@ def post_request(endpoint:str=default_endpoint(), prompt:(str or dict)=create_pr
         raise Exception(f'Request failed with status code {response.status_code} \n {response.text}')
     return get_response(response)
 def hard_request(prompt: str = default_prompt(), model: str = default_model(), max_tokens: int = default_tokens(),
-                 temperature: float = 0.5, top_p: int = 1, frequency_penalty: int = 0, presence_penalty: int = 0):
+                 temperature: float = 0.5, top_p: int = 1, frequency_penalty: int = 0, presence_penalty: int = 0,key:str='OPENAI_API_KEY',env_path:str=None,env_file_name:str=None):
     """
     Sends a hard request to the OpenAI API using the provided parameters.
 
@@ -126,7 +133,7 @@ def hard_request(prompt: str = default_prompt(), model: str = default_model(), m
     Returns:
         dict: The response received from the OpenAI API.
     """
-    load_openai_key()
+    load_openai_key(key=key,env_path=env_path,env_file_name=env_file_name)
     message = {
         "role": "user",
         "content": prompt
@@ -391,7 +398,7 @@ def get_save_output(prompt_js:dict={},endpoint:str=None,api_response:(dict or st
 def safe_send(prompt_data:str=default_prompt(),request:str="null",instructions:str=None,
               model:str=default_model(),title:str=None,prompt_js:dict={},max_tokens:int=default_tokens(),
               completion_percentage:(int or float)=40,endpoint:str=default_endpoint(),
-              content_type:str='application/json',api_key:str=get_openai_key(),
+              content_type:str='application/json',api_key:str='OPENAI_API_KEY',env_path:str=None,env_file_name:str=None,
               additional_responses:bool=False,directory:str=None):
     """
     Safely sends a request ensuring the response adheres to the token limitations and other constraints.
@@ -426,7 +433,7 @@ def safe_send(prompt_data:str=default_prompt(),request:str="null",instructions:s
         prompt_js =create_prompt_js(token_dist=token_dist,prompt_js={},instructions=instructions,chunk=chunk,total_chunks=total_chunks,notation=notation,request=request,chunk_data=chunk_data)
         response_loop=True
         while response_loop:
-            api_response = post_request(endpoint=endpoint, prompt=create_prompt(prompt_js), header=headers(content_type=content_type,api_key=api_key))
+            api_response = post_request(endpoint=endpoint, prompt=create_prompt(prompt_js), header=headers(content_type=content_type,api_key=get_openai_key(api_key=api_key,env_path=env_path,env_file_name=env_file_name)))
             response_js = get_save_output(prompt_js=prompt_js,endpoint=endpoint,api_response=api_response,title=title,directory=directory)
             output.append(response_js["output"])
             if not make_bool(response_js["output"]["additional_response"]):
@@ -440,4 +447,3 @@ def safe_send(prompt_data:str=default_prompt(),request:str="null",instructions:s
             break
         chunk += 1
     return output
-
