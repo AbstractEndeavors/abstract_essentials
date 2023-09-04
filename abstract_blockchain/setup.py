@@ -1,27 +1,37 @@
 from time import time
 import setuptools
-with open("README.md", "r", encoding="utf-8") as fh:
+from setuptools import setup, find_packages
+
+with open('README.md', "r", encoding="utf-8") as fh:
     long_description = fh.read()
+
 setuptools.setup(
     name='abstract_blockchain',
-    version='0.0.0.0',
+    version='0.0.0.56',
     author='putkoff',
     author_email='partners@abstractendeavors.com',
-    description="i just wanna wear my clown suit on the outside and have my business suit on underneath. and if thats not how you feel, you're probably NGMI. feel free to contribute.",
+    description='i need more chainlink',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_images',
+    include_package_data=True,
+    url='https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_blockchain',
     classifiers=[
-          'Development Status :: 3 - Alpha',
-          'Intended Audience :: Developers',
-          'License :: OSI Approved :: MIT License',
-          'Programming Language :: Python :: 3',
-          'Programming Language :: Python :: 3.11',
-      ],
-    install_requires=[],
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3.11',
+        'Topic :: Software Development',
+        'Topic :: Utilities',
+        'Intended Audience :: Financial and Insurance Industry'
+    ],
+    keywords='database, automation, API, testing, cryptography',  # This is how you add keywords
+    install_requires=[
+        'PySimpleGUI>=4.60.5', 'setuptools>=66.1.1', 'abstract_security>=0.0.1', 'abstract_webtools>=0.1.0', 'abstract_gui>=0.0.53.5', 'web3>=6.9.0', 'abstract_utilities>=0.2.0.52', 'requests>=2.31.0', 'hexbytes>=0.3.1'
+    ],
     package_dir={"": "src"},
+    package_data={'data': ['rpc_list.json']},
     packages=setuptools.find_packages(where="src"),
     python_requires=">=3.6",
-    # Add this line to include wheel format in your distribution
     setup_requires=['wheel'],
 )

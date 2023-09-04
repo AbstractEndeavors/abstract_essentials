@@ -1,2 +1,10 @@
+# Include all JSON files from the data directory within the module
+recursive-include abstract_blockchain/data *.json
+include src/abstract_blockchain/data/rpc_list.json
+include src/abstract_blockchain/data/api_call_parameters/**
+# Optionally, if you want to include all other non-code files from the data directory:
+# recursive-include my_module/data *
+
+# If you have documentation or README files, you can also include them:
 include README.md
-recursive-include src *
+include LICENSE

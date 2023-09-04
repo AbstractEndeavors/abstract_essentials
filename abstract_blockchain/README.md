@@ -1,85 +1,67 @@
-## `abstract_images` Module - Image and PDF Utilities
+---
 
-### Part of the `abstract_essentials` Package
+# Abstract Blockchain Package
 
-**GitHub Repository**: [abstract_essentials](https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_images)  
-**Contact Email**: [partners@abstractendeavors.com](mailto:partners@abstractendeavors.com)  
-**Date**: 08/27/2023  
-**Version**: 0.0.0.1  
+The **Abstract Blockchain** package provides a collection of modules designed to simplify interaction with blockchain networks, smart contracts, and related components. It offers tools for managing RPC parameters, working with smart contract ABIs, and facilitating user-friendly interactions through graphical user interfaces (GUIs).
 
-This module, part of the `abstract_essentials` package, provides a collection of utility functions for working with images and PDFs, including loading and saving images, extracting text from images, capturing screenshots, processing PDFs, and more.
+## Modules
 
-### Image Utilities - `image_utils.py`
+### `abstract_abis.py`
 
-The `image_utils.py` module contains functions for image-related operations.
+This module provides the `ABIBridge` class, which serves as an interface to Ethereum smart contract ABIs. It allows you to interact with contract functions, retrieve read-only functions, get required input details, and call contract functions using a convenient interface. Additionally, it provides methods for fetching and categorizing RPC parameters for blockchain interaction.
 
-#### Paths to Image Data:
+### `abstract_apis.py`
 
-- **get_dimensions(image_path: str)**: Return dimensions (height, width) of the image.
-- **img_to_str(image_path: str)**: Convert image to text using pytesseract.
-- **get_pix(image_path: str)**: Return pixel data of the image.
-- **image_to_bytes(image_path: str, format: str = "PNG")**: Convert an image to bytes.
-- **get_pixel_data(image_path: str)**: Get pixel data from the image and save the resultant image.
-- **open_image(image_path: str)**: Open and return the image using PIL.
-- **read_image(image_path: str)**: Read image using OpenCV and return it as a numpy array.
+This module offers the `RPCData` class that handles the management of RPC parameters for blockchain networks. It enables users to filter and select RPC parameters through a graphical user interface (GUI). The class also categorizes and organizes RPC parameters for ease of use in blockchain interactions.
 
-#### Paths to Save:
+### `abstract_rpcs.py`
 
-- **save_url_img(url: str , image_path:str, format: str = "PNG")**: Download an image from URL and save it.
-- **screenshot(image_path: str = "screenshot.png")**: Take a screenshot and save it.
-- **save_image(image:Union[Image.Image, ndarray], image_path:str,format:str="PNG")**: Save an image to the specified path.
+This module provides utilities for working with blockchain RPC parameters. It includes functions to filter and categorize RPC parameters, organize them into sub-lists based on keys, and create a GUI for users to choose specific RPC parameters for blockchain interactions.
 
-#### Data to Image:
+### `abstract_utilities`
 
-- **get_image_bytes(image_data: bytes)**: Convert image data in bytes format to a BytesIO stream.
-- **pix_to_img(pixel_data: List[List[Tuple[int, int, int]]], image_path: str = "image.png")**: Convert pixel data to an image and save it.
-- **show_image(image: Union[Image.Image, ndarray])**: Display an image.
+This submodule contains utility functions used across the package for tasks such as working with JSON data, managing lists, and GUI components.
 
-### PDF Utilities - `pdf_utils.py`
+### `abstract_gui`
 
-The `pdf_utils.py` module provides functions for PDF processing.
+This submodule provides utilities for creating graphical user interfaces (GUIs) that enhance user interaction with blockchain-related features. It offers functions for creating windows, buttons, menus, and more, streamlining the process of building user-friendly interfaces.
 
-#### Function Descriptions:
-
-- `if_none_return(obj, obj_2)`: Return primary object if secondary object is `None`.
-- `write_pdf()`: Initialize and return a new PDF writer object.
-- `read_pdf(file)`: Read a PDF from a given path and return a PDF reader object.
-- `is_pdf_path(file)`: Check if a file path corresponds to a valid PDF file.
-- `get_pdf_obj(pdf_obj)`: Process a PDF object or file path and return its content.
-- `split_pdf(input_path, output_folder, file_name)`: Split a PDF file into separate pages.
-- `pdf_to_img_list(pdf_list, output_folder, file_name, paginate, extension)`: Convert PDF files into images.
-- `img_to_txt_list(img_list, output_folder, file_name, paginate, extension)`: Convert images to text using OCR.
-- `open_pdf_file(pdf_file_path)`: Open a PDF file using the default system application.
-- `image_to_text(image_path)`: Convert an image to text using Tesseract OCR.
-- `get_pdfs_in_directory(directory)`: Get a list of PDF filenames in a directory.
-- `get_all_pdf_in_directory(file_directory)`: Get full paths of all PDFs in a directory.
-- `collate_pdfs(pdf_list, output_pdf_path)`: Merge a list of PDFs into one.
-
-### Example Usage:
-
-To showcase the `pdf_utils` module, here's an example combining several utility functions:
+## Example Usage
 
 ```python
-from abstract_images.pdf_utils import (
-    get_file_name, get_directory, mkdirs, split_pdf, 
-    pdf_to_img_list, img_to_txt_list
-)
+from abstract_abis import ABIBridge
+from abstract_apis import Choose_RPC_Parameters_GUI, RPCData
 
-pdf_path = "path_to_pdf"
-file_name = get_file_name(pdf_path)
-directory = get_directory(pdf_path)
-pdf_folder = mkdirs(os.path.join(directory, file_name))
+# Example usage of ABIBridge
+abi_manager = ABIBridge(contract_address='0x3dCCeAE634f371E779c894A1cEa43a09C23af8d5', rpc=default_rpc())
+read_only_functions = abi_manager.get_read_only_functions()
+for each in read_only_functions:
+    inputs = abi_manager.get_required_inputs(each)
+    if len(inputs) == 0:
+        result = abi_manager.call_function(each)
+        print(each, result)
+    else:
+        print(each, inputs)
 
-pdf_split_folder = mkdirs(os.path.join(pdf_folder, "split"))
-pdf_list = split_pdf(input_path=pdf_path, output_folder=pdf_split_folder, file_name=file_name)
+# Example usage of RPCData and GUI
+rpc_data = Choose_RPC_Parameters_GUI()
+rpc_manager = RPCData(rpc_data)
+w3 = rpc_manager.w3
 
-pdf_Image_folder = mkdirs(os.path.join(pdf_folder, "images"))
-img_list = pdf_to_img_list(pdf_list=pdf_list, output_folder=pdf_Image_folder, paginate=False, extension="png")
-
-pdf_Text_folder = mkdirs(os.path.join(pdf_folder, "text"))
-text_list = img_to_txt_list(img_list=img_list, output_folder=pdf_Text_folder, paginate=False, extension="txt")
+# Your blockchain interactions using w3...
 ```
 
-### Note:
+## Installation
 
-For queries, bug reports, or feature requests, please raise an issue on the [GitHub repository](https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_images) or contact us through the provided email: [partners@abstractendeavors.com](mailto:partners@abstractendeavors.com). Ensure that you have the required dependencies installed, and for OCR operations, ensure Tesseract is properly set up and its path is correctly specified.
+The `abstract_blockchain` package can be installed using pip:
+
+```bash
+pip install abstract_blockchain
+```
+
+## License
+
+This package is released under the [MIT License](LICENSE).
+
+---
+
