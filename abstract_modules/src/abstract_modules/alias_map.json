@@ -1,0 +1,1 @@
+{"ALIAS": {"time_utils": "abstract_utilities", "read_write_utils": "abstract_utilities", "type_utils": "abstract_utilities", "priv_key": "abstract_security"}, "NEVER": [], "DEFAULT": ["threading", "time", "json", "string", "platform", "typing", "importlib", "subprocess", "datetime", "os", "math", "inspect", "re", "codecs"]}

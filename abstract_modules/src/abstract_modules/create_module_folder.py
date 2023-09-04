@@ -1,3 +1,42 @@
+"""
+Abstract Essentials - Create Module Folder
+
+This module provides functionalities for creating a new module folder with necessary files, such as README, setup.cfg, pyproject.toml, LICENSE, source files, and more. It facilitates the creation of Python packages by generating essential configuration files and boilerplate code.
+
+Author: putkoff
+partOf: abstract_modules
+Date: 05/31/2023
+Version: 0.0.1.0
+author_email: 'partners@abstractendeavors.com'
+url: 'https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_utilities'
+
+Dependencies:
+- abstract_utilities.string_clean (eatAll)
+- abstract_utilities.path_utils (mkdirs)
+- abstract_utilities.read_write_utils (write_to_file, read_from_file)
+- abstract_gui
+
+Usage:
+This module provides a function `create_module_folder()` that guides users through creating a new Python module folder. It interacts with the user through a GUI window, allowing them to set various configuration options for the module, including package information, classifiers, and files to create.
+
+Example:
+To create a new module folder with the provided functionalities, you can call the `create_module_folder()` function:
+
+```python
+from create_module_folder import create_module_folder
+
+module_folder_path = create_module_folder()
+print("New module folder created at:", module_folder_path)
+
+License:
+This module is provided under the MIT License. You can find the full text of the license in the 'LICENSE' file of the Abstract Essentials repository.
+
+Contributions:
+Contributions to this module are welcome! If you encounter issues or have suggestions for improvements, feel free to open an issue or create a pull request on the GitHub repository.
+
+Disclaimer:
+This module is provided as-is, and the author is not responsible for any issues or consequences that may arise from its usage. Use this module at your own risk and ensure you understand its functionality before incorporating it into your projects.
+"""
 from abstract_utilities.string_clean import eatAll
 from abstract_utilities.path_utils import mkdirs
 from abstract_utilities.read_write_utils import write_to_file,read_from_file
@@ -7,11 +46,15 @@ import datetime
 import os
 import json
 create_folder_window_mgr,create_folder_bridge,create_folder_script = create_window_manager(script_name='create_folder_script',global_var=globals())
-def get_tag_date():
-    now = datetime.datetime.now()
-    tag_date = now.strftime("%Y%m%d")
-    return tag_date
-def get_current_year():
+def get_tag_date() -> str:
+    """
+    Get the current date in the format 'YYYYMMDD'.
+
+    Returns:
+        str: The current date in the format 'YYYYMMDD'.
+    """
+    return datetime.now().strftime('%Y%m%d')
+def get_current_year() -> int:
     """
     Get the current year.
 
@@ -21,24 +64,61 @@ def get_current_year():
     now = datetime.datetime.now()
     current_year = now.year
     return current_year
-def clean_list(ls):
+def clean_list(ls: list) -> list:
+    """
+    Clean a list by removing empty string elements.
+
+    Args:
+        ls (list): The list to be cleaned.
+
+    Returns:
+        list: A new list with empty string elements removed.
+    """
     lsN=[]
     for each in ls:
         if each != '':
             lsN.append(each)
     return lsN
-def create_setup_cfg():
+def create_setup_cfg() -> str:
+    """
+    Create the contents of a 'setup.cfg' file.
+
+    Returns:
+        str: The contents of the 'setup.cfg' file.
+    """
     return f'''[bdist_wheel]
 tag_build = dev
 tag_date = {get_tag_date()}'''
-def create_toml():
+def create_toml() -> str:
+    """
+    Create the contents of a 'pyproject.toml' file.
+
+    Returns:
+        str: The contents of the 'pyproject.toml' file.
+    """
     return f'''[build-system]
     requires = ["{get_installed_versions(['setuptools'])}"]
     build-backend = "setuptools.build_meta"'''
-def get_long_description(path:str="README.md"):
+def get_long_description(path: str = "README.md") -> str:
+    """
+    Get the contents of a long description from a file.
+
+    Args:
+        path (str): The path to the file containing the long description.
+                    Default is "README.md".
+
+    Returns:
+        str: The contents of the long description.
+    """
     with open(path, "r", encoding="utf-8") as fh:
         long_description = fh.read()
-def get_main_py():
+def get_main_py() -> str:
+    """
+    Generate the contents of the 'main.py' file.
+
+    Returns:
+        str: The contents of the 'main.py' file.
+    """
     return f"""import os
 import importlib.util
 
@@ -77,6 +157,16 @@ if __name__ == "__main__":
     main()"""
 def licenses(license,args:dict={"author_name":"name","year":str(get_current_year()),"company_name":'["Company Name"]',"jurisdiction":"[Your jurisdiction]","software_name":'("the Software")',"licensee":'("the Licensee")',"licensor":'("the Licensor")'}):
     author_name, year, company_name, jurisdiction, software_name, licensee, licensor = args.values()
+    """
+    Generate a license text with specified parameters.
+
+    Args:
+        license (str): The chosen license type.
+        args (dict): A dictionary containing parameter values for the license text.
+
+    Returns:
+        str: The generated license text with formatted parameters.
+    """
     return {"Public Domain":
      """Public Domain Dedication
 ========================
@@ -268,8 +358,14 @@ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
 END OF TERMS AND CONDITIONS
 """}[license]
-def create_setup():
-    return f"""from time import time
+def create_setup() -> str:
+    """
+    Generate the contents of a 'setup.py' file.
+
+    Returns:
+        str: The contents of the 'setup.py' file.
+    """
+##    return f"""from time import time
 import setuptools
 with open('README.md', "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -392,14 +488,37 @@ for each in parsed:
             item = eatAll(item,['',' ','\n','\t'])
             if len(item)>0:
                 topics_js[last].append(item)
-def get_all_choice_tags():
+
+def get_all_choice_tags() -> list:
+    """
+    Get a list of all available choice tags.
+
+    Returns:
+        list: A list of choice tags.
+    """
     return ["package_name","version","author_name","author","author_email","url","description","long_description"]
-def get_readme(location_a,location_b):
+def get_readme(location_a: str, location_b: str) -> None:
+    """
+    Copy the contents of a README file from one location to another.
+
+    Args:
+        location_a (str): The source location of the README file.
+        location_b (str): The destination location for the README file.
+
+    Returns:
+        None
+    """
     if os.path.isfile(location_a):
         write_to_file(filepath=os.path.join(location_b,"README.md"),contents=read_from_file(filepath=location_a))
 classifiers_layout = []
 sections_layout = []
-def check_paths():
+def check_paths() -> None:
+    """
+    Check and update the status of paths for required files.
+
+    Returns:
+        None
+    """
     paths={"README.md":{"path":os.path.join(folder,"README.md"),"contents":'',"checked":True},"setup.cfg":{"path":os.path.join(folder,"setup.cfg"),"contents":create_setup_cfg(),"checked":True},"project.toml":{"path":os.path.join(folder,"pyproject.toml"),"contents":create_toml(),"checked":True},"LICENSE":{"path":os.path.join(folder,"LICENSE"),"contents":"","checked":True},
            "src_init":{"path":os.path.join(src_folder,"__init__.py"),"contents":'',"checked":True},"main.py":{"path":os.path.join(module_folder,"main.py"),"contents":get_main_py(),"checked":True},"module_init":{"path":os.path.join(module_folder,"__init__.py"),"contents":'',"checked":True},"setyp.py":{"path":os.path.join(folder,"setup.py"),"contents":create_setup(),"checked":True}}
     for each in paths.keys():
@@ -408,7 +527,16 @@ def check_paths():
         if os.path.isfile(paths[each]["path"]) == False:
             paths[each]["checked"] = True
         create_folder_window_mgr.update_values(window=create_folder_window_mgr.get_last_window_method(),key=each,value=paths[each]["checked"])
-def value_function(event):
+def value_function(event: str) -> None:
+    """
+    Update values and bridge data based on user input events.
+
+    Args:
+        event (str): The user input event.
+
+    Returns:
+        None
+    """
     if event == "default_inputs_submit":
         default_path = create_folder_window_mgr.get_values()["default_inputs"]
         if os.path.isfile(default_path):
@@ -446,18 +574,40 @@ def value_function(event):
         create_folder_bridge["install_requires"] = str(get_installed_versions(scan_folder_for_required_modules(folder)))
         check_paths()
         create_folder_bridge["path_checked"] = True
-def write_files():
+def write_files() -> None:
+    """
+    Write contents to files based on user-selected options.
+
+    Returns:
+        None
+    """
     paths={"README.md":{"path":os.path.join(folder,"README.md"),"contents":'',"checked":False},"setup.cfg":{"path":os.path.join(folder,"setup.cfg"),"contents":create_setup_cfg(),"checked":False},"project.toml":{"path":os.path.join(folder,"pyproject.toml"),"contents":create_toml(),"checked":False},"LICENSE":{"path":os.path.join(folder,"LICENSE"),"contents":"","checked":False},"src_init":{"path":os.path.join(src_folder,"__init__.py"),"contents":'',"checked":False},"main.py":{"path":os.path.join(module_folder,"main.py"),"contents":get_main_py(),"checked":False},"module_init":{"path":os.path.join(module_folder,"__init__.py"),"contents":'',"checked":False},"setyp.py":{"path":os.path.join(folder,"setup.py"),"contents":create_setup(),"checked":False}}
     values = create_folder_window_mgr.get_values(window=create_folder_window_mgr.get_last_window_method())
     for each in paths.keys():
         if values[each] == True and paths[each]["contents"] != None:
             write_to_file(filepath=paths[each]["path"],contents=paths[each]["contents"])
-def create_check_marks():
+
+def create_check_marks() -> None:
+    """
+    Create a layout for checkboxes indicating files to be created.
+
+    Returns:
+        None
+    """
     create_folder_bridge["check_mark_layout"] = []
     check_list = ['README.md', 'setup.cfg', 'project.toml', 'LICENSE', 'src_init', 'main.py', 'module_init', 'setyp.py']
     for each in check_list:
         check_mark_layout.append([get_gui_fun('Checkbox',args={"text":each,"default":True,"key":each,"enable_events":True})])
-def create_inputs(string):
+def create_inputs(string: str) -> list:
+    """
+    Create layout elements for user inputs.
+
+    Args:
+        string (str): The input string to generate layout elements for.
+
+    Returns:
+        list: A list of layout elements for user inputs.
+    """
     if string == "long_description":
         return [get_gui_fun('T',{"text":string+':'}),get_gui_fun('Input',args={"default_text":os.getcwd(),"key":string}), get_gui_fun('FileBrowse', {"initial_folder": os.getcwd()})]#[[get_gui_fun('T',{"text":string+':'})],[get_gui_fun('Input',args={"default":os.getcwd(),"key":string})],[get_gui_fun('FileBrowse', {"initial_folder":os.getcwd()})]]
     elif string == "version":
@@ -465,9 +615,26 @@ def create_inputs(string):
     elif string == "description":
         return [get_gui_fun('T',{"text":string+':'}),get_gui_fun('Multiline',args={"key":string,"size":(20,10),"enable_events":True})]
     return [get_gui_fun('T',{"text":string+':'}),get_gui_fun('Input',args={"key":string,"size":(20,1),"enable_events":True})]
-def create_dropdown(string,ls):
+
+def create_dropdown(string: str, ls: list) -> list:
+    """
+    Create a dropdown layout for user choices.
+
+    Args:
+        string (str): The dropdown label.
+        ls (list): The list of choices for the dropdown.
+
+    Returns:
+        list: A list of layout elements for a dropdown.
+    """
     return [get_gui_fun('T',{"text":string+':'}),get_gui_fun('Combo',args={"values":ls,"key":string,"default_value":ls[0],"enable_events":True})]
-def create_module_folder():
+def create_module_folder() -> str:
+    """
+    Create a new module folder and generate necessary files based on user input.
+
+    Returns:
+        str: The path of the created module folder.
+    """
     for each in topics_js.keys():
         classifiers_layout.append(create_dropdown(each,topics_js[each]))
     classifiers_layout = [get_gui_fun("Frame",args={"title":"classifiers","layout":classifiers_layout})]
