@@ -42,7 +42,7 @@ def extractRPCdata(js):
     changeGlob('scanner',rpc_data.scanner)
     changeGlob("w3",rpc_data.w3)
     return Symbol,Network_Name,RPC,ChainID,Block_Explorer,scanner,w3
-def get_all_gui():
+def get_api_gui():
     rpc = extractRPCdata(Choose_RPC_Parameters_GUI())
     url = f"https://api.{str(scanner)}/api?{choose_api_gui()}{str(apiKeys(scanner))}"
     response = get_request(url=url)

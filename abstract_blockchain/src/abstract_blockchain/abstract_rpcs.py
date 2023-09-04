@@ -1,6 +1,24 @@
 """
+abstract_rpcs.py - RPCData and GUI Module
+
 This module provides an interface to choose and manage RPC parameters for a blockchain.
 It enables the user to filter and select various RPC parameters via a GUI interface.
+
+Classes:
+    RPCData: A class to manage RPC parameters for a blockchain.
+
+Functions:
+    win_while: Event loop function for the GUI window.
+    filter_rpc_list_by_selections: Filters the RPC list based on user selections.
+    keyed_rpc_lists: Organizes the RPC list into sub-lists based on keys.
+    get_key_from_value: Fetches the key for a given value from the `get_js()` mapping.
+    get_js: Provides a dictionary mapping of RPC parameters.
+    get_keys: Fetches the keys from the `get_js()` mapping.
+    get_values: Fetches the values from the `get_js()` mapping.
+    get_default_rpc_list: Retrieves the default RPC list.
+    get_rpc_list: Reads and returns the RPC list from a JSON file.
+    save_rpc_list: Saves the RPC list to a JSON file.
+    Choose_RPC_Parameters_GUI: Creates and launches the GUI window for selecting RPC parameters.
 """
 import os
 from abstract_utilities.json_utils import load_from_file,dump_to_file
@@ -10,7 +28,15 @@ from web3 import Web3
 window_mgr,rpc_global_bridge,rpc_add_script_name=create_window_manager(global_var=globals())
 rpc_add_global_bridge=rpc_global_bridge.return_global_variables(rpc_add_script_name)
 class RPCData:
+    """
+    RPCData class manages RPC parameters for a blockchain.
+    """
     def __init__(self, rpc_js):
+        """
+        Initializes the RPCData instance with RPC parameters.
+
+        :param rpc_js: Dictionary containing RPC parameters.
+        """
         self.rpc_js = self.categorize_rpc_items(rpc_js)
         self.symbol = self.rpc_js['Symbol']
         self.network_name = self.rpc_js['Network_Name']
@@ -292,4 +318,10 @@ def Choose_RPC_Parameters_GUI(RPC_list:list=None) -> dict or None:
             if key in get_keys():
                 rpc[key] = values[each]
     return RPCData(rpc).return_rpc_js()
-
+## EXAMPLE USAGE
+# gui for recursive rpc parameter selection
+## rpc_data = Choose_RPC_Parameters_GUI()
+# class function for conventionalizing and storing variables
+## rpc_manager = RPCData(rpc_data)
+#call the Provider via Environment Variable
+## w3 = rpc_manager.w3
