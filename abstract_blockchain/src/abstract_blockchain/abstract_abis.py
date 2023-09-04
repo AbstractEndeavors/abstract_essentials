@@ -69,7 +69,10 @@ class ABIBridge:
         """
         request_manager.add_service(request_type, request_min, request_max, limit_epoch, request_start)
         return get_limited_request(request_url=self.abi_url, service_name=request_type)
-
+    def api_keys(self):
+        if self.scanner in ['ftmscan.com','moonbeam.moonscan.io','polygonscan.com','bscscan.com']:
+            return get_env_value(key=self.scanner)
+        return get_env_value(key='etherscan.io')
     def get_response(self):
         """
         Parse the JSON response and return the ABI.
