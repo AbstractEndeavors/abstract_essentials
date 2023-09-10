@@ -7,10 +7,10 @@ with open('README.md', "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name='abstract_blockchain',
-    version='0.0.0.56',
+    version='0.0.0.77',
     author='putkoff',
     author_email='partners@abstractendeavors.com',
-    description='i need more chainlink',
+    description='The Abstract Blockchain package provides a collection of modules designed to simplify interaction with blockchain networks, smart contracts, and related components. It offers tools for managing RPC parameters, working with smart contract ABIs, and facilitating user-friendly interactions through graphical user interfaces (GUIs).',
     long_description=long_description,
     long_description_content_type='text/markdown',
     include_package_data=True,
