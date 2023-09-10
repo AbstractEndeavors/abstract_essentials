@@ -27,11 +27,10 @@ Example Usage:
             print(function_name, inputs)
 """
 # Import necessary modules and classes
-from .abstract_apis import RPCData, Choose_RPC_Parameters_GUI
+from .abstract_rpcs import RPCData, Choose_RPC_Parameters_GUI
 from abstract_webtools import DynamicRateLimiterManagerSingleton, get_limited_request
 from abstract_security.envy_it import get_env_value
 import json
-
 # Instantiate the rate limiting manager
 request_manager = DynamicRateLimiterManagerSingleton.get_instance()
 class ABIBridge:
@@ -49,7 +48,7 @@ class ABIBridge:
             rpc = Choose_RPC_Parameters_GUI()
         self.rpc = RPCData(rpc)
         self.contract_address = self.try_check_sum(contract_address)
-        self.abi_url =f"https://api.{self.rpc.scanner}/api?module=contract&action=getabi&address={self.contract_address}&apikey={self.api_keys()}"
+        self.abi_url =f"https://{('api.' if 'api' != self.rpc.scanner[:len('api')] else '')}{self.rpc.scanner}/api?module=contract&action=getabi&address={self.contract_address}&apikey={self.api_keys()}"
         self.request = self.safe_json_loads(self.get_request())
         self.abi = self.get_response()
         self.contract_bridge = self.create_abi_bridge()
@@ -68,10 +67,16 @@ class ABIBridge:
         :return: Limited response from the ABI URL.
         """
         request_manager.add_service(request_type, request_min, request_max, limit_epoch, request_start)
-        return get_limited_request(request_url=self.abi_url, service_name=request_type)
+        try:
+            request = get_limited_request(request_url=self.abi_url, service_name=request_type)
+            return request
+        except:
+            self.abi_url= self.abi_url.replace("api.","api-")
+            request = get_limited_request(request_url=self.abi_url, service_name=request_type)
+            return request
     def api_keys(self):
-        if self.scanner in ['ftmscan.com','moonbeam.moonscan.io','polygonscan.com','bscscan.com']:
-            return get_env_value(key=self.scanner)
+        if self.rpc.scanner in ['ftmscan.com','moonbeam.moonscan.io','polygonscan.com','bscscan.com']:
+            return get_env_value(key=self.rpc.scanner)
         return get_env_value(key='etherscan.io')
     def get_response(self):
         """
@@ -181,11 +186,19 @@ class ABIBridge:
         :param kwargs: Keyword arguments to pass to the function.
         :return: Result of the function call.
         """
-        contract_function = getattr(self.contract_bridge.functions, function_name)#(*args, **kwargs)
+        contract_function = getattr(self.contract_bridge.functions, function_name)
+        
+        # If there are positional arguments (regardless of how many), use them.
         if len(args) == 1 and not kwargs:
             return contract_function(args[0]).call()
-        else:
+        elif args and not kwargs:
+            return contract_function(*args).call()
+        # If there are keyword arguments, use them.
+        elif kwargs:
             return contract_function(**kwargs).call()
+        # If no arguments, just call the function.
+        else:
+            return contract_function().call()
     def create_functions(self, subsinstance, function_name, *args, **kwargs):
         # Access the subsinstance (like "functions" in the contract)
         sub_instance = getattr(self.contract_bridge, subsinstance)  # use self.contract_bridge
@@ -196,9 +209,9 @@ class ABIBridge:
         # If there's only one positional argument and no keyword arguments, use it directly.
         # Otherwise, use kwargs as named arguments.
         if len(args) == 1 and not kwargs:
-            return function(args[0]).call()
+            return function(args[0])
         else:
-            return function(**kwargs).call()
+            return function(**kwargs)
 def default_rpc():
     """
     Returns a default RPC configuration dictionary.
@@ -206,4 +219,3 @@ def default_rpc():
     :return: Default RPC configuration dictionary.
     """
     return {'Network': 'Mainnet', 'RPC': 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161', 'Block_Explorer': 'https://etherscan.io', 'ChainID': '0x1', 'Symbol': 'ETH', 'Network_Name': 'Ethereum'}
-
