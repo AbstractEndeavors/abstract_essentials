@@ -25,7 +25,8 @@ This submodule contains utility functions used across the package for tasks such
 ### `abstract_gui`
 
 This submodule provides utilities for creating graphical user interfaces (GUIs) that enhance user interaction with blockchain-related features. It offers functions for creating windows, buttons, menus, and more, streamlining the process of building user-friendly interfaces.
-![Screenshot from 2023-09-04 05-08-36](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/c66d74fa-97e1-442b-8237-e0a969e41768)
+![Screenshot from 2023-09-11 09-46-43](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/ae2017c7-542d-4353-be3d-9c71945bb3ab)
+![Screenshot from 2023-09-11 09-46-37](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/a102e01c-cee0-4c55-903f-bf490be74ae4)
 ![Screenshot from 2023-09-04 05-07-39](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/70df9d24-62d0-4172-8870-b0df272748ce)
 ![Screenshot from 2023-09-04 05-07-06](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/002cd61a-427b-4642-8d4d-14594cf22cd1)
 
