@@ -233,20 +233,27 @@ def get_user_agent(user_agent:str=desktop_user_agents()[0]) -> dict:
     return {"user-agent": user_agent}
 
 class SafeRequest:
-    def __init__(self, max_retries=3,last_request_time=None,request_wait_limit=1.5):
+    def __init__(self,headers:dict=get_user_agent(), max_retries=3,last_request_time=None,request_wait_limit=1.5):
+        if isinstance(headers,str):
+            get_user_agent(headers)
+        self.headers = headers
         self.session = self.initialize_session()
         self.max_retries = max_retries
         self.last_request_time = last_request_time
         self.request_wait_limit = request_wait_limit
+
         
-    def initialize_session(self,user_agent:str= desktop_user_agents()[0]):
+    def initialize_session(self,user_agent:str= None):
+        if isinstance(user_agent,str):
+            user_agent = get_user_agent(user_agent)
         s = requests.Session()
         s.cookies["cf_clearance"] = "cb4c883efc59d0e990caf7508902591f4569e7bf-1617321078-0-150"
-        s.headers.update(get_user_agent(user_agent))
+        s.headers.update(self.headers if user_agent==None else user_agent)
         # Add any other headers or cookie settings here
         adapter = TLSAdapter(ssl.OP_NO_TLSv1 | ssl.OP_NO_TLSv1_1)
         s.mount('https://', adapter)
         return s
+
 
     @staticmethod
     def clean_url(url):
