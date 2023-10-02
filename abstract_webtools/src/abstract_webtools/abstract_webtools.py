@@ -1181,5 +1181,3 @@ class CrawlManagerSingleton():
         elif parse_type != CrawlManagerSingleton._instance.parse_type or url != CrawlManagerSingleton._instance.url  or source_code != CrawlManagerSingleton._instance.source_code:
             CrawlManagerSingleton._instance = CrawlManager(url=url,parse_type=parse_type,source_code=source_code)
         return CrawlManagerSingleton._instance
-
-input(SafeRequestSingleton().get_instance(url='https://thedailydialectics.com').source_code)
