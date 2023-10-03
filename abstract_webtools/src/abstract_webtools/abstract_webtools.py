@@ -85,6 +85,7 @@ from bs4 import BeautifulSoup
 import xml.etree.ElementTree as ET
 from abstract_utilities.time_utils import get_time_stamp,get_sleep,sleep_count_down
 from abstract_utilities.string_clean import eatInner,eatAll
+import socket
 logging.basicConfig(level=logging.INFO)
 class DynamicRateLimiterManager:
     def __init__(self):
@@ -641,6 +642,52 @@ class SafeRequestSingleton:
 ##    if source_code:
 ##        print(source_code)
 ## ##
+class MySocketClient:
+    def __init__(self, ip_address=None, port=None,domain_name=None):
+        self.sock
+        self.ip_address= ip_address or None
+        self.port = port  or None
+        
+        self.domain_name = domain_name  or None
+    def receive_data(self):
+        chunks = []
+        while True:
+            chunk = self.sock.recv(4096)
+            if chunk:
+                chunks.append(chunk)
+            else:
+                break
+        return b''.join(chunks).decode('utf-8')
+    def _parse_socket_response_as_json(self, data, *args, **kwargs):
+        return self._parse_json(data[data.find('{'):data.rfind('}') + 1], *args, **kwargs)
+    def process_data(self):
+        data = self.receive_data()
+        return self._parse_socket_response_as_json(data)
+    def _parse_json(self,json_string):
+        return json.loads(json_string)
+    def get_ip(self,domain=None):
+        try:
+            return self.sock.gethostbyname(domain_name if domain_name != None else self.domain_name)
+        except self.sock.gaierror:
+            return None
+    def grt_host_name(self,ip_address=None):
+        return self.sock.gethostbyaddr(ip_address if ip_address != None else self.ip_address)
+    def toggle_sock(self):
+        if self.sock != None:
+            self.sock.close()
+        else:
+            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            if host and socket:
+                self.sock.connect((host, port))
+class MySocketClient():
+    _instance = None
+    @staticmethod
+    def get_instance(ip_address='local_host',port=22,domain_name="example.com"):
+        if MySocketClientSingleton._instance is None:
+            MySocketClientSingleton._instance = MySocketClient(ip_address=ip_address,port=port,domain_name=domain_name)
+        elif MySocketClientSingleton._instance.ip_address != ip_address or MySocketClientSingleton._instance.port != port or URLManagerSingleton._instance.domain_name != domain_name:
+            MySocketClientSingleton._instance = MySocketClient(ip_address=ip_address,port=port,domain_name=domain_name)
+        return MySocketClient
 class URLManager:
     def __init__(self,url=None,session=requests):
         self.url = url
@@ -648,8 +695,15 @@ class URLManager:
         self.striped_url = None if url ==  None else self.strip_web()
         self.clean_urls = None if url ==  None else self.clean_url(url=self.url)
         self.correct_url = None if url ==  None else self.get_correct_url()
-        self.domain_name = None if url ==  None else self.get_domain_name(self.correct_url)
+        if self.correct_url != None:
+            self.url = self.correct_url
+        self.protocol=None
+        self.domain_name= None if url ==  None else self.get_domain_name(self.correct_url)
+        self.path=None
+        self.query=None
+        self.strip_web()
         self.all_urls=[]
+     
     def strip_web(self) -> str:
         """
         Strip the 'http://' or 'https://' prefix from a URL, if present.
@@ -666,6 +720,13 @@ class URLManager:
         elif self.url.startswith("https://"):
             url = self.url.replace("https://", '', 1)
         return url
+    def url_to_pieces(self):
+        match = re.match(r'^(https?):\/\/([^\/]+)(\/[^?]+)?(\?.+)?', self.correct_url)
+        if match:
+            self.protocol = match.group(1)
+            self.domain = match.group(2)
+            self.path = match.group(3) if match.group(3) else ""  # Handle None
+            self.query = match.group(4) if match.group(4) else ""  # Handle None
     @staticmethod
     def clean_url(url: str) -> list:
         """
@@ -780,17 +841,20 @@ class URLManagerSingleton:
         return URLManagerSingleton._instance
 
 class VideoDownloader:
-    
-    def __init__(self, url,title=None,download_directory=os.getcwd(),user_agent=None,video_extention='mp4'):
+    def __init__(self, url,title=None,download_directory=os.getcwd(),user_agent=None,video_extention='mp4',download=True,get_info=False):
         self.url = url
+        self.download = download
+        self.get_info = get_info
+        self.user_agent=user_agent
+        self.download_directory=download_directory
         self.video_extention=video_extention
         self.header = UserAgentManagerSingleton().get_instance(user_agent=user_agent).user_agent_header
         self.base_name = os.path.basename(self.url)
         self.file_name,self.ext = os.path.splitext(self.base_name)
-        self.download_directory=download_directory
         self.title = url.split('/')[3] if title == None else title
-        self.video_urls = []
+        self.video_urls = [self.url]
         self.fetch_video_urls()
+        self.info={}
         self.download_videos()
     def fetch_video_urls(self):
         driver = webdriver.Chrome()
@@ -801,12 +865,41 @@ class VideoDownloader:
             self.video_urls.append(eatInner(each.split('.{self.video_extention}'.replace('..','.'))[0].split('http')[-1],['h','t','t','p','s',':','//','/','s','=',' ','\n','\t',''])+'.mp4')
     def download_videos(self):
         for video_url in self.video_urls:
-            ydl_opts = {}
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(self.url)
-                self.base_name = os.path.basename(info['url'])
-                self.file_name,self.ext = os.path.splitext(self.base_name)
-                video_content =SafeRequestSingleton().get_instance(url=info['url']).response
+            ydl_opts = {
+                'format': 'bestaudio/best',
+                'outtmpl': os.path.join(self.download_directory,'%(title)s.%(ext)s'),
+                'noplaylist': True,
+                'continue_dl': True,
+                'postprocessors': [{
+                    'key': 'FFmpegExtractAudio',
+                    'preferredcodec': 'wav',
+                    'preferredquality': '192', }]
+            }
+            try:
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                    ydl.cache.remove()
+                    self.info = ydl.extract_info(self.url, download=self.download)
+                    if self.get_info == True:
+                        return self.info
+                    ydl.prepare_filename(self.info)
+                    ydl.download([video_url])
+
+            except Exception:
+                return False
+    def standallone_download(urls,file='media',directory=os.getcwd()):
+        for video_url in self.video_urls:
+            try:
+                base_name = os.path.basename(file)
+                if not os.path.exists(file_name):
+                    if base_name == file_name:
+                        file_path = os.path.join(directory,file)
+                directory=os.path.dirname(file_path)
+                file_name,ext = os.path.splitext(basename)
+                i=0
+                while os.path.exists(file_path) == True:
+                    i+=1
+                    file_path=os.path.join(directory,file_name+str(i)+ext)
+                video_content =SafeRequestSingleton().get_instance(url=self.info['url']).response
                 print("Start downloading")
                 content_length = int(video_content.headers['content-length'])
                 print(f'Size: {content_length / 1024 / 1024:.2f}MB')
@@ -817,33 +910,50 @@ class VideoDownloader:
                             video.write(chunk)
                             down_size += len(chunk)
                             print(f'Progress: {down_size / content_length:.2%}', end='\r')
+            except Exception:
+                return False
 class VideoDownloaderSingleton():
     _instance = None
     @staticmethod
-    def get_instance(url,title=None,video_extention='mp4',download_directory=os.getcwd(),user_agent=None):
+    def get_instance(url,title=None,video_extention='mp4',download_directory=os.getcwd(),user_agent=None,download=True,get_info=False):
         if VideoDownloaderSingleton._instance is None:
-            VideoDownloaderSingleton._instance = VideoDownloader(url=url,parse_type=parse_type)
+            VideoDownloaderSingleton._instance = VideoDownloader(url=url,title=title,video_extention=video_extention,download_directory=download_directory,download=download,get_info=get_info,user_agent=user_agent)
         elif VideoDownloaderSingleton._instance.title != title or video_extention != VideoDownloaderSingleton._instance.video_extention or url != VideoDownloaderSingleton._instance.url or download_directory != VideoDownloaderSingleton._instance.download_directory or user_agent != VideoDownloaderSingleton._instance.user_agent:
-            VideoDownloaderSingleton._instance = VideoDownloader(url=url,parse_type=parse_type)
+            VideoDownloaderSingleton._instance = VideoDownloader(url=url,title=title,video_extention=video_extention,download_directory=download_directory,download=download,get_info=get_info,user_agent=user_agent)
         return VideoDownloaderSingleton._instance
 class SoupManager:
-    def __init__(self,url=None,source_code=None,parse_type="html.parser"):
+    def __init__(self, url=None, source_code=None, parse_type="html.parser"):
         self.url = url
         self.source_code = source_code
         self.parse_type = parse_type
-        if self.source_code ==None:
-            if self.url != None:
-                self.url_manager =  URLManagerSingleton().get_instance(url=url)
-                self.request_manager = SafeRequestSingleton().get_instance(url=self.url_manager.correct_url)
-                self.source_code = self.request_manager.source_code
-            else:
-                return
+        self.soup = None
+        self.all_tags = []
+
+        if source_code is None and url is not None:
+            self.load_from_url(url)
+        elif source_code is not None:
+            self.load_from_source_code(source_code)
+
+        self.class_names = []
+        self.class_values = []
+        self.tag_names = []
+        self.meta_tags = {}
+        self.attribute_tracker_js = {}
+        self.all_urls = []
+    def load_from_url(self, url):
+        self.url = url
+        self.url_manager = URLManagerSingleton().get_instance(url=url)
+        self.request_manager = SafeRequestSingleton().get_instance(url=self.url_manager.correct_url)
+        self.source_code = self.request_manager.source_code
+        self.create_soup()
+
+    def load_from_source_code(self, source_code):
+        self.source_code = source_code
+        self.create_soup()
+
+    def create_soup(self):
         self.soup = BeautifulSoup(self.source_code, self.parse_type)
         self.all_tags = self.find_all(element=True)
-        self.class_names,self.class_values,self.tag_names,self.meta_tags,self.attribute_tracker_js= [],[],[],{},{}
-        self.get_all_class_and_values()
-        self.get_meta_tags()
-        self.all_urls=[]
     def get_all_desired(self, tag=None, class_name=None, class_value=None):
         if not tag:
             tags = self.soup.find_all(True)  # get all tags
@@ -878,6 +988,7 @@ class SoupManager:
 
     def get_find_all_with_attributes(self, *attrs):
         return self.soup.find_all(lambda t: self.has_attributes(t, *attrs))
+
 
     def get_meta_tags(self):
         tags = self.find_all("meta")
@@ -934,7 +1045,7 @@ class SoupManager:
         if class_name:
             elements.extend([str(tags) for tags in self.get_all_desired(class_name=class_name)])
         return elements
-    def find_all_with_attributes(soup,class_name, *attrs):
+    def find_all_with_attributes(self, class_name=None, *attrs):
         """
         Discovers classes in the HTML content of the provided URL 
         that have associated href or src attributes.
@@ -945,20 +1056,22 @@ class SoupManager:
         Returns:
             set: A set of unique class names.
         """
+
+    
         unique_classes = set()
-        for tag in self.get_find_all_with_attributes(attrs=attrs):
-            class_list=self.get_class(class_name=class_name,soup=tag)
+        for tag in self.get_find_all_with_attributes(*attrs):
+            class_list = self.get_class(class_name=class_name, soup=tag)
             unique_classes.update(class_list)
         return unique_classes
-    def get_images(self,tag_name,class_name,class_value):
+    def get_images(self, tag_name, class_name, class_value):
         images = []
-        for tag in soup.find_all(tag_name):
+        for tag in self.soup.find_all(tag_name):
             if class_name in tag.attrs and tag.attrs[class_name] == class_value:
                 content = tag.attrs.get('content', '')
                 if content:
                     images.append(content)
         return images
-    def discover_classes_and_meta_images(self,tag_name,class_name_1,class_name_2,class_value,attrs):
+    def discover_classes_and_meta_images(self, tag_name, class_name_1, class_name_2, class_value, attrs):
         """
         Discovers classes in the HTML content of the provided URL 
         that have associated href or src attributes. Also, fetches 
@@ -970,10 +1083,9 @@ class SoupManager:
         Returns:
             tuple: A set of unique class names and a list of meta images.
         """
-
-        unique_classes=find_all_with_attributes(soup=self.soup,class_name=class_name_1, *attrs)
-        
-        images=get_images(self,soup=self.soup,tag_name=tag_name,class_name=class_name_2,class_value=class_value)
+    
+        unique_classes = self.find_all_with_attributes(class_name=class_name_1, *attrs)
+        images = self.get_images(tag_name=tag_name, class_name=class_name_2, class_value=class_value)
         return unique_classes, images
 
     
