@@ -230,6 +230,71 @@ from abstract_webtools import extract_elements
 elements = extract_elements('https://www.example.com', element_type='div', attribute_name='class', class_name='container')
 print(elements)  # Output: List of HTML elements that match the provided filters
 ```
+##### Manager System
+```python
+from abstract_webtools import URLManager,SafeRequest,SoupManager,LinkManager,VideoDownloader
+url = "example.com"
+url_manager = URLManager(url=url)
+request_manager = SafeRequest(url_manager=url_manager,
+                              proxies={'8.219.195.47','8.219.197.111'},
+                              timeout=(3.05, 70))
+soup_manager = SoupManager(url_manager=url_manager,
+                           request_manager=request_manager)
+link_manager = LinkManager(url_manager=url_manager,
+                           soup_manager=soup_manager,
+                           link_attr_value_desired=['/view_video.php?viewkey='],
+                           link_attr_value_undesired=['phantomjs'])
+video_manager = VideoDownloader(link=link_manager.all_desired_links).download()
+
+or you can use them individually, they each have their dependencies on eachother defaulted for basic inputs:
+#standalone
+url_manager = URLManager(url=url)
+working_url = url_manager.url
+#standalone
+request_manager = SafeRequest(url=url)
+source_code = request_manager.source_code
+#standalone
+soup_manager = SoupManager(url=url)
+soup = soup_manager.soup
+#standalone
+link_manager = LinkManager(url=url)
+all_href_links = link_manager.all_desired_links
+all_src_image_links = link_manager.all_desired_image_links
+link_manager.update_desired(link_tags=["li","a"],link_attrs=["href","src"],strict_order_tags=False)
+filtered_link_list = link_manager.all_desired_links
+
+##provides all values within the filtered parameters
+all_desired_raw_links = link_manager.find_all_desired(tag='a',attr='href',strict_order_tags=False,attr_value_desired=['/view_video.php?viewkey='],,attr_value_undesired=['phantomjs'],associated_data_attr=["data-title",'alt','title'],get_img=["data-title",'alt','title'])
+##provides all values within the filtered parameters once more filtered by attaching the parent domain to the value and checking for validity of the url
+all_desired_valid_urls = find_all_desired_links(tag='a',attr='href',strict_order_tags=False,attr_value_desired=None,attr_value_undesired=['phantomjs'],associated_data_attr=["data-title",'alt','title'],get_img=["data-title",'alt','title'])
+
+#associated_data_attr and get_img
+these 2 parameters act as extras, the last value in find_all_desired will be a json list of all values produced in the previose, however they will have key values associated for any associated data that was determined to be associated with it based on the additional filter parameters
+
+
+#standalone updates
+link_manager.update_desired(link_tags=["li","a"],link_attrs=["href","src"],strict_order_tags=False)
+updated_link_list = link_manager.all_desired_links
+
+# any of the managers can be updated with the specific parameters that are attributed to them , they will then reinitialize maintaining the coherent structure it begain with
+url_1='thedailydialectics.com'
+print(f"updating url to {url_2}")
+url_manager.update_url(url=url_2)
+request_manager.update_url(url=url_2)
+soup_manager.update_url(url=url_2)
+link_manager.update_url(url=url_2)
+
+print(f"updating url_manager to {url_1} and updating url managers")
+url_manager.update_url(url=url)
+request_manager.update_url_manager(url_manager=url_manager)
+soup_manager.update_url_manager(url_manager=url_manager)
+link_manager.update_url_manager(url_manager=url_manager)
+
+source_code_bytes = request_manager.source_code_bytes
+print(f"updating source_code to example.com source_code_bytes")
+soup_manager.update_source_code(source_code=source_code_bytes)
+link_manager.update_source_code(source_code=source_code_bytes)
+```
 
 #### Module Information
 -**Author**: putkoff
@@ -237,6 +302,6 @@ print(elements)  # Output: List of HTML elements that match the provided filters
 -**Github**: https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_webtools
 -**PYPI**: https://pypi.org/project/abstract-webtools
 -**Part of**: abstract_essentials
--**Date**: 08/29/2023
--**Version**: 0.1.2
+-**Date**: 10/10/2023
+-**Version**: 0.1.4.54
 ---
