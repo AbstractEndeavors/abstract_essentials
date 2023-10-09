@@ -1,0 +1,13 @@
+abstract_webtools/__init__.py,sha256=2SWEfdPDHqqjUYsOQYlaOHF644ZYcO160nWKiAjga4w,34
+abstract_webtools/abstract_crawler.py,sha256=e8jVVv1_EB8poqlrdQaJ19z9Z0t8un5uc-DKnj1Ud5s,8002
+abstract_webtools/abstract_webtools.py,sha256=xi8GOHERNGmNEZQEUpMB6K99xaqq-Q2Ib5MQSF-rsVc,42596
+abstract_webtools/abstract_webtools2.py,sha256=dlhhgmUTaN_NgkT6GcJMVBLuXjmW38gAOeCrKxYqytk,30685
+abstract_webtools/dfgdsf.py,sha256=T1pj-ne_qVfaAdu1MIdtW3q3UZqNP78Kt0OMhz4Musk,1355
+abstract_webtools/grab_source_gui.py,sha256=Wz-FKLOuPQlBYz3kojXihpMbS4rqv4NWGr9ezF-Jt2g,16356
+abstract_webtools/main.py,sha256=_I7pPXPkoLZOoYGLQDrSLGhGuQt6-PVyXEHZSmglk2g,1329
+abstract_webtools/sou.py,sha256=8HjmcpXJFi_kC2O-SVGebUIFY5I5B9bPP9L8BAiWhfk,4526
+abstract_webtools-0.1.4.15.dist-info/LICENSE,sha256=g3WEJFiVS27HyCGRTwKSsMLyciMaGFdWcZGOe1QalZk,3877
+abstract_webtools-0.1.4.15.dist-info/METADATA,sha256=fCyPjFI73eFpFHNP1yHrfLMNcP6ogKlbvob_MxKFSNI,8963
+abstract_webtools-0.1.4.15.dist-info/WHEEL,sha256=2wepM1nk4DS4eFpYrW1TTqPcoGNfHhhO_i5m4cOimbo,92
+abstract_webtools-0.1.4.15.dist-info/top_level.txt,sha256=2DMJ7RmjTcjCsa-uwAV0K6eXXlIIkFDEjBLg_uyCmCI,18
+abstract_webtools-0.1.4.15.dist-info/RECORD,,

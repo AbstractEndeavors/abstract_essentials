@@ -1,0 +1,17 @@
+LICENSE
+README.md
+pyproject.toml
+setup.cfg
+setup.py
+src/abstract_webtools/__init__.py
+src/abstract_webtools/abstract_webtools.py
+src/abstract_webtools/big_user_agent_list.py
+src/abstract_webtools/grab_source_gui.py
+src/abstract_webtools/main.py
+src/abstract_webtools/soup.py
+src/abstract_webtools/test_var.py
+src/abstract_webtools.egg-info/PKG-INFO
+src/abstract_webtools.egg-info/SOURCES.txt
+src/abstract_webtools.egg-info/dependency_links.txt
+src/abstract_webtools.egg-info/requires.txt
+src/abstract_webtools.egg-info/top_level.txt

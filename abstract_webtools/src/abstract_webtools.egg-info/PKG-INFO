@@ -1,0 +1,329 @@
+Metadata-Version: 2.1
+Name: abstract-webtools
+Version: 0.1.4.55
+Summary: Abstract Web Tools is a Python package that provides various utility functions for web scraping tasks. It is built on top of popular libraries such as `requests`, `BeautifulSoup`, and `urllib3` to simplify the process of fetching and parsing web content.
+Home-page: https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_webtools
+Author: putkoff
+Author-email: partners@abstractendeavors.com
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: abstract_webtools>=0.1.0
+Requires-Dist: abstract_utilities>=0.2.0.0
+Requires-Dist: PySimpleGUI>=4.60.5
+Requires-Dist: urllib3>=2.0.4
+Requires-Dist: requests>=2.31.0
+
+# Abstract WebTools
+Provides utilities for inspecting and parsing web content, including React components and URL utilities, with enhanced capabilities for managing HTTP requests and TLS configurations.
+
+- **Features**:
+  - URL Validation: Ensures URL correctness and attempts different URL variations.
+  - HTTP Request Manager: Custom HTTP request handling, including tailored user agents and improved TLS security through a custom adapter.
+  - Source Code Acquisition: Retrieves the source code of specified websites.
+  - React Component Parsing: Extracts JavaScript and JSX source code from web pages.
+  - Comprehensive Link Extraction: Collects all internal links from a specified website.
+  - Web Content Analysis: Extracts and categorizes various web content components such as HTML elements, attribute values, attribute names, and class names.
+
+### abstract_webtools.py
+**Description:**  
+Abstract WebTools offers a suite of utilities designed for web content inspection and parsing. One of its standout features is its ability to analyze URLs, ensuring their validity and automatically attempting different URL variations to obtain correct website access. It boasts a custom HTTP request management system that tailors user-agent strings and employs a specialized TLS adapter for heightened security. The toolkit also provides robust capabilities for extracting source code, including detecting React components on web pages. Additionally, it offers functionalities for extracting all internal website links and performing in-depth web content analysis. This makes Abstract WebTools an indispensable tool for web developers, cybersecurity professionals, and digital analysts.
+![image](https://github.com/AbstractEndeavors/abstract_essentials/assets/57512254/0451d8ea-996f-4de5-9e6c-92a606aae4ef)
+
+- **Dependencies**:
+  - `requests`
+  - `ssl`
+  - `HTTPAdapter` from `requests.adapters`
+  - `PoolManager` from `urllib3.poolmanager`
+  - `ssl_` from `urllib3.util`
+  - `urlparse`, `urljoin` from `urllib.parse`
+  - `BeautifulSoup` from `bs4`
+
+#### **Functions**:
+##### **Classes**:
+
+- ###### `TLSAdapter(HTTPAdapter: int)`
+    - **Description**: A custom HTTPAdapter class that sets TLS/SSL options and ciphers.
+    - **Attributes**:
+      - `ssl_options (int)`: The TLS/SSL options to use when creating the SSL context.
+    - **Methods**:
+        - `ssl_options(self) -> int`
+            - **Purpose**: Returns the SSL options to be used when creating the SSL context.
+            - **Returns**: The SSL options.
+        - `__init__(self, ssl_options:int=0, *args, **kwargs) -> None`
+            - **Purpose**: Initializes the TLSAdapter with the specified SSL options.
+            - **Arguments**:
+                - `ssl_options (int, optional)`: The TLS/SSL options to use when creating the SSL context. Defaults to 0.
+        - `add_string_list(self, ls: (list or str), delim: str = '', string: str = '') -> str`
+            - **Purpose**: Concatenates the elements of a list into a single string with the given delimiter.
+            - **Arguments**:
+                - `ls (list or str)`: The list of elements or a comma-separated string.
+                - `delim (str, optional)`: The delimiter to use when concatenating elements. Defaults to an empty string.
+                - `string (str, optional)`: The initial string to append elements. Defaults to an empty string.
+            - **Returns**: The concatenated string.
+        - `get_ciphers(self) -> list`
+            - **Purpose**: Returns a list of preferred TLS/SSL ciphers.
+            - **Returns**: A list of TLS/SSL ciphers.
+        - `create_ciphers_string(self, ls: list = None) -> str`
+            - **Purpose**: Creates a colon-separated string of TLS/SSL ciphers from a list of ciphers.
+            - **Arguments**:
+                - `ls (list, optional)`: The list of TLS/SSL ciphers to use. Defaults to None, in which case it uses the default list.
+            - **Returns**: The colon-separated string of TLS/SSL ciphers.
+        - `init_poolmanager(self, *args, **kwargs) -> None`
+            - **Purpose**: Initializes the pool manager with the custom SSL context and ciphers.
+            - **Description**: This method leverages the given TLS/SSL ciphers and options to set up the pool manager with an appropriate SSL context.
+
+- ##### `get_status(url:str) -> int`
+    - **Purpose**: Gets the HTTP status code of the given URL.
+    - **Arguments**:
+- `url`: The URL to check the status of.
+    - **Returns**: The HTTP status code of the URL, or None if the request fails.
+
+- ##### `clean_url(url:str) -> list`
+    - **Purpose**: Cleans the given URL and returns a list of possible variations.
+    - **Arguments**:
+        - `url`: The URL to clean.
+    - **Returns**: A list of possible URL variations, including 'http://' and 'https://' prefixes.
+
+- ##### `get_correct_url(url: str, session: type(requests.Session) = requests) -> (str or bool)`
+    - **Purpose**: Gets the correct URL from the possible variations by trying each one with an HTTP request.
+    - **Arguments**:
+      - `url`: The URL to find the correct version of.
+      - `session`: The requests session to use for making HTTP requests. Defaults to requests.
+    - **Returns**: The correct version of the URL if found, or None if none of the variations are valid.
+
+- ##### `try_request(url: str, session: type(requests.Session) = requests) -> (str or bool)`
+    - **Purpose**: Tries to make an HTTP request to the given URL using the provided session.
+    - **Arguments**:
+      - `url`: The URL to make the request to.
+      - `session`: The requests session to use for making HTTP requests. Defaults to requests.
+    - **Returns**: The response object if the request is successful, or None if the request fails.
+
+- ##### `is_valid(url:str) -> bool`
+    - **Purpose**: Checks whether `url` is a valid URL.
+    - **Arguments**:
+      - `url`: The URL to check.
+    - **Returns**: True if the URL is valid, False otherwise.
+
+- ##### `desktop_user_agents() -> list`
+    - **Purpose**: Returns a list of popular desktop user-agent strings for various browsers.
+    - **Returns**: A list of desktop user-agent strings.
+
+- ##### `get_user_agent(user_agent=desktop_user_agents()[0]) -> dict`
+    - **Purpose**: Returns the user-agent header dictionary with the specified user-agent.
+    - **Arguments**:
+      - `user_agent`: The user-agent string to be used. Defaults to the first user-agent in the list.
+    - **Returns**: A dictionary containing the 'user-agent' header.
+
+
+
+- ##### `get_Source_code(url: str = 'https://www.example.com', user_agent= desktop_user_agents()[0]) -> str`
+    - **Purpose**: Fetches the source code of the specified URL using a custom user-agent.
+    - **Arguments**:
+      - `url (str, optional)`: The URL to fetch the source code from. Defaults to 'https://www.example.com'.
+      - `user_agent (str, optional)`: The user-agent to use for the request. Defaults to the first user-agent in the list.
+    - **Returns**: The source code of the URL if the request is successful, or None if the request fails.
+
+- ##### `parse_react_source(url:str) -> list`
+    - **Purpose**: Fetches the source code of the specified URL and extracts JavaScript and JSX source code (React components).
+    - **Arguments**:
+      - `url (str)`: The URL to fetch the source code from.
+    - **Returns**: A list of strings containing JavaScript and JSX source code found in <script> tags.
+
+- ##### `get_all_website_links(url:str) -> list`
+    - **Purpose**: Returns all URLs that are found on the specified URL and belong to the same website.
+    - **Arguments**:
+      - `url (str)`: The URL to search for links.
+    - **Returns**: A list of URLs that belong to the same website as the specified URL.
+
+- ##### `parse_all(url:str) -> dict`
+    - **Purpose**: Parses the source code of the specified URL and extracts information about HTML elements, attribute values, attribute names, and class names.
+    - **Arguments**:
+      - `url (str)`: The URL to fetch the source code from.
+    - **Returns**: A dict containing keys: [element_types, attribute_values, attribute_names, class_names] with values as lists for keys element types, attribute values, attribute names, and class names found in the source code.
+
+- ##### `extract_elements(url:str=None, source_code:str=None, element_type=None, attribute_name=None, class_name=None) -> list`
+    - **Purpose**: Extracts portions of the source code from the specified URL based on provided filters.
+    - **Arguments**:
+      - `url (str, optional)`: The URL to fetch the source code from.
+      - `source_code (str, optional)`: The source code of the desired domain.
+      - `element_type (str, optional)`: The HTML element type to filter by. Defaults to None.
+      - `attribute_name (str, optional)`: The attribute name to filter by. Defaults to None.
+      - `class_name (str, optional)`: The class name to filter by. Defaults to None.
+    - **Returns**:  list: A list of strings containing portions of the source code that match the provided filters, or None if url and source_code are not provided.
+
+
+#### Usage
+
+##### Get Status Code
+
+The `get_status` function fetches the status code of the URL.
+
+```python
+from abstract_webtools import clean_url
+
+urls = clean_url('https://example.com')
+print(urls)  # Output: ['https://example.com', 'http://example.com']
+tps://example.com'
+```
+
+##### Try Request
+
+The `try_request` function makes HTTP requests to a URL and returns the response if successful.
+
+```python
+from abstract_webtools import try_request
+
+response = try_request('https://www.example.com')
+print(response)  # Output: <Response [200]>
+```
+
+##### Is Valid URL
+
+The `is_valid` function checks whether a given URL is valid.
+
+```python
+from abstract_webtools import is_valid
+
+valid = is_valid('https://www.example.com')
+print(valid)  # Output: True
+```
+
+##### Get Source Code
+
+The `get_Source_code` function fetches the source code of a URL with a custom user-agent.
+
+```python
+from abstract_webtools import get_Source_code
+
+source_code = get_Source_code('https://www.example.com')
+print(source_code)  # Output: HTML source code of the URL
+```
+
+##### Parse React Source
+
+The `parse_react_source` function fetches the source code of a URL and extracts JavaScript and JSX source code (React components).
+
+```python
+from abstract_webtools import parse_react_source
+
+react_code = parse_react_source('https://www.example.com')
+print(react_code)  # Output: List of JavaScript and JSX source code found in <script> tags
+```
+
+##### Get All Website Links
+
+The `get_all_website_links` function returns all URLs found on a specified URL that belong to the same website.
+
+```python
+from abstract_webtools import get_all_website_links
+
+links = get_all_website_links('https://www.example.com')
+print(links)  # Output: List of URLs belonging to the same website as the specified URL
+```
+
+##### Parse All
+
+The `parse_all` function fetches the source code of a URL and extracts information about HTML elements, attribute values, attribute names, and class names.
+
+```python
+from abstract_webtools import parse_all
+
+HTML_components = parse_all('https://www.example.com')
+print(HTML_components["element_types"])       # Output: List of HTML element types
+print(HTML_components["attribute_values"])    # Output: List of attribute values
+print(HTML_components["attribute_names"])     # Output: List of attribute names
+print(HTML_components["class_names"])         # Output: List of class names
+```
+
+##### Extract Elements
+
+The `extract_elements` function fetches the source code of a URL and extracts portions of the source code based on provided filters.
+
+```python
+from abstract_webtools import extract_elements
+
+elements = extract_elements('https://www.example.com', element_type='div', attribute_name='class', class_name='container')
+print(elements)  # Output: List of HTML elements that match the provided filters
+```
+##### Manager System
+```python
+from abstract_webtools import URLManager,SafeRequest,SoupManager,LinkManager,VideoDownloader
+url = "example.com"
+url_manager = URLManager(url=url)
+request_manager = SafeRequest(url_manager=url_manager,
+                              proxies={'8.219.195.47','8.219.197.111'},
+                              timeout=(3.05, 70))
+soup_manager = SoupManager(url_manager=url_manager,
+                           request_manager=request_manager)
+link_manager = LinkManager(url_manager=url_manager,
+                           soup_manager=soup_manager,
+                           link_attr_value_desired=['/view_video.php?viewkey='],
+                           link_attr_value_undesired=['phantomjs'])
+video_manager = VideoDownloader(link=link_manager.all_desired_links).download()
+
+or you can use them individually, they each have their dependencies on eachother defaulted for basic inputs:
+#standalone
+url_manager = URLManager(url=url)
+working_url = url_manager.url
+#standalone
+request_manager = SafeRequest(url=url)
+source_code = request_manager.source_code
+#standalone
+soup_manager = SoupManager(url=url)
+soup = soup_manager.soup
+#standalone
+link_manager = LinkManager(url=url)
+all_href_links = link_manager.all_desired_links
+all_src_image_links = link_manager.all_desired_image_links
+link_manager.update_desired(link_tags=["li","a"],link_attrs=["href","src"],strict_order_tags=False)
+filtered_link_list = link_manager.all_desired_links
+
+##provides all values within the filtered parameters
+all_desired_raw_links = link_manager.find_all_desired(tag='a',attr='href',strict_order_tags=False,attr_value_desired=['/view_video.php?viewkey='],,attr_value_undesired=['phantomjs'],associated_data_attr=["data-title",'alt','title'],get_img=["data-title",'alt','title'])
+##provides all values within the filtered parameters once more filtered by attaching the parent domain to the value and checking for validity of the url
+all_desired_valid_urls = find_all_desired_links(tag='a',attr='href',strict_order_tags=False,attr_value_desired=None,attr_value_undesired=['phantomjs'],associated_data_attr=["data-title",'alt','title'],get_img=["data-title",'alt','title'])
+
+#associated_data_attr and get_img
+these 2 parameters act as extras, the last value in find_all_desired will be a json list of all values produced in the previose, however they will have key values associated for any associated data that was determined to be associated with it based on the additional filter parameters
+
+
+#standalone updates
+link_manager.update_desired(link_tags=["li","a"],link_attrs=["href","src"],strict_order_tags=False)
+updated_link_list = link_manager.all_desired_links
+
+# any of the managers can be updated with the specific parameters that are attributed to them , they will then reinitialize maintaining the coherent structure it begain with
+url_1='thedailydialectics.com'
+print(f"updating url to {url_2}")
+url_manager.update_url(url=url_2)
+request_manager.update_url(url=url_2)
+soup_manager.update_url(url=url_2)
+link_manager.update_url(url=url_2)
+
+print(f"updating url_manager to {url_1} and updating url managers")
+url_manager.update_url(url=url)
+request_manager.update_url_manager(url_manager=url_manager)
+soup_manager.update_url_manager(url_manager=url_manager)
+link_manager.update_url_manager(url_manager=url_manager)
+
+source_code_bytes = request_manager.source_code_bytes
+print(f"updating source_code to example.com source_code_bytes")
+soup_manager.update_source_code(source_code=source_code_bytes)
+link_manager.update_source_code(source_code=source_code_bytes)
+```
+
+#### Module Information
+-**Author**: putkoff
+-**Author Email**: partners@abstractendeavors.com
+-**Github**: https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_webtools
+-**PYPI**: https://pypi.org/project/abstract-webtools
+-**Part of**: abstract_essentials
+-**Date**: 10/10/2023
+-**Version**: 0.1.4.54
+---
+

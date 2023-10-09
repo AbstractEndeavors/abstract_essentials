@@ -8,7 +8,44 @@ from abstract_utilities import *
 import PySimpleGUI as sg
 import inspect
 import re
+from .abstract_webtools import URLManagerSingleton,CipherManagerSingleton,SafeRequestSingleton,UserAgentManagerSingleton
 from abstract_utilities.class_utils import call_functions,process_args,get_fun,mk_fun
+window = None
+def get_request_manager(url=None,):
+  return SafeRequestSingleton().get_instance(url=url)
+def get_url_manager(url=None):
+  return URLManagerSingleton().get_instance(url=url)
+def get_soup_manager(url=None,selected_option='html.parser',delim=""):
+  return SoupManagerSingleton().get_instance(url=url,selected_option=selected_option,delim=delim)
+def get_user_agent_manager(user_agent=None):
+  return UserAgentManagerSingleton().get_instance(user_agent=user_agent)
+def get_cipher_manager(cipher_list=None):
+  return CipherManagerSingleton().get_instance(cipher_list=cipher_list)
+def get_url():
+  if window is None:
+    return 'example.com'
+  event, values = window.read()
+  return values['-URL-']
+class SoupManager:
+  @staticmethod
+  def get_parser_choices():
+    return ['html.parser', 'lxml', 'html5lib']
+  def __init__(self,url=None,selected_option='html.parser',delim="a"):
+    self.url=url
+    self.selected_option = selected_option
+    self.url_manager = get_url_manager(url=self.url)
+    self.request_manager = SafeRequestSingleton().get_instance(url=self.url_manager.correct_url)
+    self.soup = BeautifulSoup(self.request_manager.source_code, self.selected_option)
+    self.find_all = self.soup.find_all(delim)
+class SoupManagerSingleton:
+    _instance = None
+    @staticmethod
+    def get_instance(url=None,selected_option='html.parser',delim=""):
+        if SoupManagerSingleton._instance is None:
+            SoupManagerSingleton._instance = SoupManager(url=url,selected_option=selected_option,delim=delim)
+        elif SoupManagerSingleton._instance.url != url:
+            SoupManagerSingleton._instance = SoupManager(url=url,selected_option=selected_option,delim=delim)
+        return SoupManagerSingleton._instance
 def get_gui_fun(name:str='',args:dict={}):
   import PySimpleGUI
   return get_fun({"instance":PySimpleGUI,"name":name,"args":args})
@@ -71,14 +108,9 @@ def get_cypher_checks(ciphers:list=get_ciphers()):
         ls = create_columns(ls,k,5)
     return ls
 def format_url(url):
-    # Check if the URL starts with 'http://' or 'https://'
+    # Ensure the URL starts with 'http://' or 'https://'
     if not url.startswith(('http://', 'https://')):
-        # Add 'https://' prefix if missing
         url = 'https://' + url
-    # Check if the URL has a valid format
-    if not re.match(r'^https?://\w+', url):
-        # Return None if the URL is invalid
-        return None
     return url
 def try_request(url: str, session:type(requests.Session)=requests):
     try:
@@ -86,12 +118,8 @@ def try_request(url: str, session:type(requests.Session)=requests):
     except requests.exceptions.RequestException as e:
         print(e)
         return None
-def get_soup(data,selected_option:str='html.parser'):
-    try:
-        soup = change_glob('last_soup',BeautifulSoup(data, selected_option))
-    except:
-        soup = None
-    return soup
+
+
 def get_parsed_html(url:str='https://www.example.com', header:str=create_user_agent()):
     s = requests.Session()
     s.cookies["cf_clearance"] = "cb4c883efc59d0e990caf7508902591f4569e7bf-1617321078-0-150"
@@ -123,6 +151,7 @@ def parse_all(data):
                     if dat[c+1] not in ls_class:
                         ls_class.append(dat[c+1])
     return ls_type,ls_desc,ls_tag,ls_class
+
 def parse_react_source(data):
     soup = BeautifulSoup(data, 'html.parser')
     script_tags = soup.find_all('script', type=lambda t: t and ('javascript' in t or 'jsx' in t))
@@ -131,10 +160,9 @@ def parse_react_source(data):
         react_source_code.append(script_tag.string)
     return react_source_code
 def all_soup(data,tag,typ,clas,inp):
-    print(getattr(last_soup,tag,typ))#,string))
-    return getattr(last_soup,tag,typ)
+    return getattr(get_soup_manager(url=get_url()).soup,tag,typ)
 def find_all_soup(string:str):
-    return last_soup.find_all(string)
+    return get_soup_manager(url=get_url(),delim=string).find_all
 def get_bs4_options():
     bs4_options = [
         'BeautifulSoup',
@@ -175,91 +203,102 @@ def get_gpt_layout():
                                 [sg.Checkbox('',default=False,key='-CHECK_TYPE-',enable_events=True),sg.Combo([], size=(15, 1),key='-SOUP_TYPE-',enable_events=True)],
                                 [sg.Checkbox('',default=False,key='-CHECK_CLASS-',enable_events=True),sg.Combo([], size=(15, 1),key='-SOUP_CLASS-',enable_events=True)],
                                 sg.Input(key='-SOUP_INPUT-'), sg.Button('get soup'),sg.Button('all soup')]],
+              
         [get_multi_line({"key":"-FIND_ALL_OUTPUT-"})]]
     return layout
-def display_soup(window,values,source_code):
-    soup = get_soup(data=source_code,selected_option=values['-PARSER-'])
-    if soup != None:
+def display_soup(window,values,soup_manager):
+    event, values = window.read()
+    if soup_manager.soup != None:
         #window['-REACT_OUTPUT-'].update(value=parse_react_source(source_code))
-        window['-SOUP_OUTPUT-'].update(value=soup)
-        ls_type,ls_desc,ls_tag,ls_class = parse_all(soup)
-        window['-SOUP_TAG-'].update(values=ls_type,value=ls_type[0])
+        window['-SOUP_OUTPUT-'].update(value=soup_manager.soup )
+        ls_type,ls_desc,ls_tag,ls_class = parse_all(soup_manager.soup)
+        if len(ls_type)>0:
+          window['-SOUP_TAG-'].update(values=ls_type)
         if len(ls_desc)>0:
             window['-SOUP_ELEMENT-'].update(values=ls_desc,value=ls_desc[0])
         if len(ls_tag) >0:
             window['-SOUP_TYPE-'].update(values=ls_tag,value=ls_tag[0])
         if len(ls_class) >0:
            window['-SOUP_CLASS-'].update(values=ls_class,value=ls_class[0])
+    window['-FIND_ALL_OUTPUT-'].update(value=soup_manager.find_all)
+def get_selected_cipher_list():
+  ls = []
+  event, values = window.read()
+  for k in range(len(get_ciphers())):
+      if values[get_ciphers()[k]] == True:
+          ls.append(get_ciphers()[k])
+  return ls
+def process_url(window,values):
+    url = values['-URL-']
+    delim= values['-SOUP_INPUT-']
+    selected_option = values['-PARSER-']
+    user_agent=values['-USERAGENT-']
+    soup_input =values['-SOUP_TAG-']
+    cipher_list = get_selected_cipher_list()
+    try:
+      url_manager = get_url_manager(url)
+      cipher_manager = get_cipher_manager(cipher_list=cipher_list)
+      request_manager = get_request_manager(url=url_manager.correct_url)
+      soup_manager = get_soup_manager(url=url,selected_option=selected_option,delim=delim)
+      user_agent_manager = get_user_agent_manager(user_agent=user_agent)
+      window['-STATUS_CODE-'].update(value=request_manager.status_code)
+      window['-SOURCECODE-'].update(value=request_manager.source_code)
+      window['-SOUP_OUTPUT-'].update(value=soup_manager.soup)
+      window['-CIPHERS_OUTPUT-'].update(value=cipher_manager.ciphers_string)
+    except:
+      print(url)
+  
+
+    return url_manager,request_manager,soup_manager,user_agent_manager,cipher_manager
 def url_grabber_while(window):
     while True:
+
+      
         event, values = window.read()
         if event == sg.WINDOW_CLOSED:
             break
-            window.close()
-        if 'CHECK_' in event:
-            if values[event]== True:
-                globals()['curr_check']=event.split('CHECK_')[1]
-                keys = list(values.keys())
-                for k in range(0,len(keys)):
-                    key = keys[k]
-                    if 'CHECK_' in key and key != event:
-                        window[key].update(value=False)
-        if event == 'all soup':
-            window['-FIND_ALL_OUTPUT-'].update(value=find_all_soup(values[f'-SOUP_{globals()["curr_check"]}']))
-        if event == 'get soup':
-            window['-FIND_ALL_OUTPUT-'].update(value=all_soup(values['-SOUP_OUTPUT-'],values['-SOUP_TAG-'],values['-SOUP_TYPE-'],values['-SOUP_CLASS-'],values['-SOUP_INPUT-']))
-        if event == '-URL-':
-          url = format_url(values['-URL-'])
-          if url == None:
-              url = ''
-          try:
-            r = get_request(url)
-            window['-STATUS_CODE-'].update(value=f'{r.status_code}')
-            window['-CORRECT_URL-'].update(visible=True)
-            window["-URL_WARNING-"].update(value= url +' is valid')
-          except:
-            window["-URL_WARNING-"].update(value=url +' is an invalid url')
-            window['-STATUS_CODE-'].update(value='fail')
-            window['-CORRECT_URL-'].update(visible=False)
+        if 'SOUP_' in event:
+            soup_manager = get_soup_manager(url=url_manager.correct_url,selected_option=selected_option,delim=values['-SOUP_INPUT-'])
+            name = event.split("SOUP_")[-1][:-1]
+            check_name = f'-CHECK_{name}-'
+            window[check_name].update(value=True)
+            for each in values.keys():
+              if 'CHECK_' in each and each != check_name:
+                window[each].update(value=False)
+            window[check_name].update(value=find_all_soup(values[event]))
+        cipher_list=get_selected_cipher_list()
+        url_manager,request_manager,soup_manager,user_agent_manager,cipher_manager=process_url(window,values)
         if event=='-CORRECT_URL-':
-            window['-URL-'].update(value=format_url(values['-URL-']))
+          if url_manager.correct_url:
+            window['-URL-'].update(value=url_manager.correct_url)
+        if event == 'all soup':
+          selected_option = values['-PARSER-']
+          soup_manager = get_soup_manager(url=url_manager.correct_url,selected_option=selected_option,delim=values['-SOUP_INPUT-'])
+          display_soup(window,values,soup_manager)
+          
+        if event == 'all soup':
+            delim= values['-SOUP_INPUT-']
+            window['-FIND_ALL_OUTPUT-'].update(value=soup_manager.find_all)
+        
+        elif event == 'get soup':
+            window['-FIND_ALL_OUTPUT-'].update(value=all_soup(values['-SOUP_OUTPUT-'],values['-SOUP_TAG-'],values['-SOUP_TYPE-'],values['-SOUP_CLASS-'],values['-SOUP_INPUT-']))
         if event == '-CUSTOMUA-':
             window['-SOURCECODE-'].update(disabled=values['-CUSTOMUA-'])
             if not values['-CUSTOMUA-']:
-                window['-USERAGENT-'].update(value=get_user_agents()[0])
+                
+                window['-USERAGENT-'].update(value=user_agent_manager.user_agent_header)
                 window['-USERAGENT-'].update(disabled=True)
             else:
                 window['-USERAGENT-'].update(disabled=False)
-        if event in get_ciphers():
-            ls = []
-            for k in range(len(get_ciphers())):
-                if values[get_ciphers()[k]] == True:
-                    ls.append(get_ciphers()[k])
-            window['-CIPHERS_OUTPUT-'].update(value=create_ciphers_string(ls=ls))
-        if event == '-PARSER-':
-            display_soup(window,values,source_code)
-            #description = next((desc for option, desc in get_bs4_options() if option == selected_option), '')
-            #window['-DESCRIPTION-'].update(value=description)
         if event == 'Grab URL':
-            url = values['-URL-']
-            formatted_url = format_url(url)
-            if formatted_url:
+            if url_manager.correct_url:
                 # Perform actions with the formatted URL
-                source_code = get_parsed_html(url=formatted_url, header=create_user_agent(values['-CUSTOMUA-']))
-                window['-SOURCECODE-'].update(value=source_code)
-                display_soup(window,values,source_code)
+                process_url(window,values)
             else:
                 # Invalid URL format, display an error message
                 sg.popup('Invalid URL format. Please enter a valid URL.')
-            user_agent = values['-USERAGENT-']
-            source_code = get_parsed_html(url=formatted_url, header=create_user_agent(values['-CUSTOMUA-']))
-            window['-SOURCECODE-'].update(value=source_code)
-            display_soup(window,values,source_code)
         if event == 'Action':
-            source_code = window['-SOURCECODE-'].get()
             selected_option = values['-PARSER-']
-            soup = display_soup(window,values,source_code)
-            window['-SOURCECODE-'].update(value=source_code)
             if selected_option == 'BeautifulSoup':
                 result = soup
             elif selected_option == 'Tag':
@@ -276,13 +315,13 @@ def url_grabber_while(window):
                 result = soup.find(text=lambda text: isinstance(text, CData))
             else:
                 result = None
-            window['-OUTPUT-'].update(value=str(result))
+            window['-SOUP_OUTPUT-'].update(value=str(result))
 
     
 def url_grabber_component():
     globals()['curr_check']='TAG-'
     layout = get_gpt_layout()
-    window = get_gui_fun(name='Window',args={'title':'URL Grabber', 'layout':layout,**expandable()})
+    globals()['window'] = get_gui_fun(name='Window',args={'title':'URL Grabber', 'layout':layout,**expandable()})
     url_grabber_while(window)
 
     
