@@ -141,7 +141,7 @@ safe_request.update_url('https://www.example2.com')
 You can also update the `URLManager` directly:
 
 ```python
-from url_manager import URLManager
+from abstract_webtools import URLManager
 
 url_manager = URLManager(url='https://www.example3.com')
 safe_request.update_url_manager(url_manager)
