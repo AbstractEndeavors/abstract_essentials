@@ -1,3 +1,4 @@
+```markdown
 # Abstract WebTools
 Provides utilities for inspecting and parsing web content, including React components and URL utilities, with enhanced capabilities for managing HTTP requests and TLS configurations.
 
@@ -23,278 +24,397 @@ Abstract WebTools offers a suite of utilities designed for web content inspectio
   - `urlparse`, `urljoin` from `urllib.parse`
   - `BeautifulSoup` from `bs4`
 
-#### **Functions**:
-##### **Classes**:
 
-- ###### `TLSAdapter(HTTPAdapter: int)`
-    - **Description**: A custom HTTPAdapter class that sets TLS/SSL options and ciphers.
-    - **Attributes**:
-      - `ssl_options (int)`: The TLS/SSL options to use when creating the SSL context.
-    - **Methods**:
-        - `ssl_options(self) -> int`
-            - **Purpose**: Returns the SSL options to be used when creating the SSL context.
-            - **Returns**: The SSL options.
-        - `__init__(self, ssl_options:int=0, *args, **kwargs) -> None`
-            - **Purpose**: Initializes the TLSAdapter with the specified SSL options.
-            - **Arguments**:
-                - `ssl_options (int, optional)`: The TLS/SSL options to use when creating the SSL context. Defaults to 0.
-        - `add_string_list(self, ls: (list or str), delim: str = '', string: str = '') -> str`
-            - **Purpose**: Concatenates the elements of a list into a single string with the given delimiter.
-            - **Arguments**:
-                - `ls (list or str)`: The list of elements or a comma-separated string.
-                - `delim (str, optional)`: The delimiter to use when concatenating elements. Defaults to an empty string.
-                - `string (str, optional)`: The initial string to append elements. Defaults to an empty string.
-            - **Returns**: The concatenated string.
-        - `get_ciphers(self) -> list`
-            - **Purpose**: Returns a list of preferred TLS/SSL ciphers.
-            - **Returns**: A list of TLS/SSL ciphers.
-        - `create_ciphers_string(self, ls: list = None) -> str`
-            - **Purpose**: Creates a colon-separated string of TLS/SSL ciphers from a list of ciphers.
-            - **Arguments**:
-                - `ls (list, optional)`: The list of TLS/SSL ciphers to use. Defaults to None, in which case it uses the default list.
-            - **Returns**: The colon-separated string of TLS/SSL ciphers.
-        - `init_poolmanager(self, *args, **kwargs) -> None`
-            - **Purpose**: Initializes the pool manager with the custom SSL context and ciphers.
-            - **Description**: This method leverages the given TLS/SSL ciphers and options to set up the pool manager with an appropriate SSL context.
+# UrlManager
 
-- ##### `get_status(url:str) -> int`
-    - **Purpose**: Gets the HTTP status code of the given URL.
-    - **Arguments**:
-- `url`: The URL to check the status of.
-    - **Returns**: The HTTP status code of the URL, or None if the request fails.
+The `UrlManager` is a Python class designed to handle and manipulate URLs. It provides methods for cleaning and normalizing URLs, determining the correct version of a URL, extracting URL components, and more. This class is particularly useful for web scraping, web crawling, or any application where URL management is essential.
 
-- ##### `clean_url(url:str) -> list`
-    - **Purpose**: Cleans the given URL and returns a list of possible variations.
-    - **Arguments**:
-        - `url`: The URL to clean.
-    - **Returns**: A list of possible URL variations, including 'http://' and 'https://' prefixes.
+## Usage
 
-- ##### `get_correct_url(url: str, session: type(requests.Session) = requests) -> (str or bool)`
-    - **Purpose**: Gets the correct URL from the possible variations by trying each one with an HTTP request.
-    - **Arguments**:
-      - `url`: The URL to find the correct version of.
-      - `session`: The requests session to use for making HTTP requests. Defaults to requests.
-    - **Returns**: The correct version of the URL if found, or None if none of the variations are valid.
-
-- ##### `try_request(url: str, session: type(requests.Session) = requests) -> (str or bool)`
-    - **Purpose**: Tries to make an HTTP request to the given URL using the provided session.
-    - **Arguments**:
-      - `url`: The URL to make the request to.
-      - `session`: The requests session to use for making HTTP requests. Defaults to requests.
-    - **Returns**: The response object if the request is successful, or None if the request fails.
-
-- ##### `is_valid(url:str) -> bool`
-    - **Purpose**: Checks whether `url` is a valid URL.
-    - **Arguments**:
-      - `url`: The URL to check.
-    - **Returns**: True if the URL is valid, False otherwise.
-
-- ##### `desktop_user_agents() -> list`
-    - **Purpose**: Returns a list of popular desktop user-agent strings for various browsers.
-    - **Returns**: A list of desktop user-agent strings.
-
-- ##### `get_user_agent(user_agent=desktop_user_agents()[0]) -> dict`
-    - **Purpose**: Returns the user-agent header dictionary with the specified user-agent.
-    - **Arguments**:
-      - `user_agent`: The user-agent string to be used. Defaults to the first user-agent in the list.
-    - **Returns**: A dictionary containing the 'user-agent' header.
-
-
-
-- ##### `get_Source_code(url: str = 'https://www.example.com', user_agent= desktop_user_agents()[0]) -> str`
-    - **Purpose**: Fetches the source code of the specified URL using a custom user-agent.
-    - **Arguments**:
-      - `url (str, optional)`: The URL to fetch the source code from. Defaults to 'https://www.example.com'.
-      - `user_agent (str, optional)`: The user-agent to use for the request. Defaults to the first user-agent in the list.
-    - **Returns**: The source code of the URL if the request is successful, or None if the request fails.
-
-- ##### `parse_react_source(url:str) -> list`
-    - **Purpose**: Fetches the source code of the specified URL and extracts JavaScript and JSX source code (React components).
-    - **Arguments**:
-      - `url (str)`: The URL to fetch the source code from.
-    - **Returns**: A list of strings containing JavaScript and JSX source code found in <script> tags.
-
-- ##### `get_all_website_links(url:str) -> list`
-    - **Purpose**: Returns all URLs that are found on the specified URL and belong to the same website.
-    - **Arguments**:
-      - `url (str)`: The URL to search for links.
-    - **Returns**: A list of URLs that belong to the same website as the specified URL.
-
-- ##### `parse_all(url:str) -> dict`
-    - **Purpose**: Parses the source code of the specified URL and extracts information about HTML elements, attribute values, attribute names, and class names.
-    - **Arguments**:
-      - `url (str)`: The URL to fetch the source code from.
-    - **Returns**: A dict containing keys: [element_types, attribute_values, attribute_names, class_names] with values as lists for keys element types, attribute values, attribute names, and class names found in the source code.
-
-- ##### `extract_elements(url:str=None, source_code:str=None, element_type=None, attribute_name=None, class_name=None) -> list`
-    - **Purpose**: Extracts portions of the source code from the specified URL based on provided filters.
-    - **Arguments**:
-      - `url (str, optional)`: The URL to fetch the source code from.
-      - `source_code (str, optional)`: The source code of the desired domain.
-      - `element_type (str, optional)`: The HTML element type to filter by. Defaults to None.
-      - `attribute_name (str, optional)`: The attribute name to filter by. Defaults to None.
-      - `class_name (str, optional)`: The class name to filter by. Defaults to None.
-    - **Returns**:  list: A list of strings containing portions of the source code that match the provided filters, or None if url and source_code are not provided.
-
-
-#### Usage
-
-##### Get Status Code
-
-The `get_status` function fetches the status code of the URL.
+To use the `UrlManager` class, first import it into your Python script:
 
 ```python
-from abstract_webtools import clean_url
-
-urls = clean_url('https://example.com')
-print(urls)  # Output: ['https://example.com', 'http://example.com']
-tps://example.com'
+from abstract_webtools import UrlManager
 ```
 
-##### Try Request
+### Initializing a UrlManager Object
 
-The `try_request` function makes HTTP requests to a URL and returns the response if successful.
+You can create a `UrlManager` object by providing an initial URL and an optional `requests` session. If no URL is provided, it defaults to 'www.example.com':
 
 ```python
-from abstract_webtools import try_request
-
-response = try_request('https://www.example.com')
-print(response)  # Output: <Response [200]>
+url_manager = UrlManager(url='https://www.example.com')
 ```
 
-##### Is Valid URL
+### URL Cleaning and Normalization
 
-The `is_valid` function checks whether a given URL is valid.
+The `clean_url` method takes a URL and returns a list of potential URL variations, including versions with and without 'www.', 'http://', and 'https://':
 
 ```python
-from abstract_webtools import is_valid
-
-valid = is_valid('https://www.example.com')
-print(valid)  # Output: True
+cleaned_urls = url_manager.clean_url()
 ```
 
-##### Get Source Code
+### Getting the Correct URL
 
-The `get_Source_code` function fetches the source code of a URL with a custom user-agent.
+The `get_correct_url` method tries each possible URL variation with an HTTP request to determine the correct version of the URL:
 
 ```python
-from abstract_webtools import get_Source_code
-
-source_code = get_Source_code('https://www.example.com')
-print(source_code)  # Output: HTML source code of the URL
+correct_url = url_manager.get_correct_url()
 ```
 
-##### Parse React Source
+### Updating the URL
 
-The `parse_react_source` function fetches the source code of a URL and extracts JavaScript and JSX source code (React components).
+You can update the URL associated with the `UrlManager` object using the `update_url` method:
 
 ```python
-from abstract_webtools import parse_react_source
-
-react_code = parse_react_source('https://www.example.com')
-print(react_code)  # Output: List of JavaScript and JSX source code found in <script> tags
+url_manager.update_url('https://www.example2.com')
 ```
 
-##### Get All Website Links
+### Extracting URL Components
 
-The `get_all_website_links` function returns all URLs found on a specified URL that belong to the same website.
+The `url_to_pieces` method extracts various components of the URL, such as protocol, domain name, path, and query:
 
 ```python
-from abstract_webtools import get_all_website_links
-
-links = get_all_website_links('https://www.example.com')
-print(links)  # Output: List of URLs belonging to the same website as the specified URL
+url_manager.url_to_pieces()
+print(url_manager.protocol)
+print(url_manager.domain_name)
+print(url_manager.path)
+print(url_manager.query)
 ```
 
-##### Parse All
+### Additional Utility Methods
 
-The `parse_all` function fetches the source code of a URL and extracts information about HTML elements, attribute values, attribute names, and class names.
+- `get_domain_name(url)`: Returns the domain name (netloc) of a given URL.
+- `is_valid_url(url)`: Checks if a URL is valid.
+- `make_valid(href, url)`: Ensures a relative or incomplete URL is valid by joining it with a base URL.
+- `get_relative_href(url, href)`: Converts a relative URL to an absolute URL based on a base URL.
+
+## Compatibility Note
+
+The `get_domain` method is kept for compatibility but is inconsistent. Use it only for "webpage_url_domain." Similarly, `url_basename`, `base_url`, and `urljoin` methods are available for URL manipulation.
+
+## Example
+
+Here's a quick example of using the `UrlManager` class:
 
 ```python
-from abstract_webtools import parse_all
+from abstract_webtools import UrlManager
 
-HTML_components = parse_all('https://www.example.com')
-print(HTML_components["element_types"])       # Output: List of HTML element types
-print(HTML_components["attribute_values"])    # Output: List of attribute values
-print(HTML_components["attribute_names"])     # Output: List of attribute names
-print(HTML_components["class_names"])         # Output: List of class names
+url_manager = UrlManager(url='https://www.example.com')
+cleaned_urls = url_manager.clean_url()
+correct_url = url_manager.get_correct_url()
+url_manager.update_url('https://www.example2.com')
+
+print(f"Cleaned URLs: {cleaned_urls}")
+print(f"Correct URL: {correct_url}")
 ```
 
-##### Extract Elements
+## Dependencies
 
-The `extract_elements` function fetches the source code of a URL and extracts portions of the source code based on provided filters.
+The `UrlManager` class relies on the `requests` library for making HTTP requests. Ensure you have the `requests` library installed in your Python environment.
+# SafeRequest
+
+The `SafeRequest` class is a versatile Python utility designed to handle HTTP requests with enhanced safety features. It integrates with other managers like `URLManager`, `NetworkManager`, and `UserAgentManager` to manage various aspects of the request, such as user-agent, SSL/TLS settings, proxies, headers, and more.
+
+## Usage
+
+To use the `SafeRequest` class, first import it into your Python script:
 
 ```python
-from abstract_webtools import extract_elements
-
-elements = extract_elements('https://www.example.com', element_type='div', attribute_name='class', class_name='container')
-print(elements)  # Output: List of HTML elements that match the provided filters
+from abstract_webtools import SafeRequest
 ```
-##### Manager System
+
+### Initializing a SafeRequest Object
+
+You can create a `SafeRequest` object with various configuration options. By default, it uses sensible default values, but you can customize it as needed:
+
 ```python
-from abstract_webtools import URLManager,SafeRequest,SoupManager,LinkManager,VideoDownloader
+safe_request = SafeRequest(url='https://www.example.com')
+```
+
+### Updating URL and URLManager
+
+You can update the URL associated with the `SafeRequest` object using the `update_url` method, which also updates the underlying `URLManager`:
+
+```python
+safe_request.update_url('https://www.example2.com')
+```
+
+You can also update the `URLManager` directly:
+
+```python
+from url_manager import URLManager
+
+url_manager = URLManager(url='https://www.example3.com')
+safe_request.update_url_manager(url_manager)
+```
+
+### Making HTTP Requests
+
+The `SafeRequest` class handles making HTTP requests using the `try_request` method. It handles retries, timeouts, and rate limiting:
+
+```python
+response = safe_request.try_request()
+if response:
+    # Process the response here
+```
+
+### Accessing Response Data
+
+You can access the response data in various formats:
+
+- `safe_request.source_code`: HTML source code as a string.
+- `safe_request.source_code_bytes`: HTML source code as bytes.
+- `safe_request.source_code_json`: JSON data from the response (if the content type is JSON).
+- `safe_request.react_source_code`: JavaScript and JSX source code extracted from `<script>` tags.
+
+### Customizing Request Configuration
+
+The `SafeRequest` class provides several options for customizing the request, such as headers, user-agent, proxies, SSL/TLS settings, and more. These can be set during initialization or updated later.
+
+### Handling Rate Limiting
+
+The class can handle rate limiting scenarios by implementing rate limiters and waiting between requests.
+
+### Error Handling
+
+The `SafeRequest` class handles various request-related exceptions and provides error messages for easier debugging.
+
+## Dependencies
+
+The `SafeRequest` class relies on the `requests` library for making HTTP requests. Ensure you have the `requests` library installed in your Python environment:
+
+```bash
+pip install requests
+```
+
+## Example
+
+Here's a quick example of using the `SafeRequest` class:
+
+```python
+from abstract_webtools import SafeRequest
+
+safe_request = SafeRequest(url='https://www.example.com')
+response = safe_request.try_request()
+if response:
+    print(f"Response status code: {response.status_code}")
+    print(f"HTML source code: {safe_request.source_code}")
+```
+
+# SoupManager
+
+The `SoupManager` class is a Python utility designed to simplify web scraping by providing easy access to the BeautifulSoup library. It allows you to parse and manipulate HTML or XML source code from a URL or provided source code.
+
+## Usage
+
+To use the `SoupManager` class, first import it into your Python script:
+
+```python
+from abstract_webtools import SoupManager
+```
+
+### Initializing a SoupManager Object
+
+You can create a `SoupManager` object with various configuration options. By default, it uses sensible default values, but you can customize it as needed:
+
+```python
+soup_manager = SoupManager(url='https://www.example.com')
+```
+
+### Updating URL and Request Manager
+
+You can update the URL associated with the `SoupManager` object using the `update_url` method, which also updates the underlying `URLManager` and `SafeRequest`:
+
+```python
+soup_manager.update_url('https://www.example2.com')
+```
+
+You can also update the source code directly:
+
+```python
+source_code = '<html>...</html>'
+soup_manager.update_source_code(source_code)
+```
+
+### Accessing and Parsing HTML
+
+The `SoupManager` class provides easy access to the BeautifulSoup object, allowing you to search, extract, and manipulate HTML elements easily. You can use methods like `find_all`, `get_class`, `has_attributes`, and more to work with the HTML content.
+
+```python
+elements = soup_manager.find_all(tag='a')
+```
+
+### Extracting Links
+
+The class also includes methods for extracting all website links from the HTML source code:
+
+```python
+all_links = soup_manager.all_links
+```
+
+### Extracting Meta Tags
+
+You can extract meta tags from the HTML source code using the `meta_tags` property:
+
+```python
+meta_tags = soup_manager.meta_tags
+```
+
+### Customizing Parsing
+
+You can customize the parsing behavior by specifying the parser type during initialization or updating it:
+
+```python
+soup_manager.update_parse_type('lxml')
+```
+
+## Dependencies
+
+The `SoupManager` class relies on the `BeautifulSoup` library for parsing HTML or XML. Ensure you have the `beautifulsoup4` library installed in your Python environment:
+
+```bash
+pip install beautifulsoup4
+```
+
+## Example
+
+Here's a quick example of using the `SoupManager` class:
+
+```python
+from abstract_webtools import SoupManager
+
+soup_manager = SoupManager(url='https://www.example.com')
+all_links = soup_manager.all_links
+print(f"All Links: {all_links}")
+```
+# LinkManager
+
+The `LinkManager` class is a Python utility designed to simplify the extraction and management of links (URLs) and associated data from HTML source code. It leverages other classes like `URLManager`, `SafeRequest`, and `SoupManager` to facilitate link extraction and manipulation.
+
+## Usage
+
+To use the `LinkManager` class, first import it into your Python script:
+
+```python
+from abstract_webtools import LinkManager
+```
+
+### Initializing a LinkManager Object
+
+You can create a `LinkManager` object with various configuration options. By default, it uses sensible default values, but you can customize it as needed:
+
+```python
+link_manager = LinkManager(url='https://www.example.com')
+```
+
+### Updating URL and Request Manager
+
+You can update the URL associated with the `LinkManager` object using the `update_url` method, which also updates the underlying `URLManager`, `SafeRequest`, and `SoupManager`:
+
+```python
+link_manager.update_url('https://www.example2.com')
+```
+
+### Accessing Extracted Links
+
+The `LinkManager` class provides easy access to extracted links and associated data:
+
+```python
+all_links = link_manager.all_desired_links
+```
+
+### Customizing Link Extraction
+
+You can customize the link extraction behavior by specifying various parameters during initialization or updating them:
+
+```python
+link_manager.update_desired(
+    img_attr_value_desired=['thumbnail', 'image'],
+    img_attr_value_undesired=['icon'],
+    link_attr_value_desired=['blog', 'article'],
+    link_attr_value_undesired=['archive'],
+    image_link_tags='img',
+    img_link_attrs='src',
+    link_tags='a',
+    link_attrs='href',
+    strict_order_tags=True,
+    associated_data_attr=['data-title', 'alt', 'title'],
+    get_img=['data-title', 'alt', 'title']
+)
+```
+
+## Dependencies
+
+The `LinkManager` class relies on other classes within the `abstract_webtools` module, such as `URLManager`, `SafeRequest`, and `SoupManager`. Ensure you have these classes and their dependencies correctly set up in your Python environment.
+
+## Example
+
+Here's a quick example of using the `LinkManager` class:
+
+```python
+from abstract_webtools import LinkManager
+
+link_manager = LinkManager(url='https://www.example.com')
+all_links = link_manager.all_desired_links
+print(f"All Links: {all_links}")
+```
+##Overall Usecases
+```python
+from abstract_webtools import URLManager, SafeRequest, SoupManager, LinkManager, VideoDownloader
+
+# --- URLManager: Manages and manipulates URLs for web scraping/crawling ---
 url = "example.com"
 url_manager = URLManager(url=url)
-request_manager = SafeRequest(url_manager=url_manager,
-                              proxies={'8.219.195.47','8.219.197.111'},
-                              timeout=(3.05, 70))
-soup_manager = SoupManager(url_manager=url_manager,
-                           request_manager=request_manager)
-link_manager = LinkManager(url_manager=url_manager,
-                           soup_manager=soup_manager,
-                           link_attr_value_desired=['/view_video.php?viewkey='],
-                           link_attr_value_undesired=['phantomjs'])
+
+# --- SafeRequest: Safely handles HTTP requests by managing user-agent, SSL/TLS, proxies, headers, etc. ---
+request_manager = SafeRequest(
+    url_manager=url_manager,
+    proxies={'8.219.195.47', '8.219.197.111'},
+    timeout=(3.05, 70)
+)
+
+# --- SoupManager: Simplifies web scraping with easy access to BeautifulSoup ---
+soup_manager = SoupManager(
+    url_manager=url_manager,
+    request_manager=request_manager
+)
+
+# --- LinkManager: Extracts and manages links and associated data from HTML source code ---
+link_manager = LinkManager(
+    url_manager=url_manager,
+    soup_manager=soup_manager,
+    link_attr_value_desired=['/view_video.php?viewkey='],
+    link_attr_value_undesired=['phantomjs']
+)
+
+# Download videos from provided links (list or string)
 video_manager = VideoDownloader(link=link_manager.all_desired_links).download()
 
-or you can use them individually, they each have their dependencies on eachother defaulted for basic inputs:
-#standalone
-url_manager = URLManager(url=url)
-working_url = url_manager.url
-#standalone
-request_manager = SafeRequest(url=url)
-source_code = request_manager.source_code
-#standalone
-soup_manager = SoupManager(url=url)
-soup = soup_manager.soup
-#standalone
-link_manager = LinkManager(url=url)
-all_href_links = link_manager.all_desired_links
-all_src_image_links = link_manager.all_desired_image_links
-link_manager.update_desired(link_tags=["li","a"],link_attrs=["href","src"],strict_order_tags=False)
-filtered_link_list = link_manager.all_desired_links
+# Use them individually, with default dependencies for basic inputs:
+standalone_soup = SoupManager(url=url).soup
+standalone_links = LinkManager(url=url).all_desired_links
 
-##provides all values within the filtered parameters
-all_desired_raw_links = link_manager.find_all_desired(tag='a',attr='href',strict_order_tags=False,attr_value_desired=['/view_video.php?viewkey='],,attr_value_undesired=['phantomjs'],associated_data_attr=["data-title",'alt','title'],get_img=["data-title",'alt','title'])
-##provides all values within the filtered parameters once more filtered by attaching the parent domain to the value and checking for validity of the url
-all_desired_valid_urls = find_all_desired_links(tag='a',attr='href',strict_order_tags=False,attr_value_desired=None,attr_value_undesired=['phantomjs'],associated_data_attr=["data-title",'alt','title'],get_img=["data-title",'alt','title'])
+# Updating methods for manager classes
+url_1 = 'thedailydialectics.com'
+print(f"updating URL to {url_1}")
+url_manager.update_url(url=url_1)
+request_manager.update_url(url=url_1)
+soup_manager.update_url(url=url_1)
+link_manager.update_url(url=url_1)
 
-#associated_data_attr and get_img
-these 2 parameters act as extras, the last value in find_all_desired will be a json list of all values produced in the previose, however they will have key values associated for any associated data that was determined to be associated with it based on the additional filter parameters
-
-
-#standalone updates
-link_manager.update_desired(link_tags=["li","a"],link_attrs=["href","src"],strict_order_tags=False)
-updated_link_list = link_manager.all_desired_links
-
-# any of the managers can be updated with the specific parameters that are attributed to them , they will then reinitialize maintaining the coherent structure it begain with
-url_1='thedailydialectics.com'
-print(f"updating url to {url_2}")
-url_manager.update_url(url=url_2)
-request_manager.update_url(url=url_2)
-soup_manager.update_url(url=url_2)
-link_manager.update_url(url=url_2)
-
-print(f"updating url_manager to {url_1} and updating url managers")
-url_manager.update_url(url=url)
+# Updating URL manager references
 request_manager.update_url_manager(url_manager=url_manager)
 soup_manager.update_url_manager(url_manager=url_manager)
 link_manager.update_url_manager(url_manager=url_manager)
 
+# Updating source code for managers
 source_code_bytes = request_manager.source_code_bytes
-print(f"updating source_code to example.com source_code_bytes")
 soup_manager.update_source_code(source_code=source_code_bytes)
 link_manager.update_source_code(source_code=source_code_bytes)
 ```
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 #### Module Information
 -**Author**: putkoff
@@ -305,3 +425,5 @@ link_manager.update_source_code(source_code=source_code_bytes)
 -**Date**: 10/10/2023
 -**Version**: 0.1.4.54
 ---
+
+```
