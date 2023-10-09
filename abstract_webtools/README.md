@@ -1,4 +1,3 @@
-```markdown
 # Abstract WebTools
 Provides utilities for inspecting and parsing web content, including React components and URL utilities, with enhanced capabilities for managing HTTP requests and TLS configurations.
 
@@ -425,5 +424,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 -**Date**: 10/10/2023
 -**Version**: 0.1.4.54
 ---
-
-```
