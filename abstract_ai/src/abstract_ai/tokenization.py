@@ -60,6 +60,7 @@ Notes:
 For optimal performance, it's important to understand the token limits imposed by OpenAI and adjust the configuration settings in the module accordingly. As OpenAI's API evolves, these constraints might change, so always keep an eye on their official documentation.
 """
 from nltk.tokenize import word_tokenize
+nltk.download('punkt')
 from .endpoints import default_tokens
 def count_tokens(text):
     """
