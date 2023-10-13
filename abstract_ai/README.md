@@ -133,8 +133,6 @@ output = PromptManager(request=request,prompt_data=prompt_data).send_query()
 
 ### 2. `api_call.py`:
 
-Sure, here's an exhaustive `readme.md` for the `api_calls.py` component of the `abstract_ai` module:
-
 # `api_calls.py` - Abstract AI Module
 
 `api_calls.py` is a component of the Abstract AI module, designed to facilitate API calls to OpenAI's GPT-3 model. This module is intended to simplify the interaction with the GPT-3 API and handle responses in a structured manner.
