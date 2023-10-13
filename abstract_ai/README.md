@@ -72,12 +72,49 @@ python setup.py install
 Here is a basic example of using `abstract_ai`:
 
 ```python
+from abstract_ai.api_calls import PromptManager
+request='''please write a python function that will chatgpt to build a python script from api responses.
+1) the script needs to have features that allow the gpt module that is being queried to request the portion of code it needs to review
+ - i.e. request a directory map
+ - request a line of the function that it currently being created,
+ - request a functon source_code
+ - anything else that would be neccisary to complete this goal.
+2) the script should inately allow for the module to edit the python script, meaning that it should maintain an api feedbackloop for the api to request and analyze a portions of the script.
+3) the content for these requests need to be programatically attained from this code such that they can be sent back to the module in a subsequent prompt.
+4) each eubsequent prompt to the module after a request has been made needs to contain the requested content AND enough context to have the module understand why it requested the content and what the goal is
+5) the above has tenuously already started with this prompt
+6) the script so far will accompany this prompt in "current data chunk"'''
+
+prompt_data="""import openai
 import os
-from abstract_ai.api_calls import safe_send
-request = "please convert the prompt data to chinese"
-prompt_data = "hi welcome to abstract ai"
-output = safe_send(prompt_data=prompt_data,request=request,model="gpt-4",title="test_prompt",completion_percentage=40,additional_responses=False,directory=os.getcwd())
-print(output[0]["response"])
+
+openai.api_key = 'your-api-key'
+
+def create_python_script(file_path, prompt):
+    # Send initial prompt to GPT-3
+    response = openai.Completion.create(engine='gpt-3', prompt=prompt, max_tokens=500)
+    # Open the file for writing
+    with open(file_path, 'w') as file:
+        # Write GPT's response to file
+        file.write(response.choices[0]['text'])
+
+def request_directory_map(path):
+        paths = {os.path.join(dp, f) for dp, dn, fn in os.walk(os.path.expanduser(path)) for f in fn}
+        create_python_script('directory_map.py', f'Create a function that returns a map of a directory: {paths}')
+
+def request_function_source_code(function_name):
+        # Send the query to GPT-3
+        response = openai.Completion.create(engine='gpt-3', prompt=f'Please write the source code for a function named {function_name}', max_tokens=500)
+        # Save response as new Python script
+        create_python_script(f'{function_name}.py', response.choices[0]['text'])
+# Generate a script that maps a directory
+request_directory_map('/path/to/directory')
+
+# Generate a script for a specific function
+request_function_source_code('my_custom_function')"""
+
+output = PromptManager(request=request,prompt_data=prompt_data).send_query()
+
 ```
 
 ## Documentation
@@ -96,16 +133,113 @@ print(output[0]["response"])
 
 ### 2. `api_call.py`:
 
-`api_call.py` facilitates communication with the OpenAI API for various tasks. The script provides functions for sending requests, handling responses, and managing tokens for efficient usage. Here's an overview of the key components and functionalities:
+Sure, here's an exhaustive `readme.md` for the `api_calls.py` component of the `abstract_ai` module:
 
-- `get_openai_key(key:str='OPENAI_API_KEY')`: Retrieves the OpenAI API key from the environment variables.
-- `load_openai_key()`: Loads the OpenAI API key into the application for authentication, ensuring calls to the OpenAI API are authorized.
-- `headers(content_type:str='application/json',api_key:str=get_openai_key())`: Constructs and returns the necessary headers for an API request. The default content type is set to 'application/json'.
-- `post_request()`: Sends a generic POST request to the OpenAI API, useful for tasks that don't fit the mold of the more specialized requests.
-- `hard_request()`: Designed for sending more robust or specific requests to the OpenAI API, it provides more control over parameters and headers.
-- `quick_request()`: A lightweight and faster method for sending requests to the OpenAI API. It simplifies the process for tasks that don't require detailed configurations.
-- `raw_data()`: This function allows users to send raw data directly to the specified OpenAI endpoint, providing maximum control over the data being sent.
+# `api_calls.py` - Abstract AI Module
 
+`api_calls.py` is a component of the Abstract AI module, designed to facilitate API calls to OpenAI's GPT-3 model. This module is intended to simplify the interaction with the GPT-3 API and handle responses in a structured manner.
+
+## Table of Contents
+- [Overview](#overview)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Classes and Functions](#classes-and-functions)
+  - [PromptManager](#promptmanager-class)
+  - [hard_request](#hard_request-function)
+  - [quick_request](#quick_request-function)
+- [Examples](#examples)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Overview
+
+`api_calls.py` serves as a bridge between your application and the OpenAI GPT-3 API. It provides a convenient interface to send requests, manage responses, and control the behavior of the API calls. This module is highly customizable, allowing you to define prompts, instructions, and response handling logic.
+
+## Installation
+
+To use the `api_calls.py` module, you need to install the required dependencies and set up your OpenAI API key.
+
+1. Install the required Python packages:
+
+   ```bash
+   pip install openai
+   ```
+
+2. Set your OpenAI API key as an environment variable. By default, the module looks for an environment variable named `OPENAI_API_KEY` to authenticate API calls.
+
+## Usage
+
+Here's how you can use the `api_calls.py` module in your Python application:
+
+1. Import the necessary classes and functions:
+
+   ```python
+   from abstract_ai.api_calls import PromptManager, hard_request, quick_request
+   ```
+
+2. Create an instance of `PromptManager` to manage your API calls:
+
+   ```python
+   prompt_manager = PromptManager(
+       prompt_data=None,
+       request=None,
+       instructions=None,
+       model=None,
+       # ... other configuration options
+   )
+   ```
+
+3. Customize the `PromptManager` instance according to your requirements, including prompts, instructions, and response handling logic.
+
+4. Use the `send_query` method to send API requests and handle responses:
+
+   ```python
+   responses = prompt_manager.send_query()
+   ```
+
+5. Optionally, you can use the `hard_request` and `quick_request` functions for direct API calls with simpler configurations.
+
+## Classes and Functions
+
+### PromptManager Class
+
+The `PromptManager` class is the core of the `api_calls.py` module. It provides a flexible way to configure and manage API requests. Here are some of its important attributes and methods:
+
+- `send_query`: Sends API requests based on the configured settings.
+- `get_openai_key`: Retrieves the OpenAI API key from environment variables.
+- `initialize`: Initializes the `PromptManager` instance.
+- `get_instructions`: Retrieves instructions for API requests.
+- `get_additional_response`: Determines additional responses based on input.
+- `get_title`: Retrieves a title based on input.
+- `get_notation`: Retrieves notation based on input.
+- `get_suggestions`: Retrieves suggestions based on input.
+- `get_abort`: Retrieves an abort signal based on input.
+- `get_header`: Generates request headers for API calls.
+- `load_openai_key`: Loads the OpenAI API key for authentication.
+- `create_prompt_guide`: Creates a formatted communication for the current data chunk.
+- `create_prompt`: Creates a prompt dictionary with specified values.
+
+### hard_request Function
+
+The `hard_request` function sends a hard request to the OpenAI API with the provided parameters. It is a simplified way to make API calls.
+
+### quick_request Function
+
+The `quick_request` function sends a quick request to the OpenAI API with simple configurations and prints the result. It is a convenient shortcut for quick API interactions.
+
+## Examples
+
+For detailed examples and usage scenarios, refer to the `examples` directory in this repository. You'll find practical code samples demonstrating how to use the `api_calls.py` module for various tasks.
+
+## Contributing
+
+If you'd like to contribute to the development of the `abstract_ai` module or report issues, please refer to the [Contributing Guidelines](CONTRIBUTING.md).
+
+## License
+
+This module is licensed under the [MIT License](LICENSE), which means you are free to use and modify it as per the terms of the license. Make sure to review the license file for complete details.
+
+Feel free to use `api_calls.py` to enhance your interactions with OpenAI's GPT-3 model in your projects.
 ### 3. `endpoints.py`:
 
 `endpoints.py` is a crucial utility module within the `abstract_ai` package. Its primary function is to manage and offer comprehensive information regarding tokens, models, and the associated endpoints of various AI utilities.
@@ -137,4 +271,5 @@ Should you have any issues, suggestions or contributions, please feel free to cr
 ## License
 
 `abstract_ai` is released under the [MIT License](https://opensource.org/licenses/MIT).
+
 

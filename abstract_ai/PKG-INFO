@@ -1,8 +1,8 @@
 Metadata-Version: 2.1
-Name: abstract_ai
-Version: 0.0.726
-Summary: abstract_ai is a Python module that provides a wide range of functionalities aimed at facilitating and enhancing interactions with AI. Developed by putkoff, it comprises several utility modules to help handle API responses, generate requests, manage tokenization, and deal with other related aspects.
-Home-page: https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_ai
+Name: abstract_utilities
+Version: 0.0.1512
+Summary: abstract_utilities is a collection of utility modules providing a variety of functions to aid in tasks such as data comparison, list manipulation, JSON handling, string manipulation, mathematical computations, and time operations.
+Home-page: https://github.com/AbstractEndeavors/abstract_essentials/tree/main/abstract_utilities
 Author: putkoff
 Author-email: partners@abstractendeavors.com
 Classifier: Development Status :: 3 - Alpha
@@ -13,109 +13,90 @@ Classifier: Programming Language :: Python :: 3.11
 Requires-Python: >=3.6
 Description-Content-Type: text/markdown
 
-# Abstract AI
-
-## Table of Contents
-- [Introduction](#Introduction)
-- [Installation](#Installation)
-- [Getting Started](#Getting-Started)
-- [Documentation](#Documentation)
-- [Contact](#Contact)
-- [License](#License)
+# Abstract Utilities
 
 ## Introduction
 
-`abstract_ai` is a Python module that provides a wide range of functionalities aimed at facilitating and enhancing interactions with AI. Developed by `putkoff`, it comprises several utility modules to help handle API responses, generate requests, manage tokenization, and deal with other related aspects.
+This Python package is a collection of utility modules providing a variety of functions to aid in tasks such as data comparison, list manipulation, JSON handling, string manipulation, mathematical computations, and time operations. The package includes the following modules:
 
-The module is particularly focused on the OpenAI API and makes use of its functionalities, yet it is designed to be easily extended to other APIs as well.
+- compare_utils.py
+- collator_utils.py
+- class_utils.py
+- type_utils.py
+- list_utils.py
+- string_clean.py
+- json_utils.py
+- read_write_utils.py
+- math_utils.py
+- time_utils.py
+- main.py
+
+Each module includes a suite of functions which are thoroughly documented within their docstrings, including purpose, input parameters, and return values.
+
+## Modules Overview
+
+### compare_utils.py
+
+This module provides utility functions for comparing strings and objects. It offers functions for calculating string similarity and comparing object lengths.
+
+### collator_utils.py
+
+[TODO: Add brief module overview here]
+
+### class_utils.py
+
+This module contains utility functions for dealing with classes, objects, and modules. It offers functions to manipulate global variables, fetch and check object types and their membership in a module, inspect function signatures, call functions with supplied arguments, convert layouts to components, and retrieve directory of a module.
+
+### type_utils.py
+
+This module provides utility functions for working with data types. It includes a variety of type checking and conversion functions, from simple checks like `is_str` or `is_int`, to more specific ones like `is_frozenset` or `is_memoryview`.
+
+### list_utils.py
+
+This module contains utility functions for operating on lists. It includes functions like `get_sort`, which sorts a list in ascending order and returns the element at a given index, and `combineList`, which combines two lists into one.
+
+### string_clean.py
+
+This module provides functions for cleaning and manipulating strings. Functions include `quoteIt`, which quotes specific elements in a string, and `eatInner`, `eatOuter`, and `eatAll`, which remove characters from various parts of a string or list. 
+
+### json_utils.py
+
+This module provides functions for handling JSON data. It offers functionalities like converting JSON strings to dictionaries, merging dictionaries, updating and removing keys, loading and saving JSON files, retrieving keys, values, and specific items from dictionaries, and recursively displaying values of nested JSON data structures with indentation.
+
+### read_write_utils.py
+
+This module provides utility functions for reading and writing to files. Functions include write content to a file, read content from a file, check if a string has a file extension, read from or write to a file depending on the number of arguments, create a file if it does not exist, then read from it, create a json file if it does not exist, then read from it.
+
+### math_utils.py
+
+This module contains utility functions related to mathematical operations. 
+
+### time_utils.py
+
+This module provides utility functions for working with timestamps and time-related operations. It includes functions that return the current timestamp in seconds or milliseconds, the current day of the week, the current time, the current date, and functions to calculate the number of seconds in various time intervals.
 
 ## Installation
 
-Installation of `abstract_ai` is easy and straightforward. You just need to clone the repository and run the setup file:
+For local use, navigate to the root directory of the project where `setup.py` resides and install the package locally in editable mode with `pip` by running:
 
-1. Clone the repository:
-```sh
-git clone https://github.com/AbstractEndeavors/abstract_essentials/abstract_ai
-```
-2. Navigate to the cloned directory:
-```sh
-cd abstract_ai
-```
-3. Run the setup file:
-```sh
-python setup.py install
+```bash
+pip install -e .
 ```
 
-Please note that `abstract_ai` requires Python 3.6 or later.
+## Usage
 
-## Getting Started
-
-Here is a basic example of using `abstract_ai`:
+Import the modules and use the functions in your Python scripts:
 
 ```python
-from abstract_ai.response_handling import save_response, find_keys
-from abstract_ai.api_call import hard_request, load_openai_key
+from abstract_utilities import type_utils
 
-load_openai_key()
-prompt = "Translate the following English text to French: '{}'"
-response = hard_request(prompt.format("Hello World"))
-save_response({"prompt": prompt}, response)
+print(type_utils.is_str("hello"))
 ```
 
-## Documentation
-
-`abstract_ai` consists of the following Python files and their corresponding functionalities:
-
-### 1. `response_handling.py`:
-
-Handles API responses and provides additional functionalities.
-
-- `save_response(js:dict, response:dict, title: str = str(get_time_stamp()))`: Saves the response JSON and generated text to a file.
-- `find_keys(data, target_keys)`: Finds the values associated with the specified target keys in a nested dictionary or list.
-- `print_it(string)`: Prints the input string and returns it.
-- `aggregate_conversations(directory)`: Aggregates conversations from JSON files in the specified directory.
-- `get_responses(path)`: Retrieves the aggregated conversations from JSON files.
-
-### 2. `api_call.py`:
-
-Facilitates API calls to OpenAI.
-
-- `get_openai_key(key:str='OPENAI_API_KEY')`: Retrieves the OpenAI API key from the environment variables.
-- `load_openai_key()`: Loads the OpenAI API key for authentication.
-- `headers(content_type:str='application/json',api_key:str=get_openai_key())`: Returns the headers for the API request.
-- `post_request()`: Sends a POST request to the OpenAI API.
-- `hard_request()`: Sends a hard request to the OpenAI API.
-- `quick_request()`: Sends a quick request to the OpenAI API.
-- `raw_data()`: Sends a raw data request to the specified endpoint with the provided parameters.
-
-### 3. `endpoints.py`:
-
-Manages endpoints and associated information.
-
-- `get_model_info()`: Retrieves the inverted JSON dictionary of model information.
-- `get_endpoint_info()`: Retrieves the JSON dictionary containing endpoint information.
-- `get_token_info()`: Retrieves the inverted JSON dictionary of token information.
-- `default_endpoint()`: Returns the default endpoint.
-- `default_model()`: Returns the default model.
-- `default_tokens()`: Returns the default number of tokens.
-- `get_defaults()`: Returns a dictionary containing the default values for endpoint, model, and tokens.
-
-### 4. `tokenization.py`
-
- view entire revision history to see all changes.Manages tokenization and related operations.
-
-- `count_tokens(text:str)`: Counts the number of tokens in the given text.
-- `tokens_to_characters(token_count:int, model:str=default_model())`: Converts token count into characters for the specified model.
-- `characters_to_tokens(character_count:int, model:str=default_model())`: Converts character count into tokens for the specified model.
-- `print_tokens(text:str, model:str=default_model())`: Prints the token count for the given text and the specified model.
-- `tokens_fit(text:str, max_tokens:int=default_tokens(), model:str=default_model())`: Checks if the token count of the text fits within the specified maximum tokens for the given model.
-- `fit_text_to_tokens(text:str, max_tokens:int=default_tokens(), model:str=default_model())`: Truncates the text to fit within the specified maximum tokens for the given model.
-
-## Contact
-
-Should you have any issues, suggestions or contributions, please feel free to create a new issue on our [Github repository](https://github.com/AbstractEndeavors/abstract_essentials/abstract_ai).
+Please make sure to replace "abstract_utilities" and "type_utils" with the actual names of your package and module. Changes to the modules will be reflected the next time you import them, without needing to reinstall the package.
 
 ## License
 
-`abstract_ai` is released under the [MIT License](https://opensource.org/licenses/MIT).
+This project is licensed under the terms of
 
+ the MIT license.

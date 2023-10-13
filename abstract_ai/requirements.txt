@@ -1,0 +1,7 @@
+abstract_utilities>=0.2.0.90
+abstract_security>=0.0.1
+nltk>=3.8.1
+openai>=0.28.1
+abstract_gui>=0.0.58.8
+abstract_webtools>=0.1.4.62
+requests>=2.31.0

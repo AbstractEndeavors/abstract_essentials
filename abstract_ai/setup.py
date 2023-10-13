@@ -4,7 +4,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 setuptools.setup(
     name='abstract_ai',
-    version='0.1.7.0',
+    version='0.1.7.24',
     author='putkoff',
     author_email='partners@abstractendeavors.com',
     description="abstract_ai is a Python module that provides a wide range of functionalities aimed at facilitating and enhancing interactions with AI. Developed by putkoff, it comprises several utility modules to help handle API responses, generate requests, manage tokenization, and deal with other related aspects.",
@@ -18,7 +18,7 @@ setuptools.setup(
           'Programming Language :: Python :: 3',
           'Programming Language :: Python :: 3.11',
       ],
-    install_requires=['requests>=2.28.1', 'abstract_security>=0.0.1', 'abstract_utilities>=0.1.95', 'openai>=0.27.8', 'nltk>=3.8.1', 'abstract_gui>=0.0.56.7'],
+    install_requires=['abstract_security>=0.0.1', 'abstract_gui>=0.0.58.8', 'abstract_webtools>=0.1.4.62', 'openai>=0.28.1', 'requests>=2.31.0', 'nltk>=3.8.1', 'abstract_utilities>=0.2.0.90'],
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     python_requires=">=3.6",
