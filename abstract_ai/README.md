@@ -16,19 +16,19 @@
 
 ## Images
 
-![URL Grabber Component](C:/Users/jrput/Documents/python%20projects/Modules/abstract_ai/src/abstract_ai/documentation/images/url_grabber_bs4_component.png)
+![URL Grabber Component](./documentation/images/url_grabber_bs4_component.png)
 
 *URL grabber component: Allows users to add URL source code or specific portions of the URL source code to the prompt data.*
 
-![Settings Tab](C:/Users/jrput/Documents/python%20projects/Modules/abstract_ai/src/abstract_ai/documentation/images/settings_tab.png)
+![Settings Tab]./documentation/images/settings_tab.png)
 
 *Settings Tab: Contains all selectable settings, including available, desired, and used prompt and completion tokens.*
 
-![Instructions Display](C:/Users/jrput/Documents/python%20projects/Modules/abstract_ai/src/abstract_ai/documentation/images/instructions_display.png)
+![Instructions Display](./documentation/images/instructions_display.png)
 
 *Instructions Display: Showcases all default instructions, which are customizable in the same pane. All instructions are derived from the `instruction_manager` class.*
 
-![File Content Chunks](C:/Users/jrput/Documents/python%20projects/Modules/abstract_ai/src/abstract_ai/documentation/images/file_content_chunks.png)
+![File Content Chunks](./documentation/images/file_content_chunks.png)
 
 *File Browser Component: Enables users to add the contents of files or specific portions of file content to the prompt data.*
 
