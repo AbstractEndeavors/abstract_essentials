@@ -1,14 +1,35 @@
 # Abstract AI
 
 ## Table of Contents
+- [Abstract AI](#abstract-ai)
+  - [Table of Contents](#table-of-contents)
 - [Overview](#overview)
 - [Images](#images)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Classes and Functions](#classes-and-functions)
-- [Examples](#examples)
-- [Contributing](#contributing)
+- [Abstract AI Module](#abstract-ai-module)
+  - [GptManager Overview](#gptmanager-overview)
+  - [Purpose](#purpose)
+  - [Motivation](#motivation)
+  - [Objective](#objective)
+    - [Extended Overview](#extended-overview)
+  - [Main Components](#main-components)
+    - [GptManager](#gptmanager)
+    - [ApiManager](#apimanager)
+    - [ModelManager](#modelmanager)
+    - [PromptManager](#promptmanager)
+    - [InstructionManager](#instructionmanager)
+    - [ResponseManager](#responsemanager)
+  - [Dependencies](#dependencies)
+  - [Detailed Components Documentation](#detailed-components-documentation)
+    - [ModelManager](#modelmanager-1)
+    - [InstructionManager](#instructionmanager-1)
+    - [PromptManager](#promptmanager-1)
+  - [Additional Information](#additional-information)
+- [Contact](#contact)
 - [License](#license)
+
+Please note that I have included the "Abstract AI Module" section in the table of contents to provide a clear structure for your README. You can use this updated table of contents to organize your README accordingly.
 
 ## Overview
 
