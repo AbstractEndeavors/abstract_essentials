@@ -16,11 +16,11 @@
 
 ## Images
 
-![URL Grabber Component](.src//documentation/images/url_grabber_bs4_component.png)
+![URL Grabber Component](.src/documentation/images/url_grabber_bs4_component.png)
 
 *URL grabber component: Allows users to add URL source code or specific portions of the URL source code to the prompt data.*
 
-![Settings Tab]./documentation/images/settings_tab.png)
+![Settings Tab](.src/documentation/images/settings_tab.png)
 
 *Settings Tab: Contains all selectable settings, including available, desired, and used prompt and completion tokens.*
 
