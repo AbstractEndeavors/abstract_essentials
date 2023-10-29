@@ -131,7 +131,7 @@ Focuses on prompts and their processing, determining token distribution and coun
 ### Additional Information
 
 - **Author**: putkoff
-- **Date**: 05/31/2023
+- **Date**: 10/29/2023
 - **Version**: 1.0.0
 
 ## Contact
