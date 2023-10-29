@@ -1,0 +1,21 @@
+{
+    "id": "chatcmpl-8EEB41OK3cOfkpxPR05NGgS11GxuZ",
+    "object": "chat.completion",
+    "created": 1698401782,
+    "model": "gpt-4-0613",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "#api_response#\n\n{\n\"class InstructionManager\": \"This class defines and manages instructions for proper communication with the ChatGPT model.\",\n\"def __init__(self,notation=True,suggestions=True,abort=True,generate_title=True,additional_responses=True,additional_instruction=False,test_it=False)\": \"Initialization function for the InstructionManager class. It introduces several parameters which guide the interaction process such as notation, suggestions, abort, generate title, additional responses, additional instruction and a testing parameter.\",\n\"def get_additional_responses(self)\": \"This method interprets the 'additional_responses' value, determining its boolean or string content to generate appropriate responses in the conversation.\",\n\"def get_generate_title(self)\": \"This method interprets the 'generate_title' value, determining its boolean or string content to generate appropriate responses in the conversation.\",\n\"def get_notation(self)\": \"This method interprets the 'notation' value, determining its boolean or string content to generate appropriate responses in the conversation.\",\n\"def get_suggestions(self)\": \"This method interprets the 'suggestions' value, determining its boolean or string content to generate appropriate responses in the conversation.\",\n\"def get_abort(self)\": \"This method interprets the 'abort' value, determining its boolean or string content to generate appropriate responses in the conversation.\",\n\"def initialize_instructions(self)\": \"This method initializes the instruction dictionary based on the various parameters provided during object initialization.\",\n\"def get_instructions(self,instructions_js=None)\": \"This method generates the instruction text based on the attributes of the instruction dictionary. It may also accept an externally defined instruction dictionary.\"\n}\n#notation#\n\nNone\n#suggestions#\n\nNone\n#additional_responses#\n\nfalse\n#abort#\n\nfalse\n#generate_title#\n\n\"Docstrings for the InstructionManager Class Methods\""
+            },
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 1475,
+        "completion_tokens": 354,
+        "total_tokens": 1829
+    }
+}

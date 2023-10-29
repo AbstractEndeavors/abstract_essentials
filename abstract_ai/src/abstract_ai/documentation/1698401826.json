@@ -1,0 +1,21 @@
+{
+    "id": "chatcmpl-8EEBmqoZC33CaoIhc8rt8CQl0SWU7",
+    "object": "chat.completion",
+    "created": 1698401826,
+    "model": "gpt-4-0613",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "{\"api_response\": \"{ \n\\\"PromptManager\\\": \\\"This class is responsible for managing prompts. It contains functionality for processing and constructing the prompts needed for model processing based on the chunk type, model manager, and other key parameters. It calculates token distribution among prompts, completions, and chunks to ensure effective token utilization. The class has methods for calculating token distribution and breaking down text into manageable chunks. \\\" ,\n\n\\\"calculate_token_distribution\\\": \\\"This method calculates the token distribution between prompts, completions, and chunks to ensure effective token utilization by counting the number of tokens in the text and chunking the prompt text by the maximum allowed tokens. The function takes optional arguments for bot_notation, max_tokens, completion_percentage, prompt_guide, chunk_prompt, and assume_bot_notation, and returns a dictionary containing token distribution information\\\" ,\n\n\\\"count_tokens\\\": \\\"This internal function is used by the `calculate_token_distribution` method to count the number of tokens in a given text.\\\",\n\n\\\"chunk_text_by_tokens\\\": \\\"This internal function is used by the `calculate_token_distribution` method to split the prompt data into chunks based on the number of maximum allowed tokens. It breaks the data into sentences and condenses them into chunks where the total number of tokens does not exceed the given maximum.\\\"\n\n}\", \n\n\"notation\": \"Chunk contains detailed information about PromptManager class and its methods. Next chunks may contain more details or information about other classes.\", \n\n\"suggestions\": \"Prompts can be made more detailed to differentiate between internal and main functions for classes\", \n\n\"additional_responses\": true, \n\n\"abort\": false, \n\n\"generate_title\": \"Documentation for PromptManager Class in Python GUI for Chat GPT API Communication Module\"\n}"
+            },
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 1261,
+        "completion_tokens": 346,
+        "total_tokens": 1607
+    }
+}

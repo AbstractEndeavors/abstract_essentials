@@ -1,0 +1,21 @@
+{
+    "id": "chatcmpl-8EEDZogrP40hgWnbimYekEFvANMMA",
+    "object": "chat.completion",
+    "created": 1698401937,
+    "model": "gpt-4-0613",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "{\"api_response\": { \"create_chunks\": \"This method is responsible for dividing large chunks of content into smaller, more manageable pieces, each of a specified size. This is done by tokenizing the content, and then appending each token to the current chunk until the chunk reaches the specified size. The list of all chunks is then returned to the caller.\", \"create_prompt_guide\": \"This method encapsulates the process of creating formatted communication for the current data chunk., which includes forming the prompt, bot_notation and other required fields for personalized bot communication. This is returned as a formatted string.\", \"create_prompt\": \"This method forms a dictionary embodying the prompt for the chatbot. This includes the model name, the role of the issuer, the content and other variables. The method also takes an optional distribution number and bot notation for more personalized prompts.\"},\n\"notation\": \"The provided code chunk is mostly centered around creating prompts and managing chunks of text/data.\", \"suggestions\": \"To further improve the code, you could include more descriptive comments on what each section and variable does within the functions. Additionally, it might be beneficial to refactor some of the lengthier functions into smaller, more manageable functions.\", \"additional_responses\": false,\"abort\": false, \"generate_title\": \"Code Analysis and Docstrings Creation for Prompts and Chunk Management Functions\"}"
+            },
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 1317,
+        "completion_tokens": 271,
+        "total_tokens": 1588
+    }
+}

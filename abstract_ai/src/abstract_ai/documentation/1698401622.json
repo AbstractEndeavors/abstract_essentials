@@ -1,0 +1,21 @@
+{
+    "id": "chatcmpl-8EE8UCOzJxcD1LnMZjd743KfcbDC7",
+    "object": "chat.completion",
+    "created": 1698401622,
+    "model": "gpt-4-0613",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "{\n\"api_response\": {\n\"ModelManager\": \"Class used for managing the models used by the communication system.\\n\\nAttributes:\\n    all_models : list\\n        A list of all available models with their corresponding attributes.\\n    all_model_names : list\\n        A list of all the names of the available models.\\n    all_endpoints : list\\n        A list of all endpoints of the available models.\\n    default_model_info : dict\\n        The default model information to be used if no specific model is selected.\\n    models_get_info_endpoint : str\\n        The API endpoint to retrieve information about the models.\\n    selected_model_name : str\\n        The name of the model selected for use.\\n    selected_endpoint : str\\n        The endpoint of the selected model.\\n    selected_max_tokens : int\\n        The maximum number of tokens that can be used by the selected model.\\n\\n    Methods are to be documented in subsequent chunks.\\n\\nNotes:\\n    The ModelManager class is essential for managing the models used by the communication system. It holds information on all available models, holds the selected model's information, and has the capability to switch the model in use.\"\n    },\n\"notation\": \"Docstring documentation for ModelManager class done. Need to move to the next classes mentioned in the hierarchy. Expecting the details for these classes in the next chunks.\",\n\"suggestions\": \"The prompt could provide more detail on specific functionalities within the classes. For instance: What actions are being performed within the classes, whether any objects are being modified, returned, or if any exceptions are being handled. This will help provide a more detailed docstring for each class.\",\n\"additional_responses\": True,\n\"abort\": False,\n\"generate_title\": \"Docstring Documentation for the ModelManager Class\"\n}"
+            },
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 1235,
+        "completion_tokens": 368,
+        "total_tokens": 1603
+    }
+}

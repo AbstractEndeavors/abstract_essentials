@@ -1,0 +1,21 @@
+{
+    "id": "chatcmpl-8EECNXanCrBLHwyFypKZG5ma9AXRU",
+    "object": "chat.completion",
+    "created": 1698401863,
+    "model": "gpt-4-0613",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "{\n\"api_response\": \"def chunk_data_by_type(data, max_tokens, data_type=None):\\n            \\\"\\\"\\\"\\n            This method chunks the data according to its type.\\n\\n            :param data: Data to chunk.\\n            :param max_tokens: Maximum tokens allowed in a chunk.\\n            :param data_type: Type of the data (can be TEXT, SCRIPT, URL, SOUP). If None, chunks the text.\\n            :return chunks: List of chunks.\\n            \\\"\\\"\\\"\\n\\n def get_token_calcs(i,chunk_data,total_chunks,initial_prompt_token_length,prompt_token_desired,initial_completion_token_length,completion_token_desired):\\n            \\\"\\\"\\\"\\n            The method calculates token distribution based on text chunking.\\n\\n            :param i: Index of the current chunks.\\n            :param chunk_data: Data of the current chunk.\\n            :param total_chunks: Total number of chunks.\\n            :param initial_prompt_token_length: Initial length of prompt token.\\n            :param prompt_token_desired: Desired length of prompt token.\\n            :param initial_completion_token_length: Initial length of completion token.\\n            :param completion_token_desired: Desired length of completion token.\\n            :return chunk_js: A dict containing the token distribution data.\\n            \\\"\\\"\\\"\\n\\n def get_token_distributions(prompt_token_desired, initial_prompt_token_length,total_chunk_data,fictitious_chunk_token_length,completion_token_desired,initial_completion_token_length,chunk_type):\\n            \\\"\\\"\\\"\\n            The method calculates the token distribution for entire data.\\n\\n            :param prompt_token_desired: Desired length of prompt token.\\n            :param initial_prompt_token_length: Initial length of prompt token.\\n            :param total_chunk_data: Complete data to chunk.\\n            :param fictitious_chunk_token_length: Dummy length of chunk for distribution purposes.\\n            :param completion_token_desired: Desired length of completion token.\\n            :param initial_completion_token_length: Initial length of completion token.\\n            :param chunk_type: Type of chunk.\\n            :return get_token_distributions: A list of dicts containing the token distribution data for each chunk.\\n            \\\"\\\"\\\"\",\n\"notation\": \"The functions chunk_data_by_type(), get_token_calcs(), and get_token_distributions() handle data chunking and token distribution in a text or data passed. The first function chunks the data based on its type, the second function calculates token distribution for each chunk and the third function applies these distribution to the entire chunks.\",\n\"suggestions\": \"\",\n\"additional_responses\": True,\n\"abort\": False,\n\"generate_title\": \"Docstring Comment for Manager Systems - Data Chunking and Token Distribution\"\n}"
+            },
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 1306,
+        "completion_tokens": 566,
+        "total_tokens": 1872
+    }
+}
