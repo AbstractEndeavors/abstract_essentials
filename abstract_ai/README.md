@@ -20,15 +20,15 @@
 
 *URL grabber component: Allows users to add URL source code or specific portions of the URL source code to the prompt data.*
 
-![Settings Tab](src/documentation/images/settings_tab.png)
+![Settings Tab](src/abstract_ai/documentation/images/settings_tab.png)
 
 *Settings Tab: Contains all selectable settings, including available, desired, and used prompt and completion tokens.*
 
-![Instructions Display](./documentation/images/instructions_display.png)
+![Instructions Display](src/abstract_ai/documentation/images/instructions_display.png)
 
 *Instructions Display: Showcases all default instructions, which are customizable in the same pane. All instructions are derived from the `instruction_manager` class.*
 
-![File Content Chunks](./documentation/images/file_content_chunks.png)
+![File Content Chunks](src/abstract_ai/documentation/images/file_content_chunks.png)
 
 *File Browser Component: Enables users to add the contents of files or specific portions of file content to the prompt data.*
 
