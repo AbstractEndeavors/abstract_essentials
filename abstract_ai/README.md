@@ -37,19 +37,19 @@ Please note that I have included the "Abstract AI Module" section in the table o
 
 ## Images
 
-![URL Grabber Component](src/abstract_ai/documentation/images/url_grabber_bs4_component.png)
+![URL Grabber Component](https://github.com/AbstractEndeavors/abstract_essentials/blob/main/abstract_ai/src/abstract_ai/documentation/images/url_grabber_bs4_component.png)
 
 *URL grabber component: Allows users to add URL source code or specific portions of the URL source code to the prompt data.*
 
-![Settings Tab](src/abstract_ai/documentation/images/settings_tab.png)
+![Settings Tab](https://github.com/AbstractEndeavors/abstract_essentials/blob/main/abstract_ai/src/abstract_ai/documentation/images/settings_tab.png)
 
 *Settings Tab: Contains all selectable settings, including available, desired, and used prompt and completion tokens.*
 
-![Instructions Display](src/abstract_ai/documentation/images/instructions_display.png)
+![Instructions Display](https://github.com/AbstractEndeavors/abstract_essentials/blob/main/abstract_ai/src/abstract_ai/documentation/images/instructions_display.png)
 
 *Instructions Display: Showcases all default instructions, which are customizable in the same pane. All instructions are derived from the `instruction_manager` class.*
 
-![File Content Chunks](src/abstract_ai/documentation/images/file_content_chunks.png)
+![File Content Chunks](https://github.com/AbstractEndeavors/abstract_essentials/blob/main/abstract_ai/src/abstract_ai/documentation/images/file_content_chunks.png)
 
 *File Browser Component: Enables users to add the contents of files or specific portions of file content to the prompt data.*
 
@@ -136,7 +136,7 @@ Focuses on prompts and their processing, determining token distribution and coun
 
 ## Contact
 
-For issues, suggestions, or contributions, open a new issue on our [Github repository](https://github.com/AbstractEndeavors/abstract_essentials/abstract_ai).
+For issues, suggestions, or contributions, open a new issue on our [Github repository](https://github.com/AbstractEndeavors/abstract-ai/).
 
 ## License
 
