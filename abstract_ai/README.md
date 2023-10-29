@@ -16,7 +16,7 @@
 
 ## Images
 
-![URL Grabber Component](./documentation/images/url_grabber_bs4_component.png)
+![URL Grabber Component](.src//documentation/images/url_grabber_bs4_component.png)
 
 *URL grabber component: Allows users to add URL source code or specific portions of the URL source code to the prompt data.*
 
