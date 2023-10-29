@@ -57,7 +57,7 @@ def parse_mic_state(st: str):
     return str(st).split('[')[-1].split(']')[0]
 def get_mic_state():
     return parse_mic_state(get_cmd_out("amixer"))
-def win_update(win=get_globe('window'), st:str='-OUTPUT-', data:str =create_and_read_file(filepath='voice.txt') + '\n' + get_globe('voice')):
+def win_update(win=get_globe('window'), st:str='-OUTPUT-', data:str =create_and_read_file(file_path='voice.txt') + '\n' + get_globe('voice')):
     try:
         window_mgr.update_values(window=win,key=st,value=data)
     except:
@@ -69,8 +69,8 @@ def get_values(st):
         return window_mgr.get_values()[st]
     return None
 def save_voice(voice):
-    text_value = read_from_file(filepath='voice.txt') + '\n' + change_glob('voice',str(voice))
-    write_to_file(filepath='voice.txt', contents=text_value)
+    text_value = read_from_file(file_path='voice.txt') + '\n' + change_glob('voice',str(voice))
+    write_to_file(file_path='voice.txt', contents=text_value)
     win_update(win=get_globe('window'),st='-OUTPUT-', data=text_value)
 def playback():
     # instead of updating the GUI directly, put a custom event in the event queue
@@ -202,13 +202,13 @@ def voice_record_function(event):
         # The user is editing the content, save the current content to a temporary file
         temp_file = 'voice_edit.txt'
         if os.path.exists('voice_edit.txt')==False:
-            write_to_file(filepath=temp_file, contents=read_from_file('voice.txt'))
-            write_to_file(filepath='voice.txt', contents='')
-        write_to_file(filepath=temp_file, contents=window_mgr.get_values()[event])
+            write_to_file(file_path=temp_file, contents=read_from_file(file_path='voice.txt'))
+            write_to_file(file_path='voice.txt', contents='')
+        write_to_file(file_path=temp_file, contents=window_mgr.get_values()[event])
         print(window_mgr.get_values()[event])
         if os.path.exists('voice_edit.txt'):
             edited_content = window_mgr.get_values()[event]
-            write_to_file(filepath='voice.txt', contents=read_from_file('voice_edit.txt') + read_from_file('voice.txt'))
+            write_to_file(file_path='voice.txt', contents=read_from_file('voice_edit.txt') + read_from_file('voice.txt'))
             os.remove('voice_edit.txt')  # Remove the temporary file
             # Update the '-OUTPUT-' element with the combined content
         
@@ -218,7 +218,7 @@ def voice_record_function(event):
             win_update(win=window, st='-OUTPUT-', data=read_from_file('voice.txt'))
             os.remove('voice_edit.txt')  # Remove the temporary file
 def gui():
-    write_to_file(filepath='voice.txt', contents='')
+    write_to_file(file_path='voice.txt', contents='')
     global recording  # Define a global flag to control recording
     change_glob('recording',False)
     change_glob('window',window_mgr.get_new_window(title='speech_to_text_window', layout=get_gui_layout(), event_function="voice_record_function", exit_events=['Quit',"-SUBMIT-"]))
@@ -228,10 +228,11 @@ def main():
     change_glob('m', sr.Microphone())
     change_glob('voice', '')
     change_glob('voice_value', '')
-    write_to_file(filepath='voice.txt', contents='')
+    write_to_file(file_path='voice.txt', contents='')
     change_glob('silence_kill',False)
     change_glob('recording',False)
     
     return gui()
 window_mgr,bridge,script_name = abstract_gui.create_window_manager(script_name="speech_to_text",global_var=globals())
+
 
