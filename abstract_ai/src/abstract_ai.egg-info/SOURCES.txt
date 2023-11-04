@@ -1,8 +1,10 @@
 LICENSE
+MANIFEST.in
 README.md
 pyproject.toml
 setup.cfg
 setup.py
+src/__init__.py
 src/abstract_ai/__init__.py
 src/abstract_ai/abstract_ai_gui_backend.py
 src/abstract_ai/abstract_ai_gui_layout.py
@@ -12,20 +14,54 @@ src/abstract_ai.egg-info/SOURCES.txt
 src/abstract_ai.egg-info/dependency_links.txt
 src/abstract_ai.egg-info/requires.txt
 src/abstract_ai.egg-info/top_level.txt
+src/abstract_ai/__pycache__/__init__.cpython-311.pyc
+src/abstract_ai/__pycache__/abstract_ai_gui_backend.cpython-311.pyc
+src/abstract_ai/__pycache__/abstract_ai_gui_layout.cpython-311.pyc
+src/abstract_ai/documentation/1698401622.json
+src/abstract_ai/documentation/1698401782.json
+src/abstract_ai/documentation/1698401826.json
+src/abstract_ai/documentation/1698401863.json
+src/abstract_ai/documentation/Code Analysis and Docstrings Creation for Prompts and Chunk Management Functions.json
+src/abstract_ai/documentation/Docstring comments for Manager Systems and Abstract Classes.json
+src/abstract_ai/documentation/HTML PARSING.png
+src/abstract_ai/documentation/New Text Document.txt
+src/abstract_ai/documentation/README_NOTES.txt
+src/abstract_ai/documentation/Screenshot 2023-10-27 051729.png
+src/abstract_ai/documentation/chunks display.png
+src/abstract_ai/documentation/instructions display.png
+src/abstract_ai/documentation/read_responses.py
+src/abstract_ai/documentation/response display.png
+src/abstract_ai/documentation/source_codes.png
+src/abstract_ai/documentation/images/file_content_chunks.png
+src/abstract_ai/documentation/images/instructions_display.png
+src/abstract_ai/documentation/images/settings_tab.png
+src/abstract_ai/documentation/images/source_code_chunks.png
+src/abstract_ai/documentation/images/url_grabber_bs4_component.png
 src/abstract_ai/gpt_classes/__init__.py
+src/abstract_ai/gpt_classes/__pycache__/__init__.cpython-311.pyc
 src/abstract_ai/gpt_classes/api_selection/ApiBuilder.py
 src/abstract_ai/gpt_classes/api_selection/__init__.py
+src/abstract_ai/gpt_classes/api_selection/__pycache__/ApiBuilder.cpython-311.pyc
+src/abstract_ai/gpt_classes/api_selection/__pycache__/__init__.cpython-311.pyc
 src/abstract_ai/gpt_classes/call_selection/CallBuilder.py
 src/abstract_ai/gpt_classes/call_selection/__init__.py
 src/abstract_ai/gpt_classes/instruction_selection/InstructionBuilder.py
 src/abstract_ai/gpt_classes/instruction_selection/__init__.py
+src/abstract_ai/gpt_classes/instruction_selection/__pycache__/InstructionBuilder.cpython-311.pyc
+src/abstract_ai/gpt_classes/instruction_selection/__pycache__/__init__.cpython-311.pyc
 src/abstract_ai/gpt_classes/model_selecion/ModelBuilder.py
 src/abstract_ai/gpt_classes/model_selecion/__init__.py
 src/abstract_ai/gpt_classes/model_selecion/models_get_info.py
+src/abstract_ai/gpt_classes/model_selecion/__pycache__/ModelBuilder.cpython-311.pyc
+src/abstract_ai/gpt_classes/model_selecion/__pycache__/__init__.cpython-311.pyc
 src/abstract_ai/gpt_classes/prompt_selection/PromptBuilder.py
 src/abstract_ai/gpt_classes/prompt_selection/__init__.py
+src/abstract_ai/gpt_classes/prompt_selection/__pycache__/PromptBuilder.cpython-311.pyc
+src/abstract_ai/gpt_classes/prompt_selection/__pycache__/__init__.cpython-311.pyc
 src/abstract_ai/gpt_classes/response_selection/ResponseBuilder.py
 src/abstract_ai/gpt_classes/response_selection/__init__.py
 src/abstract_ai/gpt_classes/response_selection/response_handling.py
+src/abstract_ai/gpt_classes/response_selection/__pycache__/ResponseBuilder.cpython-311.pyc
+src/abstract_ai/gpt_classes/response_selection/__pycache__/__init__.cpython-311.pyc
 src/abstract_ai/gpt_classes/save_selection/SaveBuilder.py
 src/abstract_ai/gpt_classes/save_selection/__init__.py
