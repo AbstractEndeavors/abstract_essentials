@@ -1,0 +1,59 @@
+Metadata-Version: 2.4
+Name: abstract_essentials
+Version: 0.0.0.15
+Summary: The lean, dependency-free core of abstract_utilities: stdlib-only helpers (json/path/file/string/list/log) safe to import anywhere, including Termux/phone.
+Author-email: putkoff <partners@abstractendeavors.com>
+License: MIT
+Project-URL: Homepage, https://github.com/AbstractEndeavors/abstract_essentials
+Keywords: utilities,stdlib,helpers,dependency-free
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Software Development :: Libraries
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+
+# abstract_essentials
+
+The lean, **dependency-free** core carved out of `abstract_utilities`.
+
+Every symbol here depends only on the Python standard library — no third-party
+imports, no `from .imports import *` chains, no submodule fan-out. It imports fast
+and installs anywhere (desktop, server, **Termux/Android phone**), which makes it a
+safe foundation for the rest of the `abstract_*` tree to build on without dragging
+in the monolith.
+
+## Why this exists
+
+`abstract_utilities` is imported by nearly every `abstract_*` package, so its size
+and entanglement (star-exports across a dozen submodules) ripple everywhere.
+`abstract_essentials` is the ~50-function subset that is actually used in practice,
+extracted as a clean, explicit API.
+
+## Install
+
+```sh
+pip install abstract_essentials
+```
+
+## Use
+
+```python
+from abstract_essentials import make_list, get_any_value, safe_read_from_json, get_logFile
+```
+
+The public API is whatever is listed in `abstract_essentials.__all__` (53 symbols:
+json/path/file/string/list/type/log helpers).
+
+## Migrating off abstract_utilities
+
+`abstract_utilities` can become a thin compatibility shim that re-exports from here
+(see `abstract_utilities_compat_shim.py` shipped alongside this scaffold), so existing
+`from abstract_utilities import X` keeps working while new code imports from
+`abstract_essentials`.
+
+## License
+
+MIT — putkoff / Abstract Endeavors.

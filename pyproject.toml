@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "abstract_essentials"
+version = "0.0.0.15"
+description = "The lean, dependency-free core of abstract_utilities: stdlib-only helpers (json/path/file/string/list/log) safe to import anywhere, including Termux/phone."
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [{ name = "putkoff", email = "partners@abstractendeavors.com" }]
+license = { text = "MIT" }
+keywords = ["utilities", "stdlib", "helpers", "dependency-free"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries",
+]
+# Intentionally EMPTY — this package's whole reason for existing is to have no deps.
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/AbstractEndeavors/abstract_essentials"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["abstract_essentials*"]
